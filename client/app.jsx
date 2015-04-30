@@ -1,6 +1,7 @@
 /**
  * Client entry point.
  */
+/*globals document:false*/
 import React from "react";
 import Page from "./components/page";
 const rootEl = document.querySelector(".js-content");
