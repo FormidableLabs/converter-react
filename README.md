@@ -1,8 +1,6 @@
 Converter - React
 =================
 
-
-
 ## Development
 
 This section is for the convention (REST) server, with a real backend.
