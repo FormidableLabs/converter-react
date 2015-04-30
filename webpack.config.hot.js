@@ -22,7 +22,7 @@ module.exports = {
   module: {
     loaders: [
       { test: /\.js(x|)?$/, include: path.join(__dirname, "client"),
-        loaders: ["react-hot", "babel-loader?optional=runtime"] }
+        loaders: ["react-hot", "babel-loader"] }
     ]
   },
   resolve: base.resolve,
