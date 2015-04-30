@@ -1,6 +1,7 @@
 /**
  * Webpack production configuration
  */
+/*globals __dirname:false */
 var path = require("path");
 var webpack = require("webpack");
 
