@@ -1,7 +1,7 @@
 {
-  "name": "converter-flux",
+  "name": "converter-react",
   "version": "0.0.1",
-  "description": "Converter application (React/Flux)",
+  "description": "Converter application (React)",
   "scripts": {
     "lint-client": "eslint client",
     "lint-server": "eslint --env node --rule 'no-var: 0' server *.js",
@@ -13,19 +13,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/FormidableLabs/converter-flux.git"
+    "url": "https://github.com/FormidableLabs/converter-react.git"
   },
   "keywords": [
     "react",
-    "flux",
+    "webpack",
+    "babel",
     "example"
   ],
   "author": "Ryan Roemer <ryan.roemer@formidablelabs.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/FormidableLabs/converter-flux/issues"
+    "url": "https://github.com/FormidableLabs/converter-react/issues"
   },
-  "homepage": "https://github.com/FormidableLabs/converter-flux",
+  "homepage": "https://github.com/FormidableLabs/converter-react",
   "dependencies": {
     "babel-core": "^5.1.13",
     "babel-loader": "^5.0.0",
