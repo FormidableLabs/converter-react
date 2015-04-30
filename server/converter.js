@@ -7,6 +7,7 @@
  * - Internal spaces are treated as a delimeter.
  * - Collapse multiple occurences of delimeter.
  */
+/*eslint-disable func-style*/
 
 /**
  * Camel case a string.
