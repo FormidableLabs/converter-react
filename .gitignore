@@ -8,9 +8,6 @@ node_modules
 npm-debug\.log
 
 # Build
-app/js-dist
-app/js-map
-app/js-test
-app/build
+dist
 coverage
 Procfile
