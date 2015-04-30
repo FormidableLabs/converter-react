@@ -15,11 +15,18 @@ Install, setup.
 $ npm install
 ```
 
-Run the watchers, dev and source maps servers
+Run the watchers, dev and source maps servers for the real production build:
 
 ```
 $ npm run dev
 ```
+
+Run the watchers and the Webpack dev server w/ React hot loader:
+
+```
+$ npm run dev-hot
+```
+
 
 URLS to test things out:
 
