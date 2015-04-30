@@ -1,6 +1,8 @@
 Converter - React
 =================
 
+[![Build Status][trav_img]][trav_site]
+
 ## Development
 
 This section is for the convention (REST) server, with a real backend.
@@ -49,3 +51,7 @@ Run the server.
 ```
 $ NODE_ENV=production node server/index.js
 ```
+
+[trav]: https://travis-ci.org/
+[trav_img]: https://api.travis-ci.org/FormidableLabs/converter-react.svg
+[trav_site]: https://travis-ci.org/FormidableLabs/converter-react

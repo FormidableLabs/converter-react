@@ -1,7 +1,6 @@
 ---
 plugins:
-  -
-    react
+  - react
 
 ecmaFeatures:
   jsx: true
