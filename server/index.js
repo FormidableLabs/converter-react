@@ -10,6 +10,7 @@ var converter = require("./converter");
 
 var PORT = process.env.PORT || 3000;
 var RENDER_JS = true;
+var IS_HOT = process.env.WEBPACK_HOT === "true";
 
 // ----------------------------------------------------------------------------
 // REST API
@@ -37,9 +38,18 @@ app.set("views", path.join(__dirname, "../templates"));
 // Static libraries and application HTML page.
 app.use("/js", express.static("dist/js"));
 
+// ----------------------------------------------------------------------------
 // Application.
+// ----------------------------------------------------------------------------
 app.use("/", function (req, res) {
-  var stats = require("../dist/server/stats.json");
+  var bundleJs;
+  if (IS_HOT) {
+    bundleJs = "http://127.0.0.1:2992/js/bundle.hot.js";
+  } else {
+    // First file is JS path.
+    var stats = require("../dist/server/stats.json");
+    bundleJs = path.join("/js", stats.assetsByChunkName.main[0]);
+  }
 
   res.render("index", {
     layout: false,
@@ -47,7 +57,7 @@ app.use("/", function (req, res) {
       js: RENDER_JS
     },
     bundles: {
-      js: stats.assetsByChunkName.main[0] // First file is JS path.
+      js: bundleJs
     },
     content: "TODO"
   });

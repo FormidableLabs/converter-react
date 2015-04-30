@@ -7,9 +7,13 @@
     "lint-server": "eslint --env node --rule 'no-var: 0' server *.js",
     "lint": "npm run lint-server && npm run lint-client",
     "test": "npm run lint",
-    "server": "node server/index.js",
+    "server": "nodemon server/index.js",
+    "server-hot": "webpack-dev-server --config webpack.config.hot.js --hot --progress --colors --port 2992 --inline",
     "sources": "http-server -p 3001 .",
-    "build": "webpack --config webpack.config.js"
+    "watch": "webpack --watch",
+    "dev": "npm run build && npm run watch & npm run server & npm run sources",
+    "dev-hot": "npm run server-hot & WEBPACK_HOT=true npm run server",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -31,16 +35,18 @@
     "babel-core": "^5.1.13",
     "babel-loader": "^5.0.0",
     "clean-webpack-plugin": "^0.1.2",
-    "es5-shim": "^4.1.1",
-    "eslint": "^0.20.0",
     "express": "^4.12.3",
     "express-handlebars": "^2.0.1",
     "html-webpack-plugin": "^1.3.0",
     "react": "^0.13.2",
-    "react-router": "^0.13.3",
-    "webpack": "^1.8.11"
+    "webpack": "^1.8.11",
+    "webpack-stats-plugin": "0.0.4"
   },
   "devDependencies": {
-    "http-server": "^0.8.0"
+    "eslint": "^0.20.0",
+    "http-server": "^0.8.0",
+    "nodemon": "^1.3.7",
+    "react-hot-loader": "^1.2.5",
+    "webpack-dev-server": "^1.8.2"
   }
 }

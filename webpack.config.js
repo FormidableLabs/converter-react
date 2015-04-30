@@ -17,7 +17,7 @@ module.exports = {
   },
   module: {
     loaders: [
-      { test: /\.js(x|)?$/, exclude: /node_modules/,
+      { test: /\.js(x|)?$/, include: path.join(__dirname, "client"),
         loaders: ["babel-loader?optional=runtime"] }
     ]
   },
@@ -33,6 +33,12 @@ module.exports = {
     new webpack.optimize.UglifyJsPlugin(),
 
     // Meta, debug info.
+    new webpack.DefinePlugin({
+      "process.env": {
+        // Signal production mode for React JS libs.
+        NODE_ENV: JSON.stringify("production")
+      }
+    }),
     new webpack.SourceMapDevToolPlugin(
       "../map/bundle.[hash].js.map",
       "\n//# sourceMappingURL=http://127.0.0.1:3001/dist/map/[url]"
