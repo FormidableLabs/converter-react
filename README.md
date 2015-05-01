@@ -4,9 +4,9 @@ Converter - React
 [![Build Status][trav_img]][trav_site]
 
 A simple app written using [React][react] and [CommonJS][cjs], built with
-[Webpack][webpack]. Based on:
+[Webpack][webpack]. Based on
 [full-stack-testing.formidablelabs.com/app/](http://full-stack-testing.formidablelabs.com/app/)
-from our [Full. Stack. Testing](http://full-stack-testing.formidablelabs.com/)
+from our "[Full. Stack. Testing](http://full-stack-testing.formidablelabs.com/)""
 training project.
 
 ## Overview
@@ -66,12 +66,12 @@ $ npm run dev
 
 URLS to test things out:
 
-* `http://127.0.0.1:3000/`: Server-side bootstrap, JS takes over.
-* `http://127.0.0.1:3000/?__mode=noss`: Pure JS.
-* `http://127.0.0.1:3000/?__mode=nojs`: Pure server-side. Note that while
-  some links may work (e.g. clicking on a note title in list), many things
-  do not since there are absolutely no JS libraries. This is intended to just
-  be a small demo of SEO / "crawlable" content.
+* [`127.0.0.1:3000/`](http://127.0.0.1:3000/): Server-side bootstrap, then JS.
+* [`127.0.0.1:3000/?__mode=noss`](http://127.0.0.1:3000/?__mode=noss): Pure JS.
+* [`127.0.0.1:3000/?__mode=nojs`](http://127.0.0.1:3000/?__mode=nojs): Pure
+  server-side. Note that while some links may work (e.g. clicking on a note
+  title in list), many things do not since there are absolutely no JS libraries.
+  This is intended to just be a small demo of SEO / "crawlable" content.
 
 ### Production
 
@@ -91,3 +91,6 @@ $ NODE_ENV=production node server/index.js
 [trav]: https://travis-ci.org/
 [trav_img]: https://api.travis-ci.org/FormidableLabs/converter-react.svg
 [trav_site]: https://travis-ci.org/FormidableLabs/converter-react
+[react]: http://facebook.github.io/react/
+[cjs]: http://wiki.commonjs.org/wiki/CommonJS
+[webpack]: http://webpack.github.io/
