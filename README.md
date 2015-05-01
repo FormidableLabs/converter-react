@@ -6,7 +6,7 @@ Converter - React
 A simple app written using [React][react] and [CommonJS][cjs], built with
 [Webpack][webpack]. Based on
 [full-stack-testing.formidablelabs.com/app/](http://full-stack-testing.formidablelabs.com/app/)
-from our "[Full. Stack. Testing](http://full-stack-testing.formidablelabs.com/)""
+from our "[Full. Stack. Testing](http://full-stack-testing.formidablelabs.com/)"
 training project.
 
 ## Overview
