@@ -8,9 +8,17 @@ export default class Title extends React.Component {
     return (
       <span>
         <span>to&nbsp;</span>
-        <span>...</span>
+        <span>{this.props.title}</span>
         <span>&nbsp;!</span>
       </span>
     );
   }
 }
+
+Title.propTypes = {
+  title: React.PropTypes.string
+};
+
+Title.defaultProps = {
+  title: "..."
+};
