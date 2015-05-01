@@ -28,7 +28,6 @@ module.exports = {
   resolve: base.resolve,
   devtool: "eval",
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
   ]
 };

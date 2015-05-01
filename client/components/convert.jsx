@@ -2,12 +2,15 @@
  * Convert button.
  */
 import React from "react";
+import Button from "react-bootstrap/lib/Button";
 
 export default class Convert extends React.Component {
   render() {
     return (
       <span className="input-group-btn">
-        <button type="button" className="btn btn-default">Convert</button>
+        <Button>
+          Convert
+        </Button>
       </span>
     );
   }

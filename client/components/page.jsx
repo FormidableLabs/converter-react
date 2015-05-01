@@ -2,6 +2,8 @@
  * Container page.
  */
 import React from "react";
+import Jumbotron from "react-bootstrap/lib/Jumbotron";
+
 import Convert from "./convert";
 import Input from "./input";
 import Types from "./types";
@@ -10,10 +12,10 @@ export default class Page extends React.Component {
    render() {
     return (
       <div className="container">
-        <div className="jumbotron">
+        <Jumbotron>
           <h1>The Converter!</h1>
           <p>Camel, snake and dasherize to awesomeness!</p>
-        </div>
+        </Jumbotron>
         <div className="input-group">
           <Convert />
           <Input />

@@ -2,12 +2,16 @@
  * Convert input.
  */
 import React from "react";
+import Input from "react-bootstrap/lib/Input";
 
-export default class Input extends React.Component {
+export default class UserInput extends React.Component {
   render() {
     return (
-      <input type="text" className="form-control"
-             placeholder="Text to convert..." />
+      <Input
+        className="form-control"
+        placeholder="Text to convert..."
+        type="text"
+      />
     );
   }
 }

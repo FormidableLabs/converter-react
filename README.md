@@ -3,6 +3,22 @@ Converter - React
 
 [![Build Status][trav_img]][trav_site]
 
+A simple app written using [React][react] and [CommonJS][cjs], built with
+[Webpack][webpack]. Based on:
+[full-stack-testing.formidablelabs.com/app/](http://full-stack-testing.formidablelabs.com/app/)
+from our [Full. Stack. Testing](http://full-stack-testing.formidablelabs.com/)
+training project.
+
+## Overview
+
+The converter app has a simple Express-based REST backend that serves string
+conversions. The frontend app is a React app, crafted with the following:
+
+* [ES6](https://kangax.github.io/compat-table/es6/) via
+  [Babel](https://babeljs.io/) for client code.
+* Components from [react-bootstrap](http://react-bootstrap.github.io/)
+* Server-side rendering and SPA bootstrap.
+
 ## Development
 
 This section is for the convention (REST) server, with a real backend.
