@@ -42,6 +42,7 @@
     "express": "^4.12.3",
     "express-handlebars": "^2.0.1",
     "react": "^0.13.2",
+    "react-bootstrap": "^0.21.1",
     "webpack": "^1.8.11",
     "webpack-stats-plugin": "0.0.4"
   },
