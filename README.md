@@ -19,6 +19,27 @@ conversions. The frontend app is a React app, crafted with the following:
 * Components from [react-bootstrap](http://react-bootstrap.github.io/)
 * Server-side rendering and SPA bootstrap.
 
+## Notes
+
+### Size
+
+To test out how optimized the build is, here are some useful curl commands:
+
+```
+# Run production build
+$ gulp prod
+
+# Minified size
+$ curl -so /dev/null -w '%{size_download}\n' \
+  http://127.0.0.1:3000/js/$(node -e "console.log(require('./dist/server/stats.json').assetsByChunkName.main[0]);")
+148660
+
+# Minified gzipped size
+$ curl -so /dev/null -w '%{size_download}\n' --compressed \
+  http://127.0.0.1:3000/js/$(node -e "console.log(require('./dist/server/stats.json').assetsByChunkName.main[0]);")
+41591
+```
+
 ## Development
 
 This section is for the convention (REST) server, with a real backend.
@@ -34,15 +55,14 @@ $ npm install
 Run the watchers, dev and source maps servers for the real production build:
 
 ```
-$ npm run dev
+$ npm run prod
 ```
 
 Run the watchers and the Webpack dev server w/ React hot loader:
 
 ```
-$ npm run dev-hot
+$ npm run dev
 ```
-
 
 URLS to test things out:
 

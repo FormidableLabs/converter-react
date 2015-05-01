@@ -12,8 +12,8 @@
     "server-hot": "webpack-dev-server --config webpack.config.hot.js --hot --progress --colors --port 2992 --inline",
     "sources": "http-server -p 3001 .",
     "watch": "webpack --watch",
-    "dev": "npm run build && npm run watch & npm run server & npm run sources",
-    "dev-hot": "npm run server-hot & WEBPACK_HOT=true npm run server",
+    "prod": "npm run watch & npm run server & npm run sources",
+    "dev": "npm run server-hot & WEBPACK_HOT=true npm run server",
     "build": "webpack"
   },
   "repository": {
