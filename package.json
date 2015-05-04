@@ -8,7 +8,7 @@
     "lint": "npm run lint-server && npm run lint-client",
     "test": "npm run lint",
     "start": "node server/index.js",
-    "server": "nodemon --watch client --watch server server/index.js",
+    "server": "nodemon --watch client --watch server --ext js,jsx server/index.js",
     "server-dev": "webpack-dev-server --config webpack.config.dev.js --progress --colors --port 2992",
     "server-hot": "webpack-dev-server --config webpack.config.hot.js --hot --progress --colors --port 2992 --inline",
     "sources": "http-server -p 3001 .",
