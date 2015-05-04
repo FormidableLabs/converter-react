@@ -9,11 +9,13 @@
     "test": "npm run lint",
     "start": "node server/index.js",
     "server": "nodemon --watch client --watch server server/index.js",
+    "server-dev": "webpack-dev-server --config webpack.config.dev.js --progress --colors --port 2992",
     "server-hot": "webpack-dev-server --config webpack.config.hot.js --hot --progress --colors --port 2992 --inline",
     "sources": "http-server -p 3001 .",
     "watch": "webpack --watch",
     "prod": "npm run watch & npm run server & npm run sources",
-    "dev": "npm run server-hot & WEBPACK_HOT=true npm run server",
+    "dev": "npm run server-dev & WEBPACK_DEV=true npm run server",
+    "hot": "npm run server-hot & WEBPACK_DEV=true npm run server",
     "build": "webpack"
   },
   "repository": {
