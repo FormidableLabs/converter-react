@@ -12,6 +12,13 @@ import Output from "./output";
 import AltContainer from "alt/AltContainer";
 import ConvertStore from "../stores/convert";
 
+// Helper for adding stores.
+const addStore = (component) => (
+  <AltContainer store={ConvertStore}>
+    {component}
+  </AltContainer>
+);
+
 export default class Page extends React.Component {
    render() {
     return (
@@ -21,20 +28,11 @@ export default class Page extends React.Component {
           <p>Camel, snake and dasherize to awesomeness!</p>
         </Jumbotron>
         <div className="input-group">
-          <AltContainer store={ConvertStore}>
-            <Convert />
-          </AltContainer>
-          <AltContainer store={ConvertStore}>
-            <Input />
-          </AltContainer>
-          <AltContainer store={ConvertStore}>
-            <Types />
-          </AltContainer>
+          {addStore(<Convert />)}
+          {addStore(<Input />)}
+          {addStore(<Types />)}
         </div>
-
-        <AltContainer store={ConvertStore}>
-          <Output />
-        </AltContainer>
+        {addStore(<Output />)}
       </div>
     );
   };
