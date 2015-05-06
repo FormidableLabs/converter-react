@@ -23,7 +23,9 @@ export default class Page extends React.Component {
         <div className="input-group">
           <Convert />
           <Input />
-          <Types />
+          <AltContainer store={ConvertStore}>
+            <Types />
+          </AltContainer>
         </div>
         <AltContainer store={ConvertStore}>
           <Output />

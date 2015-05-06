@@ -9,31 +9,10 @@ import Title from "./types-title";
 import types from "../utils/types";
 
 import ConvertActions from "../actions/convert";
-import ConvertStore from "../stores/convert";
 
 const noop = function () {};
 
 export default class Types extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = ConvertStore.getState();
-
-    // TODO: Get auto-binding or descriptor thingy.
-    this.onChange = this.onChange.bind(this);
-  }
-
-  componentDidMount() {
-    ConvertStore.listen(this.onChange);
-  }
-
-  componentWillUnmount() {
-    ConvertStore.unlisten(this.onChange);
-  }
-
-  onChange() {
-    this.setState(ConvertStore.getState());
-  }
-
   setTypes(conversionTypes) {
     ConvertActions.setConversionTypes(conversionTypes);
   }
@@ -52,7 +31,7 @@ export default class Types extends React.Component {
         // See: https://github.com/react-bootstrap/react-bootstrap/pull/195
         onSelect={noop}
         pullRight
-        title=<Title title={types.getTitle(this.state.types)} />
+        title=<Title title={types.getTitle(this.props.types)} />
         >
         {items}
         <MenuItem divider />
@@ -63,3 +42,7 @@ export default class Types extends React.Component {
     );
   }
 }
+
+Types.propTypes = {
+  types: React.PropTypes.array
+};
