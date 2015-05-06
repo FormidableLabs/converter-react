@@ -9,6 +9,9 @@ import Input from "./input";
 import Types from "./types";
 import Output from "./output";
 
+import AltContainer from "alt/AltContainer";
+import ConvertStore from "../stores/convert";
+
 export default class Page extends React.Component {
    render() {
     return (
@@ -22,7 +25,9 @@ export default class Page extends React.Component {
           <Input />
           <Types />
         </div>
-        <Output />
+        <AltContainer store={ConvertStore}>
+          <Output />
+        </AltContainer>
       </div>
     );
   };
