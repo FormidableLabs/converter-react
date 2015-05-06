@@ -13,6 +13,7 @@ globals:
   require: false
   module: false
   process: false
+  fetch: false
 
 rules:
   no-alert: 2

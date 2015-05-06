@@ -18,6 +18,8 @@ conversions. The frontend app is a React app, crafted with the following:
   [Babel](https://babeljs.io/) for client code.
 * Components from [react-bootstrap](http://react-bootstrap.github.io/)
 * [Alt](http://alt.js.org/) for Flux implementation.
+* [isomorphic-fetch](https://github.com/matthew-andrews/isomorphic-fetch) for
+  AJAX requests.
 * Server-side rendering and SPA bootstrap.
 
 ## Notes
