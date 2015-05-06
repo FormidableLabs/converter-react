@@ -13,7 +13,7 @@ var app = module.exports = express();
 var converter = require("./converter");
 
 var PORT = process.env.PORT || 3000;
-var IS_HOT = process.env.WEBPACK_HOT === "true";
+var WEBPACK_DEV = process.env.WEBPACK_DEV === "true";
 var RENDER_JS = true;
 var RENDER_SS = true;
 
@@ -59,8 +59,8 @@ app.use("/", function (req, res) {
   var bundleJs;
 
   if (renderJs) {
-    if (IS_HOT) {
-      bundleJs = "http://127.0.0.1:2992/js/bundle.hot.js";
+    if (WEBPACK_DEV) {
+      bundleJs = "http://127.0.0.1:2992/js/bundle.js";
     } else {
       // First file is JS path.
       var stats = require("../dist/server/stats.json");

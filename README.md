@@ -56,10 +56,16 @@ Run the watchers, dev and source maps servers for the real production build:
 $ npm run prod
 ```
 
-Run the watchers and the Webpack dev server w/ React hot loader:
+Run the watchers and the Webpack dev server:
 
 ```
 $ npm run dev
+```
+
+Run the watchers and the Webpack dev server w/ React hot loader:
+
+```
+$ npm run hot
 ```
 
 URLS to test things out:
