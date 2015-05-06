@@ -43,4 +43,4 @@ class ConvertStore {
   }
 }
 
-export default alt.createStore(ConvertStore);
+export default alt.createStore(ConvertStore, "ConvertStore");
