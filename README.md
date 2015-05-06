@@ -17,6 +17,7 @@ conversions. The frontend app is a React app, crafted with the following:
 * [ES6](https://kangax.github.io/compat-table/es6/) via
   [Babel](https://babeljs.io/) for client code.
 * Components from [react-bootstrap](http://react-bootstrap.github.io/)
+* [Alt](http://alt.js.org/) for Flux implementation.
 * Server-side rendering and SPA bootstrap.
 
 ## Notes
