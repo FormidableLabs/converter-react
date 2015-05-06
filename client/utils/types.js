@@ -3,6 +3,8 @@
  */
 // All the individual types.
 let types = {
+  DEFAULT_TYPE: "camel",
+
   TYPES: {
     camel: "camel case",
     snake: "snake case",

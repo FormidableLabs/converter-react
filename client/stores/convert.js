@@ -4,6 +4,8 @@
 import alt from "../alt";
 import ConvertActions from "../actions/convert";
 
+import types from "../utils/types";
+
 class ConvertStore {
   constructor() {
     // Auto-magically bind to methods with `onACTION` or `ACTION`.
@@ -12,19 +14,19 @@ class ConvertStore {
 
     // TODO: Switch to immutable-js + alt integration.
     this.conversions = [];
-    this.types = ["camel"];
+    this.types = types.DEFAULT_TYPE;
   }
 
   onFetchConversions(/*conversions*/) {
     // TODO: IMPLEMENT
-    this.conversions = [{
-      title: "camel",
-      content: "todo"
-    }];
+    this.conversions = this.types.split(",").map(type => ({
+      title: type,
+      content: "TODO " + type
+    }));
   }
 
-  onSetConversionTypes(types) {
-    this.types = types;
+  onSetConversionTypes(conversionTypes) {
+    this.types = conversionTypes;
   }
 }
 

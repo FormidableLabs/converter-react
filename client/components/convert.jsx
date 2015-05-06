@@ -7,7 +7,7 @@ import ConvertActions from "../actions/convert";
 
 export default class Convert extends React.Component {
   onClick() {
-    ConvertActions.fetchConversions(["camel"]); // TODO: Real values.
+    ConvertActions.fetchConversions();
   }
 
   render() {
