@@ -20,6 +20,7 @@ class ConvertStore {
 
   onFetchConversions(/*conversions*/) {
     // TODO: IMPLEMENT
+    // TODO: Add error state and UI + test out.
     this.conversions = this.types.split(",").map(type => ({
       title: type,
       content: "TODO " + this.value
