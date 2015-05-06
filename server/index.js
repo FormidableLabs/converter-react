@@ -50,8 +50,18 @@ app.get("/api/dash", function (req, res) {
 // Client-side imports
 var React = require("react");
 var Page = React.createFactory(require("../client/components/page"));
+var FluxComponent = React.createFactory(require("flummox/component"));
+var Flux = require("../client/flux");
 
-app.use("/", function (req, res) {
+var _renderPage = function () {
+  var page = new Page();
+  var flux = new Flux();
+  var fluxComponent = new FluxComponent({ flux: flux }, page);
+
+  return React.renderToString(fluxComponent);
+};
+
+app.use(/^\/$/, function (req, res) {
   // Render JS? Server-side?
   var mode = req.query.__mode;
   var renderJs = RENDER_JS && mode !== "nojs";
@@ -76,7 +86,7 @@ app.use("/", function (req, res) {
     bundles: {
       js: bundleJs
     },
-    content: renderSs ? React.renderToString(new Page()) : null
+    content: renderSs ? _renderPage() : null
   });
 });
 
