@@ -34,6 +34,10 @@ class ConvertStore {
   onSetConversionValue(value) {
     this.value = value;
   }
+
+  onConversionError(err) {
+    console.log(err); // TODO: Implement UI!!!
+  }
 }
 
 export default alt.createStore(ConvertStore);

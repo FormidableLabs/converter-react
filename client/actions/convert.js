@@ -10,34 +10,34 @@ class ConvertActions {
     this.generateActions(
       "updateConversions",
       "setConversionTypes",
-      "setConversionValue"
+      "setConversionValue",
+      "conversionError"
     );
   }
 
   fetchConversions(types, value) {
     this.dispatch();
 
-    // TODO: Handle "all the things" in parallel.
-
-    // Data URL.
-    const url = `/api/${types}?from=${encodeURIComponent(value)}`;
-
-    // Fetch.
-    fetch(url)
-      .then(res => {
-        if (res.status >= 400) {
-          throw new Error("Bad server response");
-        }
-        return res.json();
-      })
-      .then(data => {
-        this.actions.updateConversions(types.split(",").map(type => ({
-          title: type,
-          content: data.to
-        })));
+    Promise
+      // Invoke fetches for each of the different data types.
+      .all(types.split(",").map(type => {
+        return fetch(`/api/${type}?from=${encodeURIComponent(value)}`)
+          .then(res => {
+            if (res.status >= 400) {
+              throw new Error("Bad server response");
+            }
+            return res.json();
+          })
+          .then(data => ({
+            title: type,
+            content: data.to
+          }));
+      }))
+      .then(datas => {
+        this.actions.updateConversions(datas); // TODO IMPLEMENT!!!
       })
       .catch(err => {
-        this.actions.conversionError(err);
+        this.actions.conversionError(err); // TODO IMPLEMENT!!!
       });
   }
 }
