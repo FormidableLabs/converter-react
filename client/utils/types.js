@@ -9,14 +9,20 @@ let types = {
     dash: "dasherized"
   },
 
-  getTitle: function (key) {
-    return types.TYPES[key] ||
-      (key === types.ALL ? types.ALL_DESC : undefined);
+  /**
+   * Get title from array of type keys.
+   *
+   * @param   {String} type conversion type (e.g., "camel")
+   * @returns {String}      UI-friendly title
+   */
+  getTitle: function (type) {
+    return types.TYPES[type] ||
+      (type === types.ALL ? types.ALL_DESC : undefined);
   }
 };
 
 // Special case "all types".
-types.ALL = Object.keys(types.TYPES);
+types.ALL = Object.keys(types.TYPES).join(",");
 types.ALL_DESC = "all the things";
 
 export default types;
