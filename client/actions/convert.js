@@ -2,8 +2,8 @@
  * Actions: Convert
  */
 import alt from "../alt";
-require("es6-promise").polyfill();
-require("isomorphic-fetch");
+import { fetchConversions } from "../utils/api";
+
 
 class ConvertActions {
   constructor() {
@@ -18,21 +18,7 @@ class ConvertActions {
   fetchConversions(types, value) {
     this.dispatch();
 
-    Promise
-      // Invoke fetches for each of the different data types.
-      .all(types.split(",").map(type => {
-        return fetch(`/api/${type}?from=${encodeURIComponent(value)}`)
-          .then(res => {
-            if (res.status >= 400) {
-              throw new Error("Bad server response");
-            }
-            return res.json();
-          })
-          .then(data => ({
-            title: type,
-            content: data.to
-          }));
-      }))
+    fetchConversions(types, value)
       .then(datas => {
         this.actions.updateConversions(datas);
       })
