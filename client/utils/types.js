@@ -17,10 +17,8 @@ let types = {
    * @param   {String} type conversion type (e.g., "camel")
    * @returns {String}      UI-friendly title
    */
-  getTitle: function (type) {
-    return types.TYPES[type] ||
-      (type === types.ALL ? types.ALL_DESC : undefined);
-  }
+  getTitle: (type) => types.TYPES[type] ||
+    (type === types.ALL ? types.ALL_DESC : undefined)
 };
 
 // Special case "all types".
