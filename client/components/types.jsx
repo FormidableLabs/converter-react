@@ -11,6 +11,8 @@ import types from "../utils/types";
 import ConvertActions from "../actions/convert";
 import ConvertStore from "../stores/convert";
 
+const noop = function () {};
+
 export default class Types extends React.Component {
   constructor(props) {
     super(props);
@@ -46,6 +48,9 @@ export default class Types extends React.Component {
     return (
       <DropdownButton
         className="input-group-btn"
+        // BUG: Dropdowns don't close by default. Here's a patch.
+        // See: https://github.com/react-bootstrap/react-bootstrap/pull/195
+        onSelect={noop}
         pullRight
         title=<Title title={types.getTitle(this.state.types)} />
         >
