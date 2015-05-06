@@ -24,6 +24,9 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/es5-shim/4.1.1/es5-sham.min.js"></script>
     <![endif]-->
     {{~#if render.js~}}
+      {{~#if bootstrap~}}
+        <script class="js-bootstrap" type="application/json">{{{bootstrap}}}</script>
+      {{~/if~}}
       <script src="{{bundles.js}}"></script>
     {{~/if~}}
   </body>

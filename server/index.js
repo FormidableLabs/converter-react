@@ -12,6 +12,7 @@ var compress = require("compression");
 var app = module.exports = express();
 var converter = require("./converter");
 
+var HOST = process.env.HOST || "127.0.0.1";
 var PORT = process.env.PORT || 3000;
 var WEBPACK_DEV = process.env.WEBPACK_DEV === "true";
 var RENDER_JS = true;
@@ -51,6 +52,9 @@ app.get("/api/dash", function (req, res) {
 var React = require("react");
 var Page = React.createFactory(require("../client/components/page"));
 var alt = require("../client/alt");
+var clientApi = require("../client/utils/api");
+clientApi.setBase(HOST, PORT);
+var fetchConversions = clientApi.fetchConversions;
 
 // Flux bootstrap middleware.
 /*eslint-disable max-statements */ // TODO REMOVE
@@ -65,16 +69,23 @@ var fluxBootstrap = function (req, res, next) {
   var value = parts[1];
   if (!types) { return next(); }
 
-  // Bootstrap, snapshot data to res.locals and flush for next request.
-  alt.bootstrap(JSON.stringify({
-    ConvertStore: {
-      types: types,
-      value: value
-    }
-  }));
-  res.locals.fluxBootstrap = alt.takeSnapshot();
-  alt.flush();
-  next();
+  // Fetch from localhost.
+  fetchConversions(types, value)
+    .then(function (conversions) {
+      // Bootstrap, snapshot data to res.locals and flush for next request.
+      alt.bootstrap(JSON.stringify({
+        ConvertStore: {
+          conversions: conversions,
+          types: types,
+          value: value
+        }
+      }));
+      res.locals.fluxBootstrap = alt.takeSnapshot();
+      alt.flush();
+
+      next();
+    })
+    .catch(function (err) { next(err); });
 };
 
 app.use("/", [fluxBootstrap], function (req, res) {
@@ -82,10 +93,6 @@ app.use("/", [fluxBootstrap], function (req, res) {
   var mode = req.query.__mode;
   var renderJs = RENDER_JS && mode !== "nojs";
   var renderSs = RENDER_SS && mode !== "noss";
-
-  if (res.locals.fluxBootstrap) {
-    console.log("TODO HERE res.locals.fluxBootstrap", res.locals.fluxBootstrap);
-  }
 
   // JS bundle rendering.
   var bundleJs;
@@ -101,6 +108,7 @@ app.use("/", [fluxBootstrap], function (req, res) {
 
   res.render("index", {
     layout: false,
+    bootstrap: res.locals.fluxBootstrap,
     render: {
       js: renderJs
     },
