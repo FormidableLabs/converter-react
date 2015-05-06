@@ -34,10 +34,10 @@ class ConvertActions {
           }));
       }))
       .then(datas => {
-        this.actions.updateConversions(datas); // TODO IMPLEMENT!!!
+        this.actions.updateConversions(datas);
       })
       .catch(err => {
-        this.actions.conversionError(err); // TODO IMPLEMENT!!!
+        this.actions.conversionError(err);
       });
   }
 }
