@@ -42,8 +42,6 @@ $ curl -so /dev/null -w '%{size_download}\n' --compressed \
 
 ## Development
 
-This section is for the convention (REST) server, with a real backend.
-
 ### Dev Mode
 
 Install, setup.
