@@ -6,7 +6,8 @@ import alt from "../alt";
 class ConvertActions {
   constructor() {
     this.generateActions(
-      "fetchConversions"
+      "fetchConversions",
+      "setConversionTypes"
     );
   }
 }

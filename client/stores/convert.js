@@ -12,13 +12,19 @@ class ConvertStore {
 
     // TODO: Switch to immutable-js + alt integration.
     this.conversions = [];
+    this.types = ["camel"];
   }
 
   onFetchConversions(/*conversions*/) {
+    // TODO: IMPLEMENT
     this.conversions = [{
       title: "camel",
       content: "todo"
     }];
+  }
+
+  onSetConversionTypes(types) {
+    this.types = types;
   }
 }
 
