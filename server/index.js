@@ -50,14 +50,45 @@ app.get("/api/dash", function (req, res) {
 // Client-side imports
 var React = require("react");
 var Page = React.createFactory(require("../client/components/page"));
+var alt = require("../client/alt");
 
-app.use("/", function (req, res) {
-  // Render JS? Server-side?
+// Flux bootstrap middleware.
+/*eslint-disable max-statements */ // TODO REMOVE
+var fluxBootstrap = function (req, res, next) {
+  // Check query string.
+  var bootstrap = req.query.__bootstrap;
+  if (!bootstrap) { return next(); }
+
+  // Check have all parts.
+  var parts = bootstrap.split(":");
+  var types = parts[0];
+  var value = parts[1];
+  if (!types) { return next(); }
+
+  // Bootstrap, snapshot data to res.locals and flush for next request.
+  alt.bootstrap(JSON.stringify({
+    ConvertStore: {
+      types: types,
+      value: value
+    }
+  }));
+  res.locals.fluxBootstrap = alt.takeSnapshot();
+  alt.flush();
+  next();
+};
+
+app.use("/", [fluxBootstrap], function (req, res) {
+  // Render JS? Server-side? Bootstrap?
   var mode = req.query.__mode;
   var renderJs = RENDER_JS && mode !== "nojs";
   var renderSs = RENDER_SS && mode !== "noss";
-  var bundleJs;
 
+  if (res.locals.fluxBootstrap) {
+    console.log("TODO HERE res.locals.fluxBootstrap", res.locals.fluxBootstrap);
+  }
+
+  // JS bundle rendering.
+  var bundleJs;
   if (renderJs) {
     if (WEBPACK_DEV) {
       bundleJs = "http://127.0.0.1:2992/js/bundle.js";

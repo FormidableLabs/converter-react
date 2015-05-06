@@ -1,7 +1,7 @@
 /**
  * Client entry point.
  */
-/*globals document:false*/
+/*globals document:false, location:false */
 import React from "react";
 import Page from "./components/page";
 
@@ -16,7 +16,7 @@ if (clientBootstrap) {
   alt.bootstrap(JSON.stringify({
     ConvertStore: clientBootstrap
   }));
-  alt.actions.ConvertActions.fetchConversions(
+  alt.getActions("ConvertActions").fetchConversions(
     clientBootstrap.types,
     clientBootstrap.value
   );
