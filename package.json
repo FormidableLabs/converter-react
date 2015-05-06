@@ -35,6 +35,7 @@
   },
   "homepage": "https://github.com/FormidableLabs/converter-react",
   "dependencies": {
+    "alt": "^0.16.2",
     "babel": "^5.1.13",
     "babel-core": "^5.1.13",
     "babel-loader": "^5.0.0",

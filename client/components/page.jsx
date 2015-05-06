@@ -7,6 +7,7 @@ import Jumbotron from "react-bootstrap/lib/Jumbotron";
 import Convert from "./convert";
 import Input from "./input";
 import Types from "./types";
+import Output from "./output";
 
 export default class Page extends React.Component {
    render() {
@@ -21,6 +22,7 @@ export default class Page extends React.Component {
           <Input />
           <Types />
         </div>
+        <Output />
       </div>
     );
   };
