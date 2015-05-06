@@ -35,3 +35,8 @@ UserInput.propTypes = {
   types: React.PropTypes.array,
   value: React.PropTypes.string
 };
+
+UserInput.defaultProps = {
+  types: [],
+  value: ""
+};
