@@ -6,10 +6,23 @@ import alt from "../alt";
 class ConvertActions {
   constructor() {
     this.generateActions(
-      "fetchConversions",
+      "updateConversions",
       "setConversionTypes",
       "setConversionValue"
     );
+  }
+
+  fetchConversions(types, value) {
+    this.dispatch();
+
+    // TODO: IMPLEMENT **REAL** FETCH
+    /*globals setTimeout*/
+    setTimeout(() => {
+      this.actions.updateConversions(types.split(",").map(type => ({
+        title: type,
+        content: "TODO " + value
+      })));
+    }, 100);
   }
 }
 

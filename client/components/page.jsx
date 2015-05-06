@@ -21,12 +21,17 @@ export default class Page extends React.Component {
           <p>Camel, snake and dasherize to awesomeness!</p>
         </Jumbotron>
         <div className="input-group">
-          <Convert />
-          <Input />
+          <AltContainer store={ConvertStore}>
+            <Convert />
+          </AltContainer>
+          <AltContainer store={ConvertStore}>
+            <Input />
+          </AltContainer>
           <AltContainer store={ConvertStore}>
             <Types />
           </AltContainer>
         </div>
+
         <AltContainer store={ConvertStore}>
           <Output />
         </AltContainer>

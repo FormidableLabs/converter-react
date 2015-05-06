@@ -7,7 +7,7 @@ import ConvertActions from "../actions/convert";
 
 export default class Convert extends React.Component {
   onClick() {
-    ConvertActions.fetchConversions();
+    ConvertActions.fetchConversions(this.props.types, this.props.value);
   }
 
   render() {
@@ -20,3 +20,8 @@ export default class Convert extends React.Component {
     );
   }
 }
+
+Convert.propTypes = {
+  types: React.PropTypes.array,
+  value: React.PropTypes.string
+};

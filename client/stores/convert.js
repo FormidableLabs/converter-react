@@ -18,13 +18,13 @@ class ConvertStore {
     this.value = "";
   }
 
-  onFetchConversions(/*conversions*/) {
-    // TODO: IMPLEMENT
-    // TODO: Add error state and UI + test out.
-    this.conversions = this.types.split(",").map(type => ({
-      title: type,
-      content: "TODO " + this.value
-    }));
+  onUpdateConversions(conversions) {
+    this.conversions = conversions;
+  }
+
+  onFetchConversions() {
+    // **Note**: _Could_ empty out conversions during fetch with following:
+    // this.conversions = [];
   }
 
   onSetConversionTypes(conversionTypes) {
