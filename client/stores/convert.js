@@ -15,18 +15,23 @@ class ConvertStore {
     // TODO: Switch to immutable-js + alt integration.
     this.conversions = [];
     this.types = types.DEFAULT_TYPE;
+    this.value = "";
   }
 
   onFetchConversions(/*conversions*/) {
     // TODO: IMPLEMENT
     this.conversions = this.types.split(",").map(type => ({
       title: type,
-      content: "TODO " + type
+      content: "TODO " + this.value
     }));
   }
 
   onSetConversionTypes(conversionTypes) {
     this.types = conversionTypes;
+  }
+
+  onSetConversionValue(value) {
+    this.value = value;
   }
 }
 

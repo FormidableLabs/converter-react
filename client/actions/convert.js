@@ -7,7 +7,8 @@ class ConvertActions {
   constructor() {
     this.generateActions(
       "fetchConversions",
-      "setConversionTypes"
+      "setConversionTypes",
+      "setConversionValue"
     );
   }
 }
