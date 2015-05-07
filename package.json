@@ -16,7 +16,8 @@
     "prod": "npm run watch & npm run server & npm run sources",
     "dev": "npm run server-dev & WEBPACK_DEV=true npm run server",
     "hot": "npm run server-hot & WEBPACK_DEV=true npm run server",
-    "build": "webpack"
+    "build": "webpack",
+    "postinstall": "node heroku/scripts/not-heroku.js || (node heroku/scripts/install.js && npm run build)"
   },
   "repository": {
     "type": "git",
