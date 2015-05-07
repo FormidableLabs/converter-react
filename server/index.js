@@ -27,7 +27,7 @@ app.set("view engine", ".hbs");
 app.set("views", path.join(__dirname, "../templates"));
 
 // Static libraries and application HTML page.
-app.use("/js", express.static("dist/js"));
+app.use("/js", express.static(path.join(__dirname, "../dist/js")));
 
 // ----------------------------------------------------------------------------
 // REST API
@@ -95,7 +95,7 @@ var fluxBootstrap = function (req, res, next) {
     .catch(function (err) { next(err); });
 };
 
-app.use("/", [fluxBootstrap], function (req, res) {
+app.use("/app", [fluxBootstrap], function (req, res) {
   // Render JS? Server-side? Bootstrap?
   var mode = req.query.__mode;
   var renderJs = RENDER_JS && mode !== "nojs";
