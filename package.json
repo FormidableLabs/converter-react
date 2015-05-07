@@ -16,7 +16,8 @@
     "prod": "npm run watch & npm run server & npm run sources",
     "dev": "npm run server-dev & WEBPACK_DEV=true npm run server",
     "hot": "npm run server-hot & WEBPACK_DEV=true npm run server",
-    "build": "webpack"
+    "build": "webpack",
+    "postinstall": "node heroku/scripts/not-heroku.js || (node heroku/scripts/install.js && npm run build)"
   },
   "repository": {
     "type": "git",
@@ -55,8 +56,11 @@
     "eslint": "^0.20.0",
     "eslint-plugin-react": "^2.2.0",
     "http-server": "^0.8.0",
+    "jade": "^1.9.2",
+    "marked": "^0.3.3",
     "nodemon": "^1.3.7",
     "react-hot-loader": "^1.2.5",
+    "recluster": "^0.4.0",
     "webpack-dev-server": "^1.8.2"
   }
 }

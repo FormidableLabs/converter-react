@@ -22,6 +22,12 @@ conversions. The frontend app is a React app, crafted with the following:
   AJAX requests.
 * Server-side rendering and SPA bootstrap.
 
+See the app hard at work!
+
+* [`127.0.0.1:3000/`](http://127.0.0.1:3000/): Server-side bootstrap, then client-side.
+* [`127.0.0.1:3000/?__mode=noss`](http://127.0.0.1:3000/?__mode=noss): Pure client-side.
+* [`127.0.0.1:3000/?__mode=nojs`](http://127.0.0.1:3000/?__mode=nojs): Pure server-side.
+
 ## Notes
 
 ### Size
@@ -35,12 +41,12 @@ $ gulp prod
 # Minified size
 $ curl -so /dev/null -w '%{size_download}\n' \
   http://127.0.0.1:3000/js/$(node -e "console.log(require('./dist/server/stats.json').assetsByChunkName.main[0]);")
-148660
+222362
 
 # Minified gzipped size
 $ curl -so /dev/null -w '%{size_download}\n' --compressed \
   http://127.0.0.1:3000/js/$(node -e "console.log(require('./dist/server/stats.json').assetsByChunkName.main[0]);")
-41591
+63591
 ```
 
 ## Development

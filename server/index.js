@@ -22,12 +22,11 @@ var RENDER_SS = true;
 // Setup, Static Routes
 // ----------------------------------------------------------------------------
 app.use(compress());
-app.engine(".hbs", exphbs({ extname: ".hbs" }));
-app.set("view engine", ".hbs");
+app.engine("hbs", exphbs({ extname: ".hbs" }));
 app.set("views", path.join(__dirname, "../templates"));
 
 // Static libraries and application HTML page.
-app.use("/js", express.static("dist/js"));
+app.use("/js", express.static(path.join(__dirname, "../dist/js")));
 
 // ----------------------------------------------------------------------------
 // REST API
@@ -95,42 +94,45 @@ var fluxBootstrap = function (req, res, next) {
     .catch(function (err) { next(err); });
 };
 
-app.use("/", [fluxBootstrap], function (req, res) {
-  // Render JS? Server-side? Bootstrap?
-  var mode = req.query.__mode;
-  var renderJs = RENDER_JS && mode !== "nojs";
-  var renderSs = RENDER_SS && mode !== "noss";
+app.indexRoute = function (root) {
+  app.use(root, [fluxBootstrap], function (req, res) {
+    // Render JS? Server-side? Bootstrap?
+    var mode = req.query.__mode;
+    var renderJs = RENDER_JS && mode !== "nojs";
+    var renderSs = RENDER_SS && mode !== "noss";
 
-  // JS bundle rendering.
-  var bundleJs;
-  if (renderJs) {
-    if (WEBPACK_DEV) {
-      bundleJs = "http://127.0.0.1:2992/js/bundle.js";
-    } else {
-      // First file is JS path.
-      var stats = require("../dist/server/stats.json");
-      bundleJs = path.join("/js", stats.assetsByChunkName.main[0]);
+    // JS bundle rendering.
+    var bundleJs;
+    if (renderJs) {
+      if (WEBPACK_DEV) {
+        bundleJs = "http://127.0.0.1:2992/js/bundle.js";
+      } else {
+        // First file is JS path.
+        var stats = require("../dist/server/stats.json");
+        bundleJs = path.join("/js", stats.assetsByChunkName.main[0]);
+      }
     }
-  }
 
-  res.render("index", {
-    layout: false,
-    bootstrap: res.locals.fluxBootstrap,
-    render: {
-      js: renderJs
-    },
-    bundles: {
-      js: bundleJs
-    },
-    content: renderSs ?
-      // Try bootstraped page _first_ if we created it.
-      res.locals.page || React.renderToString(new Page()) :
-      null
+    res.render("index.hbs", {
+      layout: false,
+      bootstrap: res.locals.fluxBootstrap,
+      render: {
+        js: renderJs
+      },
+      bundles: {
+        js: bundleJs
+      },
+      content: renderSs ?
+        // Try bootstraped page _first_ if we created it.
+        res.locals.page || React.renderToString(new Page()) :
+        null
+    });
   });
-});
+};
 
 // Actually start server if script.
 /* istanbul ignore next */
 if (require.main === module) {
+  app.indexRoute("/");
   app.listen(PORT);
 }
