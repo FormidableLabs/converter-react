@@ -15,7 +15,6 @@ process.env.NODE_PATH = (process.env.NODE_PATH || "")
 require("module").Module._initPaths();
 
 // Normal requires
-var _ = require("lodash");
 var fs = require("fs");
 var path = require("path");
 var root = path.resolve(__dirname, "../..");
@@ -32,14 +31,13 @@ fs.writeFileSync(path.join(root, "Procfile"), "web: node heroku/scripts/cluster.
 // NPM install certain dev. dependencies for Heroku usage.
 var npm = require("npm");
 var pkg = require("../../package.json");
-var herokuDeps = _.chain(pkg.devDependencies)
-  .pick([
-    "jade",
-    "marked",
-    "recluster"
-  ])
-  .map(function (v, k) { return [k, v].join("@"); })
-  .value();
+var herokuDeps = [
+  "jade",
+  "marked",
+  "recluster"
+].map(function (key) {
+  return [key, pkg.devDependencies[key]].join("@");
+});
 
 // Install.
 npm.load(function (loadErr) {
