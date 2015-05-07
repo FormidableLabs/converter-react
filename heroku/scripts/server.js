@@ -12,8 +12,8 @@ var marked = require("marked");
 var renderer = new marked.Renderer();
 
 // Serve the application.
-app.use("/app/", express.static("app/public"));
 app.use("/public/", express.static("heroku/doc/public"));
+app.indexRoute("/app");
 
 // Marked options and custom rendering.
 // Skip intro heading.
@@ -24,7 +24,7 @@ renderer.heading = function (text, level) {
 
 // Convert `.md` internal links to full links via a map.
 var linkMap = {
-  "127.0.0.1:3000": "converter-react.formidablelabs.com"
+  "127.0.0.1:3000": "converter-react.formidablelabs.com/app"
 };
 renderer.link = function (href, title, text) {
   // Mutate the links for production.
@@ -44,10 +44,9 @@ marked.setOptions({
 });
 
 // Serve docs as root.
-app.set("view engine", "jade");
-app.set("views", "heroku/doc");
+app.engine("jade", require('jade').__express);
 app.get("/", function (req, res) {
-  res.render("index");
+  res.render("../heroku/doc/index.jade");
 });
 
 // Start server.
