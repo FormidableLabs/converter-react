@@ -80,7 +80,14 @@ var fluxBootstrap = function (req, res, next) {
           value: value
         }
       }));
+
+      // Stash bootstrap, and _fully-rendered-page_ with proper data.
       res.locals.fluxBootstrap = alt.takeSnapshot();
+      if (req.query.__mode !== "noss") {
+        res.locals.page = React.renderToString(new Page());
+      }
+
+      // Restore for next request.
       alt.flush();
 
       next();
@@ -115,7 +122,10 @@ app.use("/", [fluxBootstrap], function (req, res) {
     bundles: {
       js: bundleJs
     },
-    content: renderSs ? React.renderToString(new Page()) : null
+    content: renderSs ?
+      // Try bootstraped page _first_ if we created it.
+      res.locals.page || React.renderToString(new Page()) :
+      null
   });
 });
 
