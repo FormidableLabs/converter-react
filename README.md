@@ -80,6 +80,21 @@ URLS to test things out:
   title in list), many things do not since there are absolutely no JS libraries.
   This is intended to just be a small demo of SEO / "crawlable" content.
 
+### Bootstrapped Data
+
+As a development helper, we allow a querystring injection of data to bootstrap
+the application off of. Normally, you wouldn't allow users to add this, and
+instead would choose how to best bootstrap your app.
+
+* [`127.0.0.1:3000/?__bootstrap=camel:hello%20there`](http://127.0.0.1:3000/?__bootstrap=camel:hello%20there):
+  Server-side data bootstrapped into the application + render.
+* [`127.0.0.1:3000/?__mode=noss&__bootstrap=camel:hello%20there`](http://127.0.0.1:3000/?__mode=noss&__bootstrap=camel:hello%20there):
+  Pure client-render, but bootstrap the store off `types` and `values` and
+  initiate async `fetch` to backend for data automatically.
+* [`127.0.0.1:3000/?__mode=nojs&__bootstrap=camel:hello%20there`](http://127.0.0.1:3000/?__mode=nojs&__bootstrap=camel:hello%20there):
+  Pure server-side render with no JS. Should fully render the inputs and
+  converted values in static HTML.
+
 ### Production
 
 Install, setup.
