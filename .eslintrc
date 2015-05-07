@@ -13,6 +13,7 @@ globals:
   require: false
   module: false
   process: false
+  fetch: false
 
 rules:
   no-alert: 2
@@ -114,7 +115,7 @@ rules:
   no-with: 2
   no-wrap-func: 2
   block-scoped-var: 0
-  brace-style: [2, "1tbs"]
+  brace-style: [2, "1tbs", { "allowSingleLine": true }]
   camelcase: 2
   comma-dangle: [2, "never"]
   comma-spacing: 2

@@ -25,6 +25,7 @@ export default class UserInput extends React.Component {
         onKeyDown={this.onKeyDown.bind(this)}
         placeholder="Text to convert..."
         type="text"
+        value={this.props.value}
       />
     );
   }
@@ -33,4 +34,9 @@ export default class UserInput extends React.Component {
 UserInput.propTypes = {
   types: React.PropTypes.array,
   value: React.PropTypes.string
+};
+
+UserInput.defaultProps = {
+  types: [],
+  value: ""
 };

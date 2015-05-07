@@ -2,27 +2,29 @@
  * Actions: Convert
  */
 import alt from "../alt";
+import { fetchConversions } from "../utils/api";
+
 
 class ConvertActions {
   constructor() {
     this.generateActions(
       "updateConversions",
       "setConversionTypes",
-      "setConversionValue"
+      "setConversionValue",
+      "conversionError"
     );
   }
 
   fetchConversions(types, value) {
     this.dispatch();
 
-    // TODO: IMPLEMENT **REAL** FETCH
-    /*globals setTimeout*/
-    setTimeout(() => {
-      this.actions.updateConversions(types.split(",").map(type => ({
-        title: type,
-        content: "TODO " + value
-      })));
-    }, 100);
+    fetchConversions(types, value)
+      .then(datas => {
+        this.actions.updateConversions(datas);
+      })
+      .catch(err => {
+        this.actions.conversionError(err);
+      });
   }
 }
 

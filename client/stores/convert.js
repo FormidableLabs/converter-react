@@ -14,6 +14,7 @@ class ConvertStore {
 
     // TODO: Switch to immutable-js + alt integration.
     this.conversions = [];
+    this.conversionError = null;
     this.types = types.DEFAULT_TYPE;
     this.value = "";
   }
@@ -23,6 +24,8 @@ class ConvertStore {
   }
 
   onFetchConversions() {
+    // Empty out errors.
+    this.conversionError = null;
     // **Note**: _Could_ empty out conversions during fetch with following:
     // this.conversions = [];
   }
@@ -34,6 +37,10 @@ class ConvertStore {
   onSetConversionValue(value) {
     this.value = value;
   }
+
+  onConversionError(err) {
+    this.conversionError = err.message || err.toString();
+  }
 }
 
-export default alt.createStore(ConvertStore);
+export default alt.createStore(ConvertStore, "ConvertStore");
