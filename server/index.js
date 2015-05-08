@@ -1,22 +1,26 @@
 /**
  * Express web server.
  */
-// Babel hook.
-require("babel/register");
-
-var path = require("path");
-var express = require("express");
-var exphbs = require("express-handlebars");
-var compress = require("compression");
-
-var app = module.exports = express();
-var converter = require("./converter");
-
+// Globals
 var HOST = process.env.HOST || "127.0.0.1";
 var PORT = process.env.PORT || 3000;
 var WEBPACK_DEV = process.env.WEBPACK_DEV === "true";
 var RENDER_JS = true;
 var RENDER_SS = true;
+
+// Hooks / polyfills
+require("babel/register");
+var clientApi = require("../client/utils/api");
+clientApi.setBase(HOST, PORT);
+
+var path = require("path");
+var express = require("express");
+var exphbs = require("express-handlebars");
+var compress = require("compression");
+var mid = require("./middleware");
+
+var app = module.exports = express();
+var converter = require("./converter");
 
 // ----------------------------------------------------------------------------
 // Setup, Static Routes
@@ -50,52 +54,9 @@ app.get("/api/dash", function (req, res) {
 // Client-side imports
 var React = require("react");
 var Page = React.createFactory(require("../client/components/page"));
-var alt = require("../client/alt");
-var clientApi = require("../client/utils/api");
-clientApi.setBase(HOST, PORT);
-var fetchConversions = clientApi.fetchConversions;
-
-// Flux bootstrap middleware.
-/*eslint-disable max-statements */ // TODO REMOVE
-var fluxBootstrap = function (req, res, next) {
-  // Check query string.
-  var bootstrap = req.query.__bootstrap;
-  if (!bootstrap) { return next(); }
-
-  // Check have all parts.
-  var parts = bootstrap.split(":");
-  var types = parts[0];
-  var value = parts[1];
-  if (!types) { return next(); }
-
-  // Fetch from localhost.
-  fetchConversions(types, value)
-    .then(function (conversions) {
-      // Bootstrap, snapshot data to res.locals and flush for next request.
-      alt.bootstrap(JSON.stringify({
-        ConvertStore: {
-          conversions: conversions,
-          types: types,
-          value: value
-        }
-      }));
-
-      // Stash bootstrap, and _fully-rendered-page_ with proper data.
-      res.locals.fluxBootstrap = alt.takeSnapshot();
-      if (req.query.__mode !== "noss") {
-        res.locals.page = React.renderToString(new Page());
-      }
-
-      // Restore for next request.
-      alt.flush();
-
-      next();
-    })
-    .catch(function (err) { next(err); });
-};
 
 app.indexRoute = function (root) {
-  app.use(root, [fluxBootstrap], function (req, res) {
+  app.use(root, [mid.flux.fetchFirst(Page)], function (req, res) {
     // Render JS? Server-side? Bootstrap?
     var mode = req.query.__mode;
     var renderJs = RENDER_JS && mode !== "nojs";
@@ -115,7 +76,7 @@ app.indexRoute = function (root) {
 
     res.render("index.hbs", {
       layout: false,
-      bootstrap: res.locals.fluxBootstrap,
+      bootstrap: res.locals.bootstrapData,
       render: {
         js: renderJs
       },
@@ -124,7 +85,7 @@ app.indexRoute = function (root) {
       },
       content: renderSs ?
         // Try bootstraped page _first_ if we created it.
-        res.locals.page || React.renderToString(new Page()) :
+        res.locals.bootstrapComponent || React.renderToString(new Page()) :
         null
     });
   });
