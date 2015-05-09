@@ -33,9 +33,20 @@ var _getQueryBootstrap = function (req) {
 
 module.exports.flux = {
   /**
-   * "Fetch first" strategy middleware.
+   * "Fetch first" strategy middleware with **singleton**.
    *
    * Use the underlying API to fetch data and then manually `bootstrap`.
+   *
+   * **Flux Singleton**: This middleware uses a single flux instance across
+   * all requests, which means that our sequence of:
+   *
+   * - `alt.bootstrap(DATA)`
+   * - `alt.takeSnapshot()`
+   * - React component render
+   * - `alt.flush()`
+   *
+   * Has to be synchronous and complete in the immediate thread before handing
+   * control back to another event.
    *
    * @param   {Object}    Component React component to render.
    * @returns {Function}            middleware function
