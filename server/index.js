@@ -94,6 +94,6 @@ app.indexRoute = function (root) {
 // Actually start server if script.
 /* istanbul ignore next */
 if (require.main === module) {
-  app.indexRoute("/");
+  app.indexRoute(/^\/$/);
   app.listen(PORT);
 }

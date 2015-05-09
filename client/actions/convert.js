@@ -1,11 +1,9 @@
 /**
  * Actions: Convert
  */
-import alt from "../alt";
 import { fetchConversions } from "../utils/api";
 
-
-class ConvertActions {
+export default class ConvertActions {
   constructor() {
     this.generateActions(
       "updateConversions",
@@ -27,5 +25,3 @@ class ConvertActions {
       });
   }
 }
-
-export default alt.createActions(ConvertActions);

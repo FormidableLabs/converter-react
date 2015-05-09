@@ -10,9 +10,6 @@
  * - `bootstrapComponent`: Rendered component for app.
  */
 var React = require("react");
-var alt = require("../client/alt");
-
-var fetchConversions = require("../client/utils/api").fetchConversions;
 
 // Return query bootstrap information or `null`.
 var _getQueryBootstrap = function (req) {
@@ -48,6 +45,10 @@ module.exports.flux = {
       if (!queryBootstrap) { return next(); }
       var types = queryBootstrap.types;
       var value = queryBootstrap.value;
+
+      // TODO: FIX
+      var alt = require("../client/alt");
+      var fetchConversions = require("../client/utils/api").fetchConversions;
 
       // Fetch from localhost.
       fetchConversions(types, value)
