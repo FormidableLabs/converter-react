@@ -86,6 +86,11 @@ module.exports.flux = {
    */
   actions: function (/*TODO: Component*/) {
     return function (/*TODO: req, res, next*/) {
+      // TODO: NOTE -- Doesn't look safe! Setting listeners on the singleton
+      // store means potentially race conditions (?).
+      //
+      // Need to switch to non-singleton flux.
+      // https://github.com/FormidableLabs/converter-react/issues/9
     };
   }
 };
