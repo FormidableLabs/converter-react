@@ -10,6 +10,8 @@
  * - `bootstrapComponent`: Rendered component for app.
  */
 var React = require("react");
+var Flux = require("../client/flux");
+var fetchConversions = require("../client/utils/api").fetchConversions;
 
 // Return query bootstrap information or `null`.
 var _getQueryBootstrap = function (req) {
@@ -39,6 +41,9 @@ module.exports.flux = {
    * @returns {Function}            middleware function
    */
   fetchFirst: function (Component) {
+    // Flux singleton for atomic actions.
+    var flux = new Flux();
+
     return function (req, res, next) {
       // Check query string.
       var queryBootstrap = _getQueryBootstrap(req);
@@ -46,15 +51,11 @@ module.exports.flux = {
       var types = queryBootstrap.types;
       var value = queryBootstrap.value;
 
-      // TODO: FIX
-      var alt = require("../client/alt");
-      var fetchConversions = require("../client/utils/api").fetchConversions;
-
       // Fetch from localhost.
       fetchConversions(types, value)
         .then(function (conversions) {
           // Bootstrap, snapshot data to res.locals and flush for next request.
-          alt.bootstrap(JSON.stringify({
+          flux.bootstrap(JSON.stringify({
             ConvertStore: {
               conversions: conversions,
               types: types,
@@ -63,14 +64,17 @@ module.exports.flux = {
           }));
 
           // Stash bootstrap, and _fully-rendered-page_ with proper data.
-          res.locals.bootstrapData = alt.takeSnapshot();
+          res.locals.bootstrapData = flux.takeSnapshot();
           if (req.query.__mode !== "noss") {
+            // **Note**: Component rendering could be made much more generic
+            // with a simple callback of `function (flux)` that the upstream
+            // component can use however it wants / ignore.
             res.locals.bootstrapComponent =
-              React.renderToString(new Component());
+              React.renderToString(new Component({ flux: flux }));
           }
 
           // Restore for next request.
-          alt.flush();
+          flux.flush();
 
           next();
         })
