@@ -8,6 +8,12 @@
  *
  * - `bootstrapData`: Data bootstrap for the app.
  * - `bootstrapComponent`: Rendered component for app.
+ *
+ * Strategies so far:
+ *
+ * - `fetch`: Manually retrieve data and send through singleton flux.
+ * - `actions`: Use flux instances to invoke/listen to actions and get data.
+ *
  */
 var React = require("react");
 var Flux = require("../client/flux");
@@ -38,6 +44,17 @@ module.exports.flux = {
    *
    * Use the underlying API to fetch data and then manually `bootstrap`.
    *
+   * The advantages of this approach are:
+   *
+   * - It doesn't add extra listeners, instead going straight to the source.
+   * - More efficient with a singleton flux instance.
+   *
+   * The disadvantages of this approach are:
+   *
+   * - There is separate logic for retrieving data on the server vs. the client.
+   * - All flux interaction has to be `synchronous` because it's a singleton.
+   *   (But that part can be easily changed).
+   *
    * **Flux Singleton**: This middleware uses a single flux instance across
    * all requests, which means that our sequence of:
    *
@@ -52,7 +69,7 @@ module.exports.flux = {
    * @param   {Object}    Component React component to render.
    * @returns {Function}            middleware function
    */
-  fetchFirst: function (Component) {
+  fetch: function (Component) {
     // Flux singleton for atomic actions.
     var flux = new Flux();
 
@@ -99,8 +116,24 @@ module.exports.flux = {
    *
    * Use store actions and listeners to inflate the store.
    *
+   * The advantages of this approach are:
+   *
+   * - Uses the _exact same_ series of actions to inflate store as client.
+   *
+   * The disadvantages of this approach are:
+   *
+   * - Adds extra listeners in a slightly complicated way.
+   * - Cannot use flux singletons.
+   *
    * **Flux Instance**: This middleware creates ephemeral flux instances to
    * allow async actions free reign to mutate store state before snapshotting.
+   * The work sequence is:
+   *
+   * - Create new `flux` instance.
+   * - Set `ActionListeners` on appropriate events.
+   * - Invoke the necessary action(s) to inflate the store.
+   * - Snapshot the store data.
+   * - Clean up the flux instance, listeners, etc.
    *
    * @param   {Object}    Component React component to render.
    * @returns {Function}            middleware function

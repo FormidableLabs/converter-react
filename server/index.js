@@ -57,7 +57,19 @@ var Page = React.createFactory(require("../client/components/page"));
 var Flux = require("../client/flux");
 
 app.indexRoute = function (root) {
-  app.use(root, [mid.flux.actions(Page)], function (req, res) {
+  // --------------------------------------------------------------------------
+  // Middleware choice!
+  // --------------------------------------------------------------------------
+  //
+  // We support two different flux bootstrap data/component middlewares, that
+  // can be set like:
+  //
+  // var fluxMiddleware = mid.flux.fetch(Page);   // Fetch manually
+  // var fluxMiddleware = mid.flux.actions(Page); // Instance actions.
+  //
+  var fluxMiddleware = mid.flux.actions(Page); // Instance actions.
+
+  app.use(root, [fluxMiddleware], function (req, res) {
     // Render JS? Server-side? Bootstrap?
     var mode = req.query.__mode;
     var renderJs = RENDER_JS && mode !== "nojs";
