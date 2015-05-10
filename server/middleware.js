@@ -149,9 +149,9 @@ module.exports.flux = {
       // Flux instance for this single request / callback.
       var flux = new Flux();
       var listener = new ActionListeners(flux);
-      var actions = flux.actions.ConvertActions;
+      var actions = flux.getActions("ConvertActions");
 
-      // Wrap
+      // Wrap cleanup methods.
       var _done = function (err) {
         listener.removeAllActionListeners();
         flux.flush();
