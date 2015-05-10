@@ -54,9 +54,10 @@ app.get("/api/dash", function (req, res) {
 // Client-side imports
 var React = require("react");
 var Page = React.createFactory(require("../client/components/page"));
+var Flux = require("../client/flux");
 
 app.indexRoute = function (root) {
-  app.use(root, [mid.flux.fetchFirst(Page)], function (req, res) {
+  app.use(root, [mid.flux.actions(Page)], function (req, res) {
     // Render JS? Server-side? Bootstrap?
     var mode = req.query.__mode;
     var renderJs = RENDER_JS && mode !== "nojs";
@@ -74,6 +75,14 @@ app.indexRoute = function (root) {
       }
     }
 
+    // Server-rendered page.
+    var content;
+    if (renderSs) {
+      content = res.locals.bootstrapComponent ||
+        React.renderToString(new Page({ flux: new Flux() }));
+    }
+
+    // Response.
     res.render("index.hbs", {
       layout: false,
       bootstrap: res.locals.bootstrapData,
@@ -83,10 +92,7 @@ app.indexRoute = function (root) {
       bundles: {
         js: bundleJs
       },
-      content: renderSs ?
-        // Try bootstraped page _first_ if we created it.
-        res.locals.bootstrapComponent || React.renderToString(new Page()) :
-        null
+      content: content
     });
   });
 };

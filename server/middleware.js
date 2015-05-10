@@ -11,6 +11,7 @@
  */
 var React = require("react");
 var Flux = require("../client/flux");
+var ActionListeners = require("alt/utils/ActionListeners");
 var fetchConversions = require("../client/utils/api").fetchConversions;
 
 // Return query bootstrap information or `null`.
@@ -98,15 +99,56 @@ module.exports.flux = {
    *
    * Use store actions and listeners to inflate the store.
    *
+   * **Flux Instance**: This middleware creates ephemeral flux instances to
+   * allow async actions free reign to mutate store state before snapshotting.
+   *
+   * @param   {Object}    Component React component to render.
    * @returns {Function}            middleware function
    */
-  actions: function (/*TODO: Component*/) {
-    return function (/*TODO: req, res, next*/) {
-      // TODO: NOTE -- Doesn't look safe! Setting listeners on the singleton
-      // store means potentially race conditions (?).
+  actions: function (Component) {
+    return function (req, res, next) {
+      // Check query string.
+      var queryBootstrap = _getQueryBootstrap(req);
+      if (!queryBootstrap) { return next(); }
+      var types = queryBootstrap.types;
+      var value = queryBootstrap.value;
+
+      // Flux instance for this single request / callback.
+      var flux = new Flux();
+      var listener = new ActionListeners(flux);
+      var actions = flux.actions.ConvertActions;
+
+      // Wrap
+      var _done = function (err) {
+        listener.removeAllActionListeners();
+        flux.flush();
+        next(err);
+      };
+
+      // **Strategy**: Execute a series of Flux Actions that end with the
+      // correct data store results we can snapshot.
       //
-      // Need to switch to non-singleton flux.
-      // https://github.com/FormidableLabs/converter-react/issues/9
+      // There's only one listener here, but it could be a series that would
+      // at the end result in this callback.
+      listener.addActionListener(actions.UPDATE_CONVERSIONS, function () {
+        // Ignore actual result, instead relying on being "done" with actions.
+        // Snapshot data results.
+        res.locals.bootstrapData = flux.takeSnapshot();
+
+        // Pre-render page if applicable.
+        if (req.query.__mode !== "noss") {
+          res.locals.bootstrapComponent =
+            React.renderToString(new Component({ flux: flux }));
+        }
+
+        _done();
+      });
+
+      // Error-handling.
+      listener.addActionListener(actions.CONVERSION_ERROR, _done);
+
+      // Invoke fetching actions.
+      actions.fetchConversions(types, value);
     };
   }
 };
