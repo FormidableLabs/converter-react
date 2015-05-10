@@ -158,6 +158,9 @@ module.exports.flux = {
         next(err);
       };
 
+      // ----------------------------------------------------------------------
+      // Listeners
+      // ----------------------------------------------------------------------
       // **Strategy**: Execute a series of Flux Actions that end with the
       // correct data store results we can snapshot.
       //
@@ -180,7 +183,17 @@ module.exports.flux = {
       // Error-handling.
       listener.addActionListener(actions.CONVERSION_ERROR, _done);
 
-      // Invoke fetching actions.
+      // ----------------------------------------------------------------------
+      // Actions
+      // ----------------------------------------------------------------------
+      // The rub here is that we have to remember and invoke _all_ of the
+      // actions that will leave us in the proper state.
+
+      // Invoke sync actions.
+      actions.setConversionTypes(types);
+      actions.setConversionValue(value);
+
+      // Invoke async actions.
       actions.fetchConversions(types, value);
     };
   }
