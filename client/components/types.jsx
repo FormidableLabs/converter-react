@@ -10,7 +10,7 @@ import types from "../utils/types";
 
 import ConvertActions from "../actions/convert";
 
-const noop = function () {};
+const noop = () => {};
 
 export default class Types extends React.Component {
   setTypes(conversionTypes) {

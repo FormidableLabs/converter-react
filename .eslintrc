@@ -143,7 +143,7 @@ rules:
   max-len: [2, 80, 2]
   max-nested-callbacks: [2, 3]
   max-params: [2, 3]
-  max-statements: [2, 10]
+  max-statements: [2, 15]
   new-cap: 2
   new-parens: 2
   newline-after-var: 0
