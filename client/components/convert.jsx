@@ -3,11 +3,11 @@
  */
 import React from "react";
 import Button from "react-bootstrap/lib/Button";
-import ConvertActions from "../actions/convert";
 
 export default class Convert extends React.Component {
   onClick() {
-    ConvertActions.fetchConversions(this.props.types, this.props.value);
+    const store = this.props.ConvertStore;
+    this.props.ConvertActions.fetchConversions(store.types, store.value);
   }
 
   render() {
@@ -22,6 +22,6 @@ export default class Convert extends React.Component {
 }
 
 Convert.propTypes = {
-  types: React.PropTypes.array,
-  value: React.PropTypes.string
+  ConvertActions: React.PropTypes.object,
+  ConvertStore: React.PropTypes.object
 };

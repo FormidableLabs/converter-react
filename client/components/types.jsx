@@ -8,13 +8,11 @@ import MenuItem from "react-bootstrap/lib/MenuItem";
 import Title from "./types-title";
 import types from "../utils/types";
 
-import ConvertActions from "../actions/convert";
-
 const noop = () => {};
 
 export default class Types extends React.Component {
   setTypes(conversionTypes) {
-    ConvertActions.setConversionTypes(conversionTypes);
+    this.props.ConvertActions.setConversionTypes(conversionTypes);
   }
 
   render() {
@@ -31,7 +29,7 @@ export default class Types extends React.Component {
         // See: https://github.com/react-bootstrap/react-bootstrap/pull/195
         onSelect={noop}
         pullRight
-        title=<Title title={types.getTitle(this.props.types)} />
+        title=<Title title={types.getTitle(this.props.ConvertStore.types)} />
         >
         {items}
         <MenuItem divider />
@@ -44,5 +42,6 @@ export default class Types extends React.Component {
 }
 
 Types.propTypes = {
-  types: React.PropTypes.array
+  ConvertActions: React.PropTypes.object,
+  ConvertStore: React.PropTypes.object
 };

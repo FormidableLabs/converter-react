@@ -3,25 +3,30 @@
  */
 import React from "react";
 import Jumbotron from "react-bootstrap/lib/Jumbotron";
+import AltContainer from "alt/AltContainer";
 
 import Convert from "./convert";
 import Input from "./input";
 import Types from "./types";
 import Output from "./output";
 
-import AltContainer from "alt/AltContainer";
-
-// Helper for adding stores.
-const addStore = (component, store) => (
-  <AltContainer store={store}>
-    {component}
-  </AltContainer>
-);
-
 export default class Page extends React.Component {
-   render() {
-    const store = this.props.flux.getStore("ConvertStore");
+  // Helper for adding stores.
+  _wrapAlt(component) {
+    const ConvertStore = this.props.flux.getStore("ConvertStore");
+    const ConvertActions = this.props.flux.getActions("ConvertActions");
 
+    return (
+      <AltContainer
+        actions={{ ConvertActions: ConvertActions }}
+        stores={{ ConvertStore: ConvertStore }}
+        >
+        {component}
+      </AltContainer>
+    );
+  }
+
+  render() {
     return (
       <div className="container">
         <Jumbotron>
@@ -29,11 +34,11 @@ export default class Page extends React.Component {
           <p>Camel, snake and dasherize to awesomeness!</p>
         </Jumbotron>
         <div className="input-group">
-          {addStore(<Convert />, store)}
-          {addStore(<Input />, store)}
-          {addStore(<Types />, store)}
+          {this._wrapAlt(<Convert />)}
+          {this._wrapAlt(<Input />)}
+          {this._wrapAlt(<Types />)}
         </div>
-        {addStore(<Output />, store)}
+        {this._wrapAlt(<Output />)}
       </div>
     );
   };
