@@ -13,10 +13,14 @@ import Output from "./output";
 export default class Page extends React.Component {
   // Helper for adding stores.
   _wrapAlt(component) {
-    const store = this.props.flux.getStore("ConvertStore");
+    const ConvertStore = this.props.flux.getStore("ConvertStore");
+    const ConvertActions = this.props.flux.getActions("ConvertActions");
 
     return (
-      <AltContainer store={store}>
+      <AltContainer
+        stores={{ ConvertStore: ConvertStore }}
+        actions={{ ConvertActions: ConvertActions }}
+        >
         {component}
       </AltContainer>
     );

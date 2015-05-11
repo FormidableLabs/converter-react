@@ -8,13 +8,11 @@ import MenuItem from "react-bootstrap/lib/MenuItem";
 import Title from "./types-title";
 import types from "../utils/types";
 
-import ConvertActions from "../actions/convert";
-
 const noop = () => {};
 
 export default class Types extends React.Component {
   setTypes(conversionTypes) {
-    ConvertActions.setConversionTypes(conversionTypes);
+    this.props.ConvertActions.setConversionTypes(conversionTypes);
   }
 
   render() {

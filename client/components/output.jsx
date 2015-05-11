@@ -7,9 +7,10 @@ import ErrorPanel from "./error-panel";
 
 export default class Output extends React.Component {
   render() {
-    const content = this.props.conversionError ?
-      <ErrorPanel>{this.props.conversionError}</ErrorPanel> :
-      this.props.conversions.map(conv =>
+    const store = this.props.ConvertStore;
+    const content = store.conversionError ?
+      <ErrorPanel>{store.conversionError}</ErrorPanel> :
+      store.conversions.map(conv =>
         <OutputPanel {...conv} key={conv.title} />
       );
 
@@ -22,6 +23,4 @@ export default class Output extends React.Component {
 }
 
 Output.propTypes = {
-  conversionError: React.PropTypes.object,
-  conversions: React.PropTypes.array
 };

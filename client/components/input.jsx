@@ -4,16 +4,15 @@
 import React from "react";
 import Input from "react-bootstrap/lib/Input";
 
-import ConvertActions from "../actions/convert";
-
 export default class UserInput extends React.Component {
   onChange(ev) {
-    ConvertActions.setConversionValue(ev.target.value);
+    this.props.ConvertActions.setConversionValue(ev.target.value);
   }
 
   onKeyDown(ev) {
     if (ev.which === 13 /* Enter key */) {
-      ConvertActions.fetchConversions(this.props.types, this.props.value);
+      const store = this.props.ConvertStore;
+      this.props.ConvertActions.fetchConversions(store.types, store.value);
     }
   }
 
@@ -21,22 +20,18 @@ export default class UserInput extends React.Component {
     return (
       <Input
         className="form-control"
-        onChange={this.onChange}
+        onChange={this.onChange.bind(this)}
         onKeyDown={this.onKeyDown.bind(this)}
         placeholder="Text to convert..."
         type="text"
-        value={this.props.value}
+        value={this.props.ConvertStore.value}
       />
     );
   }
 }
 
 UserInput.propTypes = {
-  types: React.PropTypes.array,
-  value: React.PropTypes.string
 };
 
 UserInput.defaultProps = {
-  types: [],
-  value: ""
 };
