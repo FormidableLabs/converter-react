@@ -74,6 +74,9 @@ module.exports.flux = {
     var flux = new Flux();
 
     return function (req, res, next) {
+      // Skip if not server-rendering
+      if (req.query.__mode === "noss") { return next(); }
+
       // Check query string.
       var queryBootstrap = _getQueryBootstrap(req);
       if (!queryBootstrap) { return next(); }
@@ -140,6 +143,10 @@ module.exports.flux = {
    */
   actions: function (Component) {
     return function (req, res, next) {
+      /*eslint max-statements:[2, 20] */
+      // Skip if not server-rendering
+      if (req.query.__mode === "noss") { return next(); }
+
       // Check query string.
       var queryBootstrap = _getQueryBootstrap(req);
       if (!queryBootstrap) { return next(); }
