@@ -41,12 +41,12 @@ $ gulp prod
 # Minified size
 $ curl -so /dev/null -w '%{size_download}\n' \
   http://127.0.0.1:3000/js/$(node -e "console.log(require('./dist/server/stats.json').assetsByChunkName.main[0]);")
-222362
+223110
 
 # Minified gzipped size
 $ curl -so /dev/null -w '%{size_download}\n' --compressed \
   http://127.0.0.1:3000/js/$(node -e "console.log(require('./dist/server/stats.json').assetsByChunkName.main[0]);")
-63591
+63948
 ```
 
 ## Development
