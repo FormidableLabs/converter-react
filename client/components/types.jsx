@@ -42,5 +42,6 @@ export default class Types extends React.Component {
 }
 
 Types.propTypes = {
-  types: React.PropTypes.array
+  ConvertActions: React.PropTypes.object,
+  ConvertStore: React.PropTypes.object
 };

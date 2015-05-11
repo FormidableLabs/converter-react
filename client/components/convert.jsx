@@ -22,4 +22,6 @@ export default class Convert extends React.Component {
 }
 
 Convert.propTypes = {
+  ConvertActions: React.PropTypes.object,
+  ConvertStore: React.PropTypes.object
 };

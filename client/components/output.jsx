@@ -23,4 +23,5 @@ export default class Output extends React.Component {
 }
 
 Output.propTypes = {
+  ConvertStore: React.PropTypes.object
 };

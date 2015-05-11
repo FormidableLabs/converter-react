@@ -31,7 +31,6 @@ export default class UserInput extends React.Component {
 }
 
 UserInput.propTypes = {
-};
-
-UserInput.defaultProps = {
+  ConvertActions: React.PropTypes.object,
+  ConvertStore: React.PropTypes.object
 };
