@@ -29,7 +29,7 @@ export default class Types extends React.Component {
         // See: https://github.com/react-bootstrap/react-bootstrap/pull/195
         onSelect={noop}
         pullRight
-        title=<Title title={types.getTitle(this.props.types)} />
+        title=<Title title={types.getTitle(this.props.ConvertStore.types)} />
         >
         {items}
         <MenuItem divider />
