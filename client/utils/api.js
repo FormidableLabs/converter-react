@@ -1,8 +1,8 @@
 /**
  * Fetch data from rest API.
  */
-require("es6-promise").polyfill();
-require("isomorphic-fetch");
+import Promise from "bluebird";
+import fetch from "isomorphic-fetch";
 
 let api = {
   BASE_URL: "",
