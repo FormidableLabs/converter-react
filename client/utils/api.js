@@ -2,7 +2,7 @@
  * Fetch data from rest API.
  */
 import Promise from "bluebird";
-import fetch from "isomorphic-fetch";
+import "isomorphic-fetch";
 
 let api = {
   BASE_URL: "",
