@@ -41,7 +41,7 @@ export default class Page extends React.Component {
         {this._wrapAlt(<Output />)}
       </div>
     );
-  };
+  }
 }
 
 Page.propTypes = {
