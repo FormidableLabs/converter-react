@@ -7,7 +7,7 @@
     "lint-client-test": "eslint --ext .js,.jsx -c .eslintrc-client-test test/client",
     "lint-server": "eslint -c .eslintrc-server server",
     "lint-server-test": "eslint -c .eslintrc-server-test test/server",
-    "lint": "npm run lint-server && npm run lint-client",
+    "lint": "npm run lint-server && npm run lint-client && echo 'TODO lint server(20)/client(19) tests'",
     "test": "npm run lint",
     "start": "node server/index.js",
     "server": "nodemon --watch client --watch server --ext js,jsx server/index.js",
