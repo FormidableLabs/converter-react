@@ -9,15 +9,14 @@ module.exports = {
   cache: true,
   context: base.context,
   entry: [
-    "webpack-dev-server/client?http://127.0.0.1:3000",
     "webpack/hot/only-dev-server",
     base.entry
   ],
   output: base.output,
   module: {
     loaders: [
-      { test: /\.js(x|)?$/, include: path.join(__dirname, "client"),
-        loaders: ["react-hot", "babel-loader"] }
+      { test: /\.jsx?$/, include: path.join(__dirname, "client"),
+        loaders: ["react-hot", "babel-loader?optional=runtime&stage=2"] }
     ]
   },
   resolve: base.resolve,

@@ -4,7 +4,7 @@
 import Promise from "bluebird";
 import "isomorphic-fetch";
 
-let api = {
+const api = {
   BASE_URL: "",
 
   // Statefully set the base port and host (for server-side).
