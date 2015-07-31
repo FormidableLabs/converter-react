@@ -77,6 +77,17 @@ Run the watchers and the Webpack dev server w/ React hot loader:
 $ npm run hot
 ```
 
+Ports various servers run on:
+
+* [`2992`](http://127.0.0.1:2992/): Webpack dev server for dev. server.
+* [`3000`](http://127.0.0.1:3000/): Development application server.
+* [`3001`](http://127.0.0.1:3001/): Sourcemaps static server.
+* [`3010`](http://127.0.0.1:3002/): Test (in-browser) server.
+* [`3011`](http://127.0.0.1:3003/): Webpack dev server for ephemeral client
+  Karma tests run one-off with full build.
+* [`3020`](http://127.0.0.1:3010/): Ephemeral app server for REST server tests.
+* [`3030`](http://127.0.0.1:3020/): Ephemeral app server for functional tests.
+
 URLS to test things out:
 
 * [`127.0.0.1:3000/`](http://127.0.0.1:3000/): Server-side bootstrap, then JS.
