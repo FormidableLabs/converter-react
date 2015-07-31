@@ -1,0 +1,15 @@
+---
+extends:
+  - "defaults/configurations/walmart/es5-node"
+  - ".eslintrc-base"
+
+env:
+  mocha: true
+
+globals:
+  fetch: false
+  expect: false
+  sandbox: false
+
+rules:
+  no-unused-expressions: 0 # Disable for Chai expression assertions.

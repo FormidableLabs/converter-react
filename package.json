@@ -3,8 +3,10 @@
   "version": "0.0.1",
   "description": "Converter application (React)",
   "scripts": {
-    "lint-client": "eslint --ext .js,.jsx --rule 'no-extra-parens: 0' client",
-    "lint-server": "eslint --env node --rule 'no-var: 0' server *.js",
+    "lint-client": "eslint --ext .js,.jsx -c .eslintrc-client client",
+    "lint-client-test": "eslint --ext .js,.jsx -c .eslintrc-client-test test/client",
+    "lint-server": "eslint -c .eslintrc-server server",
+    "lint-server-test": "eslint -c .eslintrc-server-test test/server",
     "lint": "npm run lint-server && npm run lint-client",
     "test": "npm run lint",
     "start": "node server/index.js",
@@ -53,7 +55,10 @@
     "webpack-stats-plugin": "0.1.0"
   },
   "devDependencies": {
+    "babel-eslint": "^4.0.5",
     "eslint": "^0.24.1",
+    "eslint-config-defaults": "^3.1.0",
+    "eslint-plugin-filenames": "^0.1.2",
     "eslint-plugin-react": "^3.1.0",
     "http-server": "^0.8.0",
     "jade": "^1.9.2",

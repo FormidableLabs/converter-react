@@ -2,7 +2,7 @@
  * Enums / values for "types".
  */
 // All the individual types.
-let types = {
+const types = {
   DEFAULT_TYPE: "camel",
 
   TYPES: {

@@ -22,9 +22,9 @@ if (serverBootstrapEl) {
   try {
     serverBootstrap = JSON.parse(serverBootstrapEl.innerHTML);
     flux.bootstrap(JSON.stringify(serverBootstrap));
-  } catch (err) {
-    // Ignore error.
-  }
+  /*eslint-disable no-empty*/
+  } catch (err) { /* Ignore error. */ }
+  /*eslint-enable no-empty*/
 }
 
 // Then try client bootstrap: Get types, value from URL, then _fetch_ data.

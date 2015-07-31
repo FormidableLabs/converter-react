@@ -18,8 +18,8 @@ export default class Page extends React.Component {
 
     return (
       <AltContainer
-        actions={{ ConvertActions: ConvertActions }}
-        stores={{ ConvertStore: ConvertStore }}
+        actions={{ ConvertActions }}
+        stores={{ ConvertStore }}
         >
         {component}
       </AltContainer>
