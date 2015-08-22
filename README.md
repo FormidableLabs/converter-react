@@ -36,17 +36,15 @@ To test out how optimized the build is, here are some useful curl commands:
 
 ```
 # Run production build
-$ gulp prod
+$ npm run build
 
 # Minified size
-$ curl -so /dev/null -w '%{size_download}\n' \
-  http://127.0.0.1:3000/js/$(node -e "console.log(require('./dist/server/stats.json').assetsByChunkName.main[0]);")
-223110
+$ wc -c dist/js/*.js
+  286748 dist/js/bundle.d3749f460563cd1b0884.js
 
 # Minified gzipped size
-$ curl -so /dev/null -w '%{size_download}\n' --compressed \
-  http://127.0.0.1:3000/js/$(node -e "console.log(require('./dist/server/stats.json').assetsByChunkName.main[0]);")
-63948
+$ gzip -c dist/js/*.js | wc -c
+   77748
 ```
 
 ## Development

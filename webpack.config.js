@@ -40,12 +40,12 @@ module.exports = {
       }
     }),
     new webpack.SourceMapDevToolPlugin(
-      "../map/bundle.[hash].js.map",
+      "../map/[file].map",
       "\n//# sourceMappingURL=http://127.0.0.1:3001/dist/map/[url]"
     ),
     new StatsWriterPlugin({
-      path: path.join(__dirname, "dist/server"),
-      filename: "stats.json"
+      // Context is relative to `output.path` / `dist/js`
+      filename: "../server/stats.json"
     })
   ]
 };

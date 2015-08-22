@@ -17,7 +17,7 @@ module.exports = {
   },
   module: base.module,
   resolve: base.resolve,
-  devtool: "eval-source-map",
+  devtool: "source-map",
   plugins: [
     new webpack.NoErrorsPlugin()
   ]
