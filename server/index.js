@@ -17,7 +17,6 @@ clientApi.setBase(HOST, PORT);
 
 var path = require("path");
 var express = require("express");
-var exphbs = require("express-handlebars");
 var compress = require("compression");
 var mid = require("./middleware");
 
@@ -28,8 +27,6 @@ var converter = require("./converter");
 // Setup, Static Routes
 // ----------------------------------------------------------------------------
 app.use(compress());
-app.engine("hbs", exphbs({ extname: ".hbs" }));
-app.set("views", path.join(__dirname, "../templates"));
 
 // Static libraries and application HTML page.
 app.use("/js", express.static(path.join(__dirname, "../dist/js")));
@@ -57,6 +54,9 @@ app.get("/api/dash", function (req, res) {
 var React = require("react");
 var Page = React.createFactory(require("../client/components/page"));
 var Flux = require("../client/flux");
+
+// Server-side React
+var Index = React.createFactory(require("../templates/index"));
 
 app.indexRoute = function (root) {
   // --------------------------------------------------------------------------
@@ -89,7 +89,7 @@ app.indexRoute = function (root) {
       }
     }
 
-    // Server-rendered page.
+    // Server-rendered client component.
     var content;
     if (renderSs) {
       content = res.locals.bootstrapComponent ||
@@ -97,8 +97,7 @@ app.indexRoute = function (root) {
     }
 
     // Response.
-    res.render("index.hbs", {
-      layout: false,
+    res.send(React.renderToStaticMarkup(new Index({
       bootstrap: res.locals.bootstrapData,
       render: {
         js: renderJs
@@ -107,7 +106,7 @@ app.indexRoute = function (root) {
         js: bundleJs
       },
       content: content
-    });
+    })));
   });
 };
 
