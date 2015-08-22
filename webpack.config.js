@@ -40,7 +40,7 @@ module.exports = {
       }
     }),
     new webpack.SourceMapDevToolPlugin(
-      "../map/bundle.[hash].js.map",
+      "../map/[name].map",
       "\n//# sourceMappingURL=http://127.0.0.1:3001/dist/map/[url]"
     ),
     new StatsWriterPlugin({

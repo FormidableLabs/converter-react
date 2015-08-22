@@ -20,6 +20,6 @@ module.exports = {
     ]
   },
   resolve: base.resolve,
-  devtool: "eval-source-map",
+  devtool: "source-map",
   plugins: base.plugins
 };
