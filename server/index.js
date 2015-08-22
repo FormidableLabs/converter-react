@@ -57,6 +57,11 @@ var Flux = require("../client/flux");
 
 // Server-side React
 var Index = React.createFactory(require("../templates/index"));
+// Have to manually hack in the doctype because not contained with single
+// element for full page.
+var renderIndex = function (component) {
+  return "<!DOCTYPE html>" + React.renderToStaticMarkup(component);
+};
 
 app.indexRoute = function (root) {
   // --------------------------------------------------------------------------
@@ -97,7 +102,7 @@ app.indexRoute = function (root) {
     }
 
     // Response.
-    res.send(React.renderToStaticMarkup(new Index({
+    res.send(renderIndex(new Index({
       bootstrap: res.locals.bootstrapData,
       render: {
         js: renderJs
