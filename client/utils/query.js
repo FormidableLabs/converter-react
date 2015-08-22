@@ -7,8 +7,8 @@ export default {
     const bootstrap = (querystring || "")
       .replace(/^\?/, "")
       .split("&")
-      .map(part => part.split("="))
-      .filter(pair => pair[0] === "__bootstrap")[0];
+      .map((part) => part.split("="))
+      .filter((pair) => pair[0] === "__bootstrap")[0];
 
     if (!bootstrap) {
       return null;

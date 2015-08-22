@@ -17,10 +17,10 @@ export default class ConvertActions {
     this.dispatch();
 
     fetchConversions(types, value)
-      .then(datas => {
+      .then((datas) => {
         this.actions.updateConversions(datas);
       })
-      .catch(err => {
+      .catch((err) => {
         this.actions.conversionError(err);
       });
   }

@@ -16,7 +16,7 @@ export default class Types extends React.Component {
   }
 
   render() {
-    const items = Object.keys(types.TYPES).map(type => (
+    const items = Object.keys(types.TYPES).map((type) => (
       <MenuItem key={type} onClick={this.setTypes.bind(this, type)}>
         {types.getTitle(type)}
       </MenuItem>

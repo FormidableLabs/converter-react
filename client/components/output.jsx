@@ -10,7 +10,7 @@ export default class Output extends React.Component {
     const store = this.props.ConvertStore;
     const content = store.conversionError ?
       <ErrorPanel>{store.conversionError}</ErrorPanel> :
-      store.conversions.map(conv =>
+      store.conversions.map((conv) =>
         <OutputPanel {...conv} key={conv.title} />
       );
 
