@@ -16,7 +16,8 @@ const strip = (text) => text.replace(/^\s*|\s*$/gm, "").replace(/\n/g, "");
 export default class Index extends React.Component {
   render() {
     return (
-      // Unfortunately, no easy way to do: `<!DOCTYPE html>`
+      // Unfortunately, no easy way to do: `<!DOCTYPE html>` within a render,
+      // so have to manually do it outside in the server after render to string.
       <html lang="en">
         <head>
           <meta charSet="utf-8" />
