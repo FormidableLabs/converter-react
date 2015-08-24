@@ -48,6 +48,12 @@ app.engine("jade", require('jade').__express);
 app.get("/", function (req, res) {
   res.render("../heroku/doc/index.jade");
 });
+app.get("/DEVELOPMENT.md", function (req, res) {
+  res.render("../heroku/doc/development.jade");
+});
+app.get("/CONTRIBUTING.md", function (req, res) {
+  res.render("../heroku/doc/contributing.jade");
+});
 
 // Start server.
 app.listen(PORT);
