@@ -36,7 +36,7 @@ See the app hard at work!
 
 To test out how optimized the build is, here are some useful curl commands:
 
-```
+```sh
 # Run production build
 $ npm run build
 
@@ -57,25 +57,25 @@ For a deeper dive, see: [DEVELOPMENT](DEVELOPMENT.md)
 
 Install, setup.
 
-```
+```sh
 $ npm install
 ```
 
 Run the watchers, dev and source maps servers for the real production build:
 
-```
+```sh
 $ npm run prod
 ```
 
 Run the watchers and the Webpack dev server:
 
-```
+```sh
 $ npm run dev
 ```
 
 Run the watchers and the Webpack dev server w/ React hot loader:
 
-```
+```sh
 $ npm run hot
 ```
 
@@ -87,7 +87,9 @@ Ports various servers run on:
 * [`3010`](http://127.0.0.1:3010/): Webpack dev server for ephemeral client
   Karma tests run one-off with full build.
 * [`3020`](http://127.0.0.1:3020/): Ephemeral app server for REST server tests.
+  Override via `TEST_REST_PORT` environment variable.
 * [`3030`](http://127.0.0.1:3030/): Ephemeral app server for functional tests.
+  Override via `TEST_FUNC_PORT` environment variable.
 
 URLS to test things out:
 
@@ -117,14 +119,14 @@ instead would choose how to best bootstrap your app.
 
 Install, setup.
 
-```
+```sh
 $ npm install --production
 $ npm run build
 ```
 
 Run the server.
 
-```
+```sh
 $ NODE_ENV=production node server/index.js
 ```
 

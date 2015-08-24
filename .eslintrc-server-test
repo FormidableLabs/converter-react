@@ -12,4 +12,5 @@ globals:
   sandbox: false
 
 rules:
-  no-unused-expressions: 0 # Disable for Chai expression assertions.
+  no-unused-expressions: 0  # Disable for Chai expression assertions.
+  max-nested-callbacks: 0   # Disable for nested describes.

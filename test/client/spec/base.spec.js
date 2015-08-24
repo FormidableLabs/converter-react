@@ -1,5 +1,5 @@
 /**
- * Base test initialization / global before/after's.
+ * Base client test initialization / global before/after's.
  *
  * This file has should be included in any test run, filtered or not.
  *

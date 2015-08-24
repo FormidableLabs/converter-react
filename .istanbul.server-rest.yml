@@ -1,0 +1,6 @@
+reporting:
+  dir: coverage/server/rest
+  reports:
+    - lcov
+    - json
+    - text-summary
