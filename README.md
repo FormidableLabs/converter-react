@@ -58,7 +58,8 @@ For a deeper dive, see: [DEVELOPMENT](DEVELOPMENT.md)
 Install, setup.
 
 ```sh
-$ npm install
+$ npm install           # Install dependencies
+$ npm run install-dev   # Install dev. environment (selenium, etc.).
 ```
 
 Run the watchers, dev and source maps servers for the real production build:

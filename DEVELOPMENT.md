@@ -187,7 +187,6 @@ instance of the entire web application. These tests typically:
 
 Programming notes:
 
-* Contains a Sinon [sandbox][] _without_ fake timers.
 * Test against a remote server with environment variables:
     * `TEST_FUNC_IS_REMOTE=true` (tests should only stub/spy if not remote)
     * `TEST_FUNC_BASE_URL=http://example.com/`

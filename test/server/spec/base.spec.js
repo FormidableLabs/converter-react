@@ -8,7 +8,6 @@
  * **Note**: Because there is a global sandbox server unit tests should always
  * be run in a separate process from other types of tests.
  */
-
 var sinon = require("sinon");
 
 before(function () {
