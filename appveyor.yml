@@ -23,12 +23,8 @@ test_script:
   - node_modules\.bin\npm --version
 
   # Build and test.
+  - node_modules\.bin\npm run build
   - node_modules\.bin\npm run check-ci-win
-
-  # Prune deps to just production and ensure we can still build
-  - node_modules\.bin\npm  prune --production
-  - node_modules\.bin\npm  install --production
-  - node_modules\.bin\npm  run build
 
 matrix:
   fast_finish: true
