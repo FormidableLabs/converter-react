@@ -49,6 +49,8 @@ $ gzip -c dist/js/*.js | wc -c
 
 ## Development
 
+For a deeper dive, see: [DEVELOPMENT](DEVELOPMENT.md)
+
 ### Dev Mode
 
 Install, setup.
@@ -79,12 +81,11 @@ Ports various servers run on:
 
 * [`2992`](http://127.0.0.1:2992/): Webpack dev server for dev. server.
 * [`3000`](http://127.0.0.1:3000/): Development application server.
-* [`3001`](http://127.0.0.1:3001/): Sourcemaps static server.
-* [`3010`](http://127.0.0.1:3002/): Test (in-browser) server.
-* [`3011`](http://127.0.0.1:3003/): Webpack dev server for ephemeral client
+* [`3001`](http://127.0.0.1:3001/): Sourcemaps static server / test (in-browser) server.
+* [`3010`](http://127.0.0.1:3010/): Webpack dev server for ephemeral client
   Karma tests run one-off with full build.
-* [`3020`](http://127.0.0.1:3010/): Ephemeral app server for REST server tests.
-* [`3030`](http://127.0.0.1:3020/): Ephemeral app server for functional tests.
+* [`3020`](http://127.0.0.1:3020/): Ephemeral app server for REST server tests.
+* [`3030`](http://127.0.0.1:3030/): Ephemeral app server for functional tests.
 
 URLS to test things out:
 
@@ -110,7 +111,7 @@ instead would choose how to best bootstrap your app.
   Pure server-side render with no JS. Should fully render the inputs and
   converted values in static HTML.
 
-### Production
+## Production
 
 Install, setup.
 
@@ -124,6 +125,10 @@ Run the server.
 ```
 $ NODE_ENV=production node server/index.js
 ```
+
+## Contributing
+
+Please see [CONTRIBUTING](CONTRIBUTING.md)
 
 [trav]: https://travis-ci.org/
 [trav_img]: https://api.travis-ci.org/FormidableLabs/converter-react.svg
