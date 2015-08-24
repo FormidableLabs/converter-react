@@ -22,10 +22,9 @@ script:
   # Manually send coverage reports to coveralls.
   # - Aggregate client results
   # - Single server and func test results
-  # TODO(20): Server coverage
   # TODO(21): Functional coverage
-  - ls coverage/client/*/lcov.info | cat
-  - cat coverage/client/*/lcov.info | ./node_modules/.bin/coveralls || echo "Coveralls upload failed"
+  - ls coverage/client/*/lcov.info coverage/server/{rest,unit}/lcov.info | cat
+  - cat coverage/client/*/lcov.info coverage/server/{rest,unit}/lcov.info | ./node_modules/.bin/coveralls || echo "Coveralls upload failed"
 
   # Prune deps to just production and ensure we can still build
   - npm prune --production
