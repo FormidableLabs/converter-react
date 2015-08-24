@@ -86,6 +86,7 @@
     "eslint-plugin-react": "^3.2.3",
     "http-server": "^0.8.0",
     "isparta-loader": "^0.2.0",
+    "istanbul": "^0.3.18",
     "jade": "^1.11.0",
     "karma": "^0.13.9",
     "karma-chrome-launcher": "^0.2.0",
