@@ -187,6 +187,8 @@ instance of the entire web application. These tests typically:
 
 Programming notes:
 
+* Use the [webdriverio][] Selenium client libraries.
+* Use the [rowdy][] configuration wrapper for webdriverio / Selenium
 * Test against a remote server with environment variables:
     * `TEST_FUNC_IS_REMOTE=true` (tests should only stub/spy if not remote)
     * `TEST_FUNC_BASE_URL=http://example.com/`
@@ -232,3 +234,5 @@ $ npm publish
 And you've published!
 
 [sandbox]: http://sinonjs.org/docs/#sinon-sandbox
+[webdriverio]: http://webdriver.io/
+[rowdy]: https://github.com/FormidableLabs/rowdy

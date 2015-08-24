@@ -19,7 +19,7 @@ export default class UserInput extends React.Component {
   render() {
     return (
       <Input
-        className="form-control"
+        className="form-control e2e-input"
         onChange={this.onChange.bind(this)}
         onKeyDown={this.onKeyDown.bind(this)}
         placeholder="Text to convert..."

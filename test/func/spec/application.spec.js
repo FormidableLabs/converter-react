@@ -1,43 +1,75 @@
 "use strict";
 
-it("TODO HERE", function () {});
+/**
+ * Application functional tests
+ *
+ * **Note**: As opposed to client / server unit tests tha follow file structure
+ * and server REST tests that follow the API, functional tests have a bit
+ * looser organizational structure. Some time should be spent coming up with
+ * a good file organizational / test suite naming hierachy for your specific
+ * project.
+ */
+var _ = require("lodash");
+var adapter = global.adapter;
 
-describe.skip("func/application", function () {
+describe("func/application", function () {
 
   // --------------------------------------------------------------------------
   // Suites
   // --------------------------------------------------------------------------
   describe("camel", function () {
     it("should convert complex input w/ extra spaces + click", function (done) {
-      client
-        // Get the web application page.
-        .get(HOST)
+      done = _.once(done);
+
+      adapter.client
+        .url(global.TEST_FUNC_BASE_URL)
 
         // Check we start with empty text.
-        // **Note**: _Could_ do this in all tests, but we'll just do it 1x here.
-        .waitForElementByCss(".js-input")
-        .text()
-        .then(function (text) {
+        // **Note**: We use `e2e-*` for "end to end" functional test selectors.
+        .getText(".e2e-input", function (err, text) {
+          if (err) { return done(err); }
           expect(text).to.equal("");
         })
 
-        // Type a complex string.
-        .waitForElementByCss(".js-input")
-        .type("  my   new-string_rocks")
+        // // Create a note.
+        // .setValue("input#note-new-input", "Delete Test")
+        // .click("button#note-create")
+        // .getText(".notes-item .note-title", function (err, text) {
+        //   if (err) { return done(err); }
+        //   expect(text).to.equal("Delete Test");
+        // })
 
-        // Select the "Convert" button and click it.
-        .waitForElementByCss(".js-submit")
-        .click()
+        // // Delete a note
+        // .click(".notes-item .note-delete")
+        // .waitForExist(".notes-item .note-delete", false)
 
-        // Verify the conversion
-        .waitForElementByCss(".panel-body")
-        .text()
-        .then(function (text) {
-          expect(text).to.equal("myNewStringRocks");
-        })
+        .call(done);
 
-        // ... and we're done!
-        .nodeify(done);
+
+
+
+
+
+
+      // adapter.client
+
+      //   // Type a complex string.
+      //   .waitForElementByCss(".js-input")
+      //   .type("  my   new-string_rocks")
+
+      //   // Select the "Convert" button and click it.
+      //   .waitForElementByCss(".js-submit")
+      //   .click()
+
+      //   // Verify the conversion
+      //   .waitForElementByCss(".panel-body")
+      //   .text()
+      //   .then(function (text) {
+      //     expect(text).to.equal("myNewStringRocks");
+      //   })
+
+      //   // ... and we're done!
+      //   .nodeify(done);
     });
 
     // ------------------------------------------------------------------------
@@ -63,7 +95,8 @@ describe.skip("func/application", function () {
     it("should convert simple input 'hi there' to 'hi-there'");
   });
 
-  describe("all the things", function () {
+  // TODO: IMPLEMENT
+  describe.skip("all the things", function () {
     it("should convert complex input w/ enter key", function (done) {
       client
         // Get the web application page.

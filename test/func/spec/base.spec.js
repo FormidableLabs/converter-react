@@ -1,4 +1,5 @@
 "use strict";
+/*eslint-disable max-statements*/
 
 /**
  * Base server unit test initialization / global before/after's.
@@ -8,6 +9,8 @@
  * **Note**: Because there is a global sandbox server unit tests should always
  * be run in a separate process from other types of tests.
  */
+var path = require("path");
+
 // Set test environment
 process.env.NODE_ENV = process.env.NODE_ENV || "test-func";
 
@@ -35,24 +38,72 @@ adapter.after();
 // Globals and dev. server initialization.
 // ----------------------------------------------------------------------------
 var app = require("../../../server");
-var PORT = process.env.TEST_FUNC_PORT || 3030;
+var APP_PORT = process.env.TEST_FUNC_PORT || 3030;
+var WDS_PORT = process.env.TEST_FUNC_WDS_PORT || 3031;
 var server;
+var wdsServer;
 
-before(function (done) {
+// ----------------------------------------------------------------------------
+// Globals
+// ----------------------------------------------------------------------------
+before(function () {
   // Export global base server URL for tests to hit.
-  global.TEST_FUNC_BASE_URL = process.env.TEST_FUNC_BASE_URL || "http://127.0.0.1:" + PORT + "/";
+  global.TEST_FUNC_BASE_URL = process.env.TEST_FUNC_BASE_URL ||
+    "http://127.0.0.1:" + APP_PORT + "/";
 
   // Signal to all tests whether we are running against local server or not.
   // Any tests that stub / spy server code should check this variable first
   // as the functional tests should be able to hit a remote server too.
   global.IS_REMOTE = process.env.TEST_FUNC_IS_REMOTE === "true";
+});
 
-  // Run local server if not localhost.
+before(function (done) {
+  // Run webpack dev server if not localhost.
   // **Note**: Generally want more sophisticated logic than this.
   if (global.IS_REMOTE) { return done(); }
 
+  // --------------------------------------------------------------------------
+  // Webpack JS server
+  // --------------------------------------------------------------------------
+  var webpack = require("webpack");
+  var WebpackDevServer = require("webpack-dev-server");
+  var webpackCfg = require("../../../webpack.config.dev");
+
+  // Hard-code overrides to dev. server.
+  var out = webpackCfg.output;
+  out.publicPath = "http://127.0.0.1:" + WDS_PORT + "/js";
+
+  // Hard-code the test bundle to our emphemeral webpack-dev-server.
+  process.env.WEBPACK_TEST_BUNDLE = path.join(out.publicPath, out.filename);
+
+  // Spawn the webpack dev server
+  var compiler = webpack(webpackCfg);
+  wdsServer = new WebpackDevServer(compiler, {
+    contentBase: "http://127.0.0.1/",
+    hot: false,
+    quiet: true,
+    noInfo: true,
+    colors: false,
+    progress: true, // Weird. Needed for `done` callback to fire.
+    lazy: false
+  });
+
+  // **Note**: Looking at the source, no way to cleanly `.close()` the WDS
+  // since it hides the `server.listen()` call internally.
+  wdsServer.listen(WDS_PORT, "127.0.0.1", done);
+});
+
+// ----------------------------------------------------------------------------
+// App server
+// ----------------------------------------------------------------------------
+before(function (done) {
+  // Run webpack dev server if not localhost.
+  // **Note**: Generally want more sophisticated logic than this.
+  if (global.IS_REMOTE) { return done(); }
+
+  // Start up the local application server.
   app.indexRoute(/^\/$/);
-  server = app.listen(PORT, done);
+  server = app.listen(APP_PORT, done);
 });
 
 after(function (done) {
