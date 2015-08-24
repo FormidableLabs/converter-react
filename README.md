@@ -2,6 +2,8 @@ Converter - React
 =================
 
 [![Build Status][trav_img]][trav_site]
+[![Appveyor Status][av_img]][av_site]
+[![Coverage Status][cov_img]][cov_site]
 
 A simple app written using [React][react] and [CommonJS][cjs], built with
 [Webpack][webpack]. Based on
@@ -133,6 +135,13 @@ Please see [CONTRIBUTING](CONTRIBUTING.md)
 [trav]: https://travis-ci.org/
 [trav_img]: https://api.travis-ci.org/FormidableLabs/converter-react.svg
 [trav_site]: https://travis-ci.org/FormidableLabs/converter-react
+[av]: https://ci.appveyor.com/
+[av_img]: https://ci.appveyor.com/api/projects/status/31hevq3yixwib0xg?svg=true
+[av_site]: https://ci.appveyor.com/project/ryan-roemer/converter-react
+[cov]: https://coveralls.io
+[cov_img]: https://img.shields.io/coveralls/FormidableLabs/converter-react.svg
+[cov_site]: https://coveralls.io/r/FormidableLabs/converter-react
+
 [react]: http://facebook.github.io/react/
 [cjs]: http://wiki.commonjs.org/wiki/CommonJS
 [webpack]: http://webpack.github.io/
