@@ -17,8 +17,11 @@ module.exports = {
   },
   module: {
     loaders: [
-      { test: /\.jsx?$/, include: path.join(__dirname, "client"),
-        loaders: ["babel-loader?optional=runtime&stage=2"] }
+      {
+        test: /\.jsx?$/,
+        exclude: [/node_modules/],
+        loaders: ["babel-loader?optional=runtime&stage=2"]
+      }
     ]
   },
   resolve: {

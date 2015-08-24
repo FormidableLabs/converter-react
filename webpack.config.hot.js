@@ -15,8 +15,11 @@ module.exports = {
   output: base.output,
   module: {
     loaders: [
-      { test: /\.jsx?$/, include: path.join(__dirname, "client"),
-        loaders: ["react-hot", "babel-loader?optional=runtime&stage=2"] }
+      {
+        test: /\.jsx?$/,
+        exclude: [/node_modules/],
+        loaders: ["react-hot", "babel-loader?optional=runtime&stage=2"]
+      }
     ]
   },
   resolve: base.resolve,
