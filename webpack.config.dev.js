@@ -11,9 +11,9 @@ module.exports = {
   context: base.context,
   entry: base.entry,
   output: {
-    path: path.join(__dirname, "dist/js"),
+    path: __dirname,
     filename: "bundle.js",
-    publicPath: "http://127.0.0.1:2992/js"
+    publicPath: "/js/"
   },
   module: base.module,
   resolve: base.resolve,

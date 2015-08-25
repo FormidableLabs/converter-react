@@ -13,7 +13,6 @@ var _ = require("lodash");
 var adapter = global.adapter;
 
 describe("func/application", function () {
-
   // --------------------------------------------------------------------------
   // Suites
   // --------------------------------------------------------------------------
@@ -22,7 +21,7 @@ describe("func/application", function () {
       done = _.once(done);
 
       adapter.client
-        .url(global.TEST_FUNC_BASE_URL)
+        .url(global.TEST_FUNC_BASE_URL + "?__mode=noss") // TODO: REMOVE noss
 
         // Check we start with empty text.
         // **Note**: We use `e2e-*` for "end to end" functional test selectors.

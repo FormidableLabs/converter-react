@@ -10,6 +10,7 @@
  * be run in a separate process from other types of tests.
  */
 var path = require("path");
+var _ = require("lodash");
 
 // Set test environment
 process.env.NODE_ENV = process.env.NODE_ENV || "test-func";
@@ -20,7 +21,7 @@ process.env.NODE_ENV = process.env.NODE_ENV || "test-func";
 // **Note** Can stash adapter, but not `adapter.client` because it is a lazy
 // getter that relies on the global `before|beforeEach` setup.
 var adapter = global.adapter;
-var ELEM_WAIT = 200; // Global wait.
+var ELEM_WAIT = 2000; // Global wait.
 
 adapter.before();
 before(function (done) {
@@ -62,35 +63,49 @@ before(function (done) {
   // **Note**: Generally want more sophisticated logic than this.
   if (global.IS_REMOTE) { return done(); }
 
+
+
+  // TODO: Add a `npm run test-func-dev` to reuse existing running dev. server.
+
+
+
+
+
   // --------------------------------------------------------------------------
   // Webpack JS server
   // --------------------------------------------------------------------------
+  var WDS_PORT = process.env.TEST_FUNC_WDS_PORT || 3031;
+  var WDS_HOST = "127.0.0.1";
+
   var webpack = require("webpack");
   var WebpackDevServer = require("webpack-dev-server");
-  var webpackCfg = require("../../../webpack.config.dev");
 
-  // Hard-code overrides to dev. server.
+  // Get config and inject bundle path into application server.
+  var webpackCfg = require("../../../webpack.config.dev");
   var out = webpackCfg.output;
-  out.publicPath = "http://127.0.0.1:" + WDS_PORT + "/js";
 
   // Hard-code the test bundle to our emphemeral webpack-dev-server.
-  process.env.WEBPACK_TEST_BUNDLE = path.join(out.publicPath, out.filename);
+  process.env.WEBPACK_TEST_BUNDLE = "http://" + WDS_HOST + ":" + WDS_PORT +
+    path.join("/", out.publicPath, out.filename);
 
   // Spawn the webpack dev server
   var compiler = webpack(webpackCfg);
   wdsServer = new WebpackDevServer(compiler, {
-    contentBase: "http://127.0.0.1/",
-    hot: false,
-    quiet: true,
-    noInfo: true,
-    colors: false,
-    progress: true, // Weird. Needed for `done` callback to fire.
-    lazy: false
+    contentBase: path.join(__dirname, "../../.."),
+    host: WDS_HOST,
+    port: WDS_PORT,
+    outputPath: "/",
+    publicPath: out.publicPath,
+    filename: out.filename,
+    hot: false
   });
 
   // **Note**: Looking at the source, no way to cleanly `.close()` the WDS
   // since it hides the `server.listen()` call internally.
-  wdsServer.listen(WDS_PORT, "127.0.0.1", done);
+  wdsServer.listen(WDS_PORT, WDS_HOST, function () {
+    console.log("TODO: NEED TO GET _ACTUAL_ BUNDLE DONE EVENT");
+    done();
+  });
 });
 
 // ----------------------------------------------------------------------------
