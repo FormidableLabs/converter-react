@@ -23,14 +23,18 @@ var _ = require("lodash");
 
 module.exports = function (done) {
   return function () {
+    // `this` is the promise.
+    /*eslint-disable no-invalid-this*/
+    var self = this;
+    /*eslint-enable no-invalid-this*/
+
     // Ensure only called _once_ and first with _error_ if any.
     done = _.once(done);
 
-    // `this` is the promise.
-    return this
+    return self
       .catch(function (err) {
         if (err) { return done(err); }
       })
       .call(done);
-  }
+  };
 };

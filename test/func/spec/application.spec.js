@@ -9,7 +9,6 @@
  * a good file organizational / test suite naming hierachy for your specific
  * project.
  */
-var _ = require("lodash");
 var adapter = global.adapter;
 var promiseDone = require("../util/promise-done");
 
@@ -70,7 +69,9 @@ describe("func/application", function () {
     // With the `noss` no-server-render, this page is going to take even longer
     // to have DOM elements available for the test assertions to act upon.
     // Thus, we dramatically bump up our timeout.
-    this.timeout(20000)
+    /*eslint-disable no-invalid-this*/
+    this.timeout(20000);
+    /*eslint-enable no-invalid-this*/
 
     // The _same_ test, just without server bootstrap.
     it("should convert complex input w/ extra spaces + click", function (done) {

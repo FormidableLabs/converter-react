@@ -10,7 +10,6 @@
  * be run in a separate process from other types of tests.
  */
 var path = require("path");
-var _ = require("lodash");
 
 // Set test environment
 process.env.NODE_ENV = process.env.NODE_ENV || "test-func";
@@ -40,7 +39,6 @@ adapter.after();
 // ----------------------------------------------------------------------------
 var app = require("../../../server");
 var APP_PORT = process.env.TEST_FUNC_PORT || 3030;
-var WDS_PORT = process.env.TEST_FUNC_WDS_PORT || 3031;
 var server;
 var wdsServer;
 
