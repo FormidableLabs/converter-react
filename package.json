@@ -20,7 +20,7 @@
     "test-server": "npm run test-server-unit && npm run test-server-rest",
     "test-server-cov": "npm run test-server-unit-cov && npm run test-server-rest-cov",
     "test-func": "mocha --opts test/func/mocha.opts test/func/spec",
-    "test-func-cov": "istanbul cover --config .istanbul.func.yml _mocha -- --opts --opts test/func/mocha.opts test/func/spec",
+    "test-func-cov": "istanbul cover --config .istanbul.func.yml _mocha -- --opts test/func/mocha.opts test/func/spec",
     "test-func-dev": "mocha --opts test/func/mocha.dev.opts test/func/spec",
     "test": "npm run test-client && npm run test-server && npm run test-func",
     "test-ci": "npm run test-client-ci && npm run test-server-cov && npm run test-func-cov",
