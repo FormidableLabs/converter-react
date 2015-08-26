@@ -3,7 +3,7 @@ environment:
   global:
     # PhantomJS fails currently. (ROWDY_SETTINGS="local.phantomjs")
     # https://github.com/FormidableLabs/converter-react/issues/34
-    ROWDY_SETTINGS: "local.chrome"
+    ROWDY_SETTINGS: "local.firefox"
   matrix:
     - nodejs_version: 0.10
     - nodejs_version: 0.12
