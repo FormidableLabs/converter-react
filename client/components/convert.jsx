@@ -13,7 +13,7 @@ export default class Convert extends React.Component {
   render() {
     return (
       <span className="input-group-btn">
-        <Button onClick={this.onClick.bind(this)}>
+        <Button className="e2e-convert" onClick={this.onClick.bind(this)}>
           Convert
         </Button>
       </span>

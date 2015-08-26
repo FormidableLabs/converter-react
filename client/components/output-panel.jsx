@@ -8,7 +8,7 @@ export default class OutputPanel extends React.Component {
   render() {
     return (
       <Panel
-        className="output-panel"
+        className="output-panel e2e-output-panel"
         header=<h3>{this.props.title}</h3>
         >
         {this.props.content}

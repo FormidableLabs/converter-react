@@ -18,58 +18,42 @@ describe("func/application", function () {
   // Suites
   // --------------------------------------------------------------------------
   describe("camel", function () {
-    it("should convert inputs with NOSS option"); // TODO IMPLEMENT.
-    // this.timeout(10000); // Specific timeout.
-    //.url(global.TEST_FUNC_BASE_URL + "?__mode=noss")
-
     it("should convert complex input w/ extra spaces + click", function (done) {
       adapter.client
+        // **Note**: First time a page is requested can wait over 5 seconds,
+        // so consider adding `this.timeout(/*ms time*/)` in `it` or `describe`
+        // scope to adjust the test timeout values.
         .url(global.TEST_FUNC_BASE_URL)
 
         // Check we start with empty text.
+        //
         // **Note**: We use `e2e-*` for "end to end" functional test selectors.
-        .getText(".e2e-input").then(function (text) {
+        //
+        // **Note**: Use `.ACTION().then(function (val) { })` form of promise
+        // chains for `webdriverio` commands.
+        .getValue(".e2e-input").then(function (text) {
           expect(text).to.equal("");
         })
 
-        // // Create a note.
-        // .setValue("input#note-new-input", "Delete Test")
-        // .click("button#note-create")
-        // .getText(".notes-item .note-title", function (err, text) {
-        //   if (err) { return done(err); }
-        //   expect(text).to.equal("Delete Test");
-        // })
+        // Type a complex string.
+        .setValue(".e2e-input", "  my   new-string_rocks")
 
-        // // Delete a note
-        // .click(".notes-item .note-delete")
-        // .waitForExist(".notes-item .note-delete", false)
+        // Select the "Convert" button and click it.
+        .click(".e2e-convert")
+
+        // Verify we created an output panel with proper camel casing.
+        //
+        // **Note**: Using `.panel-body` subselector because part of
+        // `react-bootstrap` which we don't control. Otherwise, _should_ use
+        // an `e2e-` prefixed selector name.
+        .getText(".e2e-output-panel .panel-body").then(function (text) {
+          expect(text).to.equal("myNewStringRocks");
+        })
+
+        // **Finish the assertions**: this wrapper of `promiseDone(done)`
+        // ensures any error is correctly passed to `done` and it is called
+        // exactly once.
         .finally(promiseDone(done));
-
-
-
-
-
-
-
-      // adapter.client
-
-      //   // Type a complex string.
-      //   .waitForElementByCss(".js-input")
-      //   .type("  my   new-string_rocks")
-
-      //   // Select the "Convert" button and click it.
-      //   .waitForElementByCss(".js-submit")
-      //   .click()
-
-      //   // Verify the conversion
-      //   .waitForElementByCss(".panel-body")
-      //   .text()
-      //   .then(function (text) {
-      //     expect(text).to.equal("myNewStringRocks");
-      //   })
-
-      //   // ... and we're done!
-      //   .nodeify(done);
     });
 
     // ------------------------------------------------------------------------
@@ -77,6 +61,65 @@ describe("func/application", function () {
     // ------------------------------------------------------------------------
     it("should display result for empty input");
     it("should convert simple input 'hi there' to 'hiThere'");
+  });
+
+  // **No Server Render**: These type of tests aren't strictly necessary, but
+  // _are_ a nice sanity check that you can truly run the application in pure
+  // JS mode.
+  describe("camel without server-render (noss)", function () {
+    // With the `noss` no-server-render, this page is going to take even longer
+    // to have DOM elements available for the test assertions to act upon.
+    // Thus, we dramatically bump up our timeout.
+    this.timeout(20000)
+
+    // The _same_ test, just without server bootstrap.
+    it("should convert complex input w/ extra spaces + click", function (done) {
+      adapter.client
+        // **Note**: Add no server render flag.
+        .url(global.TEST_FUNC_BASE_URL + "?__mode=noss")
+
+        // Check we start with empty text.
+        .getValue(".e2e-input").then(function (text) {
+          expect(text).to.equal("");
+        })
+
+        // Type a complex string.
+        .setValue(".e2e-input", "  my   new-string_rocks")
+
+        // Select the "Convert" button and click it.
+        .click(".e2e-convert")
+
+        // Verify we created an output panel with proper camel casing.
+        .getText(".e2e-output-panel .panel-body").then(function (text) {
+          expect(text).to.equal("myNewStringRocks");
+        })
+
+        .finally(promiseDone(done));
+    });
+  });
+
+  // **No JavaScript**: These type of tests are a bit special-cased, because
+  // there is no functionality on the page. They instead check SEO compatibility
+  // and other things for just a pure static view of the page.
+  describe("camel without JavaScript (nojs)", function () {
+    // A _different_ test because
+    it("should have expected HTML server-rendered elements", function (done) {
+      adapter.client
+        // **Note**: Add no server render flag.
+        .url(global.TEST_FUNC_BASE_URL + "?__mode=nojs")
+
+        // Check we start with empty text.
+        .getValue(".e2e-input").then(function (text) {
+          expect(text).to.equal("");
+        })
+
+        // Validate button text.
+        .getText(".e2e-convert").then(function (text) {
+          expect(text).to.equal("Convert");
+        })
+
+        .finally(promiseDone(done));
+    });
   });
 
   describe("snake", function () {
