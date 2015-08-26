@@ -138,51 +138,39 @@ describe("func/application", function () {
     it("should convert simple input 'hi there' to 'hi-there'");
   });
 
-  // TODO: IMPLEMENT
-  describe.skip("all the things", function () {
+  describe("all the things", function () {
     it("should convert complex input w/ enter key", function (done) {
-      client
-        // Get the web application page.
-        .get(HOST)
+      adapter.client
+        // **Note**: Add no server render flag.
+        .url(global.TEST_FUNC_BASE_URL + "?__mode=noss")
 
-        // Click the conversion types drowpdown.
-        .waitForElementByCss(".js-convert-label")
-        .click()
+        // Click the conversion types dropdown.
+        .click(".e2e-convert-label")
 
         // Click the "all the things" option.
-        .waitForElementByCss(
-          ".js-convert-types[data-convert='camel,snake,dash']")
-        .click()
+        .click(".e2e-convert-type-all")
 
-        // Type a complex string and the "enter key" to invoke a conversion.
-        .waitForElementByCss(".js-input")
-        .type(" all_the things!" + ENTER_KEY)
+        // Type a complex string.
+        .setValue(".e2e-input", " all_the things!")
 
-        // Get all of the result panels using JavaScript!
-        .safeEval(helpers.js.fn(function () {
-          /*global $*/
-          // This is a **client-side** JavaScript function, returning values
-          // from the web application page.
-          //
-          // Here, we're going to extract the three values from converting to
-          // all the different types.
-          return $(".panel-body")
-            .map(function () { return $(this).text(); })
-            .toArray();
-        }))
-        .then(function (values) {
+        // Hit "enter key" to invoke a conversion on active element (the input).
+        // See available keys at:
+        // https://github.com/webdriverio/webdriverio/blob/master/lib/utils/unicodeChars.js
+        .keys("Enter")
+
+        // Verify we created an output panel with proper camel casing.
+        .getText(".e2e-output-panel .panel-body").then(function (texts) {
           // Here's a tricky part -- our conversion results can come back in
           // any order. So, we either have to sort on the array, or check that
           // the array contains values in any position.
-          expect(values)
+          expect(texts)
             .to.have.length(3).and
             .to.contain("allTheThings!").and
             .to.contain("all-the-things!").and
             .to.contain("all_the_things!");
         })
 
-        // ... and we're done!
-        .nodeify(done);
+        .finally(promiseDone(done));
     });
 
     // ------------------------------------------------------------------------

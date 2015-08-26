@@ -63,8 +63,6 @@ before(function (done) {
   // **Note**: Generally want more sophisticated logic than this.
   if (global.IS_REMOTE) { return done(); }
 
-  console.log("TODO HERE process.env.WEBPACK_TEST_BUNDLE", process.env.WEBPACK_TEST_BUNDLE)
-
   // --------------------------------------------------------------------------
   // Webpack JS server - Use existing WDS from `npm run dev`
   // --------------------------------------------------------------------------
