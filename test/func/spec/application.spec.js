@@ -52,6 +52,11 @@ describe("func/application", function () {
         // **Finish the assertions**: this wrapper of `promiseDone(done)`
         // ensures any error is correctly passed to `done` and it is called
         // exactly once.
+        //
+        // The danger is that if you _aren't_ using this then you can wind up
+        // in situations where:
+        // - Thrown errors are swallowed and lost (tests appear to pass).
+        // - `done()` is called 2+ times (which causes mocha to fail).
         .finally(promiseDone(done));
     });
 

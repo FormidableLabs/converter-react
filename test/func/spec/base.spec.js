@@ -99,10 +99,11 @@ before(function (done) {
 
   // **Note**: Looking at the source, no way to cleanly `.close()` the WDS
   // since it hides the `server.listen()` call internally.
-  wdsServer.listen(WDS_PORT, WDS_HOST, function () {
-    console.log("TODO: NEED TO GET _ACTUAL_ BUNDLE DONE EVENT");
-    done();
-  });
+  //
+  // **Note**: The call to `done()` here doesn't mean the bundle is ready, just
+  // that the WDS server has started up. The WDS server will simply delay a
+  // request for `bundle.js` until such time as it is ready.
+  wdsServer.listen(WDS_PORT, WDS_HOST, done);
 });
 
 // ----------------------------------------------------------------------------
