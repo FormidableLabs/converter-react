@@ -20,7 +20,16 @@ before_script:
   # Install dev. stuff (e.g., selenium drivers).
   - npm run install-dev
 
+env:
+  # NOTE: **Cannot** have a space after `:` character in JSON string or else
+  # YAML parser will fail to parse correctly.
+  global:
+    # PhantomJS fails currently. (ROWDY_SETTINGS="local.phantomjs")
+    # https://github.com/FormidableLabs/converter-react/issues/34
+    - ROWDY_SETTINGS="local.firefox"
+
 script:
+  # Run all base checks (with FF browser for functional tests).
   - npm run check-ci
 
   # Manually send coverage reports to coveralls.

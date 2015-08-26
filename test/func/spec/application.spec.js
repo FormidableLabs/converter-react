@@ -151,7 +151,10 @@ describe("func/application", function () {
         .url(global.TEST_FUNC_BASE_URL + "?__mode=noss")
 
         // Click the conversion types dropdown.
-        .click(".e2e-convert-label")
+        //
+        // **Note**: Firefox requires `.e2e-convert-label button` instead of
+        // `.e2e-convert-label` alone which works on Chrome.
+        .click(".e2e-convert-label button")
 
         // Click the "all the things" option.
         .click(".e2e-convert-type-all")
