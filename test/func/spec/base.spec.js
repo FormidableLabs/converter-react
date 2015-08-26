@@ -21,7 +21,7 @@ process.env.NODE_ENV = process.env.NODE_ENV || "test-func";
 // **Note** Can stash adapter, but not `adapter.client` because it is a lazy
 // getter that relies on the global `before|beforeEach` setup.
 var adapter = global.adapter;
-var ELEM_WAIT = 2000; // Global wait.
+var ELEM_WAIT = 200; // Global wait.
 
 adapter.before();
 before(function (done) {
@@ -63,16 +63,15 @@ before(function (done) {
   // **Note**: Generally want more sophisticated logic than this.
   if (global.IS_REMOTE) { return done(); }
 
-
-
-  // TODO: Add a `npm run test-func-dev` to reuse existing running dev. server.
-
-
-
-
+  console.log("TODO HERE process.env.WEBPACK_TEST_BUNDLE", process.env.WEBPACK_TEST_BUNDLE)
 
   // --------------------------------------------------------------------------
-  // Webpack JS server
+  // Webpack JS server - Use existing WDS from `npm run dev`
+  // --------------------------------------------------------------------------
+  if (process.env.WEBPACK_TEST_BUNDLE) { return done(); }
+
+  // --------------------------------------------------------------------------
+  // Webpack JS server - Create ephemeral WDS for this test run.
   // --------------------------------------------------------------------------
   var WDS_PORT = process.env.TEST_FUNC_WDS_PORT || 3031;
   var WDS_HOST = "127.0.0.1";
@@ -97,6 +96,8 @@ before(function (done) {
     outputPath: "/",
     publicPath: out.publicPath,
     filename: out.filename,
+    quiet: true,
+    noInfo: true,
     hot: false
   });
 
@@ -118,7 +119,7 @@ before(function (done) {
 
   // Start up the local application server.
   app.indexRoute(/^\/$/);
-  server = app.listen(APP_PORT, done);
+  server = app.start(APP_PORT, done);
 });
 
 after(function (done) {

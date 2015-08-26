@@ -170,7 +170,9 @@ Programming notes:
 Build, then run the tests from the command line with:
 
 ```sh
-$ npm run-script test-client
+$ npm run test-client
+$ npm run test-client-cov   # With coverage
+$ npm run test-client-dev   # (Faster) Use existing `npm run dev` watchers.
 ```
 
 ### Functional Tests
@@ -196,7 +198,9 @@ Programming notes:
 Run the tests with:
 
 ```sh
-$ npm run-script test-func
+$ npm run test-func
+$ npm run test-func-cov   # With coverage
+$ npm run test-func-dev   # (Faster) Use existing `npm run dev` watchers.
 ```
 
 

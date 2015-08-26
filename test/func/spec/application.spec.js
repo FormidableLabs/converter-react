@@ -11,22 +11,24 @@
  */
 var _ = require("lodash");
 var adapter = global.adapter;
+var promiseDone = require("../util/promise-done");
 
 describe("func/application", function () {
   // --------------------------------------------------------------------------
   // Suites
   // --------------------------------------------------------------------------
   describe("camel", function () {
-    it("should convert complex input w/ extra spaces + click", function (done) {
-      done = _.once(done);
+    it("should convert inputs with NOSS option"); // TODO IMPLEMENT.
+    // this.timeout(10000); // Specific timeout.
+    //.url(global.TEST_FUNC_BASE_URL + "?__mode=noss")
 
+    it("should convert complex input w/ extra spaces + click", function (done) {
       adapter.client
-        .url(global.TEST_FUNC_BASE_URL + "?__mode=noss") // TODO: REMOVE noss
+        .url(global.TEST_FUNC_BASE_URL)
 
         // Check we start with empty text.
         // **Note**: We use `e2e-*` for "end to end" functional test selectors.
-        .getText(".e2e-input", function (err, text) {
-          if (err) { return done(err); }
+        .getText(".e2e-input").then(function (text) {
           expect(text).to.equal("");
         })
 
@@ -41,8 +43,7 @@ describe("func/application", function () {
         // // Delete a note
         // .click(".notes-item .note-delete")
         // .waitForExist(".notes-item .note-delete", false)
-
-        .call(done);
+        .finally(promiseDone(done));
 
 
 

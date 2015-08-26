@@ -12,7 +12,6 @@ var RENDER_SS = true;
 // Hooks / polyfills
 require("babel/register");
 var clientApi = require("../client/utils/api");
-clientApi.setBase(HOST, PORT);
 
 var path = require("path");
 var express = require("express");
@@ -121,9 +120,16 @@ app.indexRoute = function (root) {
   });
 };
 
+// Start helper.
+app.start = function (port, callback) {
+  var noop = function () {};
+  clientApi.setBase(HOST, PORT);
+  app.listen(port || PORT, callback || noop);
+};
+
 // Actually start server if script.
 /* istanbul ignore next */
 if (require.main === module) {
   app.indexRoute(/^\/$/);
-  app.listen(PORT);
+  app.start();
 }
