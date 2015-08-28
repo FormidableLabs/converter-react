@@ -111,7 +111,7 @@ describe("func/application", function () {
     // A _different_ test because
     it("should have expected HTML server-rendered elements", function (done) {
       adapter.client
-        // **Note**: Add no server render flag.
+        // **Note**: Add no JavaScript flag.
         .url(global.TEST_FUNC_BASE_URL + "?__mode=nojs")
 
         // Check we start with empty text.
@@ -147,7 +147,6 @@ describe("func/application", function () {
   describe("all the things", function () {
     it("should convert complex input w/ enter key", function (done) {
       adapter.client
-        // **Note**: Add no server render flag.
         .url(global.TEST_FUNC_BASE_URL)
 
         // Click the conversion types dropdown.
