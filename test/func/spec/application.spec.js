@@ -148,7 +148,7 @@ describe("func/application", function () {
     it("should convert complex input w/ enter key", function (done) {
       adapter.client
         // **Note**: Add no server render flag.
-        .url(global.TEST_FUNC_BASE_URL + "?__mode=noss")
+        .url(global.TEST_FUNC_BASE_URL)
 
         // Click the conversion types dropdown.
         //

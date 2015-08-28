@@ -203,6 +203,18 @@ $ npm run test-func-cov   # With coverage
 $ npm run test-func-dev   # (Faster) Use existing `npm run dev` watchers.
 ```
 
+You can override settings and browser selections from the environment per
+the [rowdy](https://github.com/FormidableLabs/rowdy) documentation. E.g.,
+
+```sh
+# Client and server logging.
+$ ROWDY_OPTIONS='{ "client":{ "logger":true }, "server":{ "logger":true } }' \
+  npm run test-func
+
+# Switch to Chrome
+$ ROWDY_SETTINGS="local.chrome" \
+  npm run test-func
+```
 
 ## Releases
 
