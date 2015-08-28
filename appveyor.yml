@@ -1,5 +1,9 @@
 # Good template: https://github.com/gruntjs/grunt/blob/master/appveyor.yml
 environment:
+  global:
+    # PhantomJS fails currently. (ROWDY_SETTINGS="local.phantomjs")
+    # https://github.com/FormidableLabs/converter-react/issues/34
+    ROWDY_SETTINGS: "local.firefox"
   matrix:
     - nodejs_version: 0.10
     - nodejs_version: 0.12
@@ -10,6 +14,7 @@ install:
   # Install and use local, modern NPM
   - npm install npm@next
   - node_modules\.bin\npm install
+  - node_modules\.bin\npm run install-dev
 
 build: off
 
@@ -21,6 +26,7 @@ test_script:
   # Build environment.
   - node --version
   - node_modules\.bin\npm --version
+  - echo %ROWDY_SETTINGS%
 
   # Build and test.
   - node_modules\.bin\npm run build

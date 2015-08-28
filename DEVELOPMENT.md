@@ -170,7 +170,9 @@ Programming notes:
 Build, then run the tests from the command line with:
 
 ```sh
-$ npm run-script test-client
+$ npm run test-client
+$ npm run test-client-cov   # With coverage
+$ npm run test-client-dev   # (Faster) Use existing `npm run dev` watchers.
 ```
 
 ### Functional Tests
@@ -187,7 +189,8 @@ instance of the entire web application. These tests typically:
 
 Programming notes:
 
-* Contains a Sinon [sandbox][] _without_ fake timers.
+* Use the [webdriverio][] Selenium client libraries.
+* Use the [rowdy][] configuration wrapper for webdriverio / Selenium
 * Test against a remote server with environment variables:
     * `TEST_FUNC_IS_REMOTE=true` (tests should only stub/spy if not remote)
     * `TEST_FUNC_BASE_URL=http://example.com/`
@@ -195,9 +198,23 @@ Programming notes:
 Run the tests with:
 
 ```sh
-$ npm run-script test-func
+$ npm run test-func
+$ npm run test-func-cov   # With coverage
+$ npm run test-func-dev   # (Faster) Use existing `npm run dev` watchers.
 ```
 
+You can override settings and browser selections from the environment per
+the [rowdy](https://github.com/FormidableLabs/rowdy) documentation. E.g.,
+
+```sh
+# Client and server logging.
+$ ROWDY_OPTIONS='{ "client":{ "logger":true }, "server":{ "logger":true } }' \
+  npm run test-func
+
+# Switch to Chrome
+$ ROWDY_SETTINGS="local.chrome" \
+  npm run test-func
+```
 
 ## Releases
 
@@ -233,3 +250,5 @@ $ npm publish
 And you've published!
 
 [sandbox]: http://sinonjs.org/docs/#sinon-sandbox
+[webdriverio]: http://webdriver.io/
+[rowdy]: https://github.com/FormidableLabs/rowdy

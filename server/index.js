@@ -6,14 +6,12 @@
 // Globals
 var HOST = process.env.HOST || "127.0.0.1";
 var PORT = process.env.PORT || 3000;
-var WEBPACK_DEV = process.env.WEBPACK_DEV === "true";
 var RENDER_JS = true;
 var RENDER_SS = true;
 
 // Hooks / polyfills
 require("babel/register");
 var clientApi = require("../client/utils/api");
-clientApi.setBase(HOST, PORT);
 
 var path = require("path");
 var express = require("express");
@@ -77,6 +75,11 @@ app.indexRoute = function (root) {
   var fluxMiddleware = mid.flux.actions(Page); // Instance actions.
 
   app.use(root, [fluxMiddleware], function (req, res) {
+    /*eslint max-statements:[2,20]*/
+    // JS Bundle sources.
+    var WEBPACK_TEST_BUNDLE = process.env.WEBPACK_TEST_BUNDLE;  // Switch to test webpack-dev-server
+    var WEBPACK_DEV = process.env.WEBPACK_DEV === "true";       // Switch to dev webpack-dev-server
+
     // Render JS? Server-side? Bootstrap?
     var mode = req.query.__mode;
     var renderJs = RENDER_JS && mode !== "nojs";
@@ -85,7 +88,9 @@ app.indexRoute = function (root) {
     // JS bundle rendering.
     var bundleJs;
     if (renderJs) {
-      if (WEBPACK_DEV) {
+      if (WEBPACK_TEST_BUNDLE) {
+        bundleJs = WEBPACK_TEST_BUNDLE;
+      } else if (WEBPACK_DEV) {
         bundleJs = "http://127.0.0.1:2992/js/bundle.js";
       } else {
         // First file is JS path.
@@ -115,9 +120,16 @@ app.indexRoute = function (root) {
   });
 };
 
+// Start helper.
+app.start = function (port, callback) {
+  var noop = function () {};
+  clientApi.setBase(HOST, PORT);
+  app.listen(port || PORT, callback || noop);
+};
+
 // Actually start server if script.
 /* istanbul ignore next */
 if (require.main === module) {
   app.indexRoute(/^\/$/);
-  app.listen(PORT);
+  app.start();
 }

@@ -6,7 +6,6 @@
  */
 var express = require("express");
 var app = require("../../server");
-var PORT = process.env.PORT || 3000;
 
 var marked = require("marked");
 var renderer = new marked.Renderer();
@@ -56,4 +55,4 @@ app.get("/CONTRIBUTING.md", function (req, res) {
 });
 
 // Start server.
-app.listen(PORT);
+app.start();

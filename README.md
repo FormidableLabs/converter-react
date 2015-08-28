@@ -58,7 +58,8 @@ For a deeper dive, see: [DEVELOPMENT](DEVELOPMENT.md)
 Install, setup.
 
 ```sh
-$ npm install
+$ npm install           # Install dependencies
+$ npm run install-dev   # Install dev. environment (selenium, etc.).
 ```
 
 Run the watchers, dev and source maps servers for the real production build:
@@ -90,6 +91,9 @@ Ports various servers run on:
   Override via `TEST_REST_PORT` environment variable.
 * [`3030`](http://127.0.0.1:3030/): Ephemeral app server for functional tests.
   Override via `TEST_FUNC_PORT` environment variable.
+* [`3031`](http://127.0.0.1:3031/): Webpack dev server for ephemeral functional
+  tests run one-off with full build.
+  Override via `TEST_FUNC_WDS_PORT` environment variable.
 
 URLS to test things out:
 

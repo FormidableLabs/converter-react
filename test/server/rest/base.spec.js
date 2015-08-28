@@ -36,7 +36,7 @@ before(function (done) {
   if (global.IS_REMOTE) { return done(); }
 
   app.indexRoute(/^\/$/);
-  server = app.listen(PORT, done);
+  server = app.start(PORT, done);
 });
 
 after(function (done) {
