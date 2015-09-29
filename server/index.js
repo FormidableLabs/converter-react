@@ -11,6 +11,8 @@ var RENDER_SS = true;
 
 // Hooks / polyfills
 require("babel/register");
+require.extensions[".css"] = function () { return null; };
+
 var clientApi = require("../client/utils/api");
 
 var path = require("path");
@@ -75,10 +77,11 @@ app.indexRoute = function (root) {
   var fluxMiddleware = mid.flux.actions(Page); // Instance actions.
 
   app.use(root, [fluxMiddleware], function (req, res) {
-    /*eslint max-statements:[2,20]*/
+    /*eslint max-statements:[2,25]*/
     // JS Bundle sources.
     var WEBPACK_TEST_BUNDLE = process.env.WEBPACK_TEST_BUNDLE;  // Switch to test webpack-dev-server
     var WEBPACK_DEV = process.env.WEBPACK_DEV === "true";       // Switch to dev webpack-dev-server
+    var WEBPACK_HOT = process.env.WEBPACK_HOT === "true";
 
     // Render JS? Server-side? Bootstrap?
     var mode = req.query.__mode;
@@ -87,15 +90,21 @@ app.indexRoute = function (root) {
 
     // JS bundle rendering.
     var bundleJs;
+    var bundleCss;
     if (renderJs) {
       if (WEBPACK_TEST_BUNDLE) {
         bundleJs = WEBPACK_TEST_BUNDLE;
+        bundleCss = "http://127.0.0.1:2992/js/style.css";
+      } else if (WEBPACK_HOT) {
+        bundleJs = "http://127.0.0.1:2992/js/bundle.js";
       } else if (WEBPACK_DEV) {
         bundleJs = "http://127.0.0.1:2992/js/bundle.js";
+        bundleCss = "http://127.0.0.1:2992/js/style.css";
       } else {
         // First file is JS path.
         var stats = require("../dist/server/stats.json");
         bundleJs = path.join("/js", stats.assetsByChunkName.main[0]);
+        bundleCss = path.join("/js", stats.assetsByChunkName.main[1]);
       }
     }
 
@@ -113,7 +122,8 @@ app.indexRoute = function (root) {
         js: renderJs
       },
       bundles: {
-        js: bundleJs
+        js: bundleJs,
+        css: bundleCss
       },
       content: content
     })));
