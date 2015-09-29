@@ -11,6 +11,7 @@ var RENDER_SS = true;
 
 // Hooks / polyfills
 require("babel/register");
+// Prevent node from attempting to require .css files on the server
 require.extensions[".css"] = function () { return null; };
 
 var clientApi = require("../client/utils/api");
