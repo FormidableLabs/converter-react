@@ -4,6 +4,8 @@
  */
 var path = require("path");
 var _ = require("lodash");
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
+
 var prodCfg = require("./webpack.config");
 
 module.exports = {
@@ -22,5 +24,10 @@ module.exports = {
     }
   }),
   module: prodCfg.module,
-  devtool: "source-map"
+  devtool: "source-map",
+  plugins: [
+    new ExtractTextPlugin("style.css", {
+      allChunks: true
+    })
+  ]
 };

@@ -71,13 +71,6 @@ describe("func/application", function () {
   // _are_ a nice sanity check that you can truly run the application in pure
   // JS mode.
   describe("camel without server-render (noss)", function () {
-    // With the `noss` no-server-render, this page is going to take even longer
-    // to have DOM elements available for the test assertions to act upon.
-    // Thus, we dramatically bump up our timeout.
-    /*eslint-disable no-invalid-this*/
-    this.timeout(20000);
-    /*eslint-enable no-invalid-this*/
-
     // The _same_ test, just without server bootstrap.
     it("should convert complex input w/ extra spaces + click", function (done) {
       adapter.client

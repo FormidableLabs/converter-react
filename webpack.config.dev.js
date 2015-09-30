@@ -4,6 +4,8 @@
 /*globals __dirname:false */
 var path = require("path");
 var webpack = require("webpack");
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
+
 var base = require("./webpack.config");
 
 module.exports = {
@@ -19,6 +21,9 @@ module.exports = {
   resolve: base.resolve,
   devtool: "source-map",
   plugins: [
-    new webpack.NoErrorsPlugin()
+    new webpack.NoErrorsPlugin(),
+    new ExtractTextPlugin("style.css", {
+      allChunks: true
+    })
   ]
 };

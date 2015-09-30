@@ -19,6 +19,14 @@ module.exports = {
         test: /\.jsx?$/,
         exclude: [/node_modules/],
         loaders: ["react-hot", "babel-loader?optional=runtime&stage=2"]
+      },
+      {
+        test: /\.css$/,
+        loader: "style-loader!css-loader"
+      },
+      {
+        test: /\.(png|svg|woff|woff2|ttf|eot)$/i,
+        loader: "url-loader?limit=10000"
       }
     ]
   },

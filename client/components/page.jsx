@@ -10,6 +10,10 @@ import Input from "./input";
 import Types from "./types";
 import Output from "./output";
 
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap/dist/css/bootstrap-theme.css";
+import "../styles/app.css";
+
 export default class Page extends React.Component {
   // Helper for adding stores.
   _wrapAlt(component) {

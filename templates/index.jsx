@@ -32,12 +32,8 @@ export default class Index extends React.Component {
             <![endif]-->`)
           }} />
 
-          {/* Application CSS */}
-          <link rel="stylesheet" href={`${CLOUDFLARE}/twitter-bootstrap/3.3.4/css/bootstrap.min.css`} />
-          <link rel="stylesheet" href={`${CLOUDFLARE}/twitter-bootstrap/3.3.4/css/bootstrap-theme.min.css`} />
-          <style dangerouslySetInnerHTML={{__html:
-            `.output-panel { margin-top: 20px; }`
-          }}/>
+          <link rel="stylesheet" href={this.props.bundles.css} />
+
           <title>Converter</title>
         </head>
         <body>
@@ -67,7 +63,8 @@ export default class Index extends React.Component {
 Index.propTypes = {
   bootstrap: React.PropTypes.string,
   bundles: React.PropTypes.shape({
-    js: React.PropTypes.string
+    js: React.PropTypes.string,
+    css: React.PropTypes.string
   }),
   content: React.PropTypes.string,
   render: React.PropTypes.shape({
