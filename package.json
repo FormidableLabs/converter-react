@@ -65,7 +65,6 @@
   },
   "homepage": "https://github.com/FormidableLabs/converter-react",
   "dependencies": {
-    "alt": "^0.17.1",
     "babel": "^5.8.19",
     "babel-core": "^5.8.19",
     "babel-loader": "^5.3.2",
@@ -82,6 +81,10 @@
     "isomorphic-fetch": "^2.1.1",
     "react": "^0.13.3",
     "react-bootstrap": "^0.24.2",
+    "react-redux": "^3.0.1",
+    "redux": "^3.0.2",
+    "redux-logger": "^2.0.1",
+    "redux-thunk": "^1.0.0",
     "style-loader": "^0.12.4",
     "url-loader": "^0.5.6",
     "webpack": "^1.12.2",

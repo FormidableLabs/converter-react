@@ -2,12 +2,14 @@
  * Convert button.
  */
 import React from "react";
+import { connect } from 'react-redux';
 import Button from "react-bootstrap/lib/Button";
+import { fetchConversions } from "../actions/";
 
-export default class Convert extends React.Component {
+class Convert extends React.Component {
   onClick() {
-    const store = this.props.ConvertStore;
-    this.props.ConvertActions.fetchConversions(store.types, store.value);
+    const store = this.props;
+    store.dispatch(fetchConversions(store.types, store.value));
   }
 
   render() {
@@ -21,7 +23,7 @@ export default class Convert extends React.Component {
   }
 }
 
-Convert.propTypes = {
-  ConvertActions: React.PropTypes.object,
-  ConvertStore: React.PropTypes.object
-};
+export default connect((state)=> ({
+  types: state.conversions.types,
+  value: state.conversions.value
+}))(Convert)
