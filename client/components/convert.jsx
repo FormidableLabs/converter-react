@@ -2,7 +2,7 @@
  * Convert button.
  */
 import React from "react";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 import Button from "react-bootstrap/lib/Button";
 import { fetchConversions } from "../actions/";
 
@@ -23,7 +23,7 @@ class Convert extends React.Component {
   }
 }
 
-export default connect((state)=> ({
+export default connect((state) => ({
   types: state.conversions.types,
   value: state.conversions.value
-}))(Convert)
+}))(Convert);

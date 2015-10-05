@@ -2,7 +2,7 @@
  * Conversion types.
  */
 import React from "react";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 import DropdownButton from "react-bootstrap/lib/DropdownButton";
 import MenuItem from "react-bootstrap/lib/MenuItem";
 import { setConversionTypes } from "../actions/";
@@ -45,8 +45,12 @@ class Types extends React.Component {
   }
 }
 
-export default connect((state)=> ({
+Types.propTypes = {
+  dispatch: React.PropTypes.func,
+  types: React.PropTypes.string
+};
+
+export default connect((state) => ({
   types: state.conversions.types,
   value: state.conversions.value
-}))(Types)
-
+}))(Types);

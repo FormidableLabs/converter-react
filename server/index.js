@@ -55,7 +55,7 @@ app.get("/api/dash", function (req, res) {
 var React = require("react");
 var Provider = require("react-redux").Provider;
 var Page = require("../client/containers/page");
-var createStore = require("../client/store/createStore");
+var createStore = require("../client/store/create-store");
 
 // Server-side React
 var Index = React.createFactory(require("../templates/index"));
@@ -114,9 +114,9 @@ app.indexRoute = function (root) {
     var content;
     if (renderSs) {
       content = res.locals.bootstrapComponent ||
-        React.renderToString(React.createElement(Provider, { store: createStore() }, (function(){
+        React.renderToString(React.createElement(Provider, { store: createStore() }, function () {
           return React.createElement(Page);
-        })));
+        }));
     }
 
     // Response.

@@ -3,13 +3,13 @@
  */
 /*globals document:false, location:false */
 import React from "react";
-import { Provider } from 'react-redux';
+import { Provider } from "react-redux";
 
-import createStore from "./store/createStore";
+import createStore from "./store/create-store";
 import { fetchConversions } from "./actions/";
 import { parseBootstrap } from "./utils/query";
 
-import Page from './containers/page';
+import Page from "./containers/page";
 
 const rootEl = document.querySelector(".js-content");
 

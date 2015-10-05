@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux';
+import { combineReducers } from "redux";
 
 import types from "../utils/types";
 
@@ -8,14 +8,14 @@ import {
   SET_CONVERSION_TYPES,
   SET_CONVERSION_VALUE,
   UPDATE_CONVERSIONS
-} from '../actions';
+} from "../actions";
 
-function conversions(state = {
+const conversions = (state = {
   conversionError: null,
   conversions: [],
   types: types.DEFAULT_TYPE,
   value: ""
-}, action) {
+}, action) => {
   switch (action.type) {
   case CONVERSION_ERROR:
     return Object.assign({}, state, {
@@ -40,7 +40,7 @@ function conversions(state = {
   default:
     return state;
   }
-}
+};
 
 const rootReducer = combineReducers({
   conversions

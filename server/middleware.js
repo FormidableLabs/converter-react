@@ -18,9 +18,9 @@
  *
  */
 var React = require("react");
-var Provider = require('react-redux').Provider;
+var Provider = require("react-redux").Provider;
 
-var createStore = require('../client/store/createStore');
+var createStore = require("../client/store/create-store");
 var fetchConversions = require("../client/utils/api").fetchConversions;
 
 // Return query bootstrap information or `null`.
@@ -89,20 +89,20 @@ module.exports.flux = {
         .then(function (conversions) {
 
           // Bootstrap, snapshot data to res.locals and flush for next request.
-          let store = createStore({
+          var store = createStore({
             conversions: conversions,
             types: types,
             value: value
           });
 
           // Stash bootstrap, and _fully-rendered-page_ with proper data.
-          res.locals.bootstrapData = flux.getState();
+          res.locals.bootstrapData = store.getState();
           if (req.query.__mode !== "noss") {
             // **Note**: Component rendering could be made much more generic
             // with a simple callback of `function (flux)` that the upstream
             // component can use however it wants / ignore.
             res.locals.bootstrapComponent =
-              React.renderToString(new Provider({ store: store }, function(){
+              React.renderToString(new Provider({ store: store }, function () {
                 return new Component();
               }));
           }

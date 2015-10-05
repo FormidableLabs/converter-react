@@ -2,7 +2,7 @@
  * Convert input.
  */
 import React from "react";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 import Input from "react-bootstrap/lib/Input";
 import { setConversionValue, fetchConversions } from "../actions/";
 
@@ -32,7 +32,12 @@ class UserInput extends React.Component {
   }
 }
 
-export default connect((state)=> ({
+UserInput.propTypes = {
+  dispatch: React.PropTypes.func,
+  value: React.PropTypes.string
+};
+
+export default connect((state) => ({
   types: state.conversions.types,
   value: state.conversions.value
-}))(UserInput)
+}))(UserInput);

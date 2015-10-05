@@ -2,7 +2,7 @@
  * Convert output.
  */
 import React from "react";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 import OutputPanel from "./output-panel";
 import ErrorPanel from "./error-panel";
 
@@ -22,7 +22,12 @@ class Output extends React.Component {
   }
 }
 
-export default connect((state)=> ({
+Output.propTypes = {
+  conversionError: React.PropTypes.string,
+  conversions: React.PropTypes.array
+};
+
+export default connect((state) => ({
   conversions: state.conversions.conversions,
   conversionError: state.conversions.conversionError
-}))(Output)
+}))(Output);
