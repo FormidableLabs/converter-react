@@ -90,15 +90,20 @@ app.indexRoute = function (root) {
     var renderSs = RENDER_SS && mode !== "noss";
 
     // JS/CSS bundle rendering.
+    var devBundleJsUrl = "http://127.0.0.1:2992/js/bundle.js";
+    var devBundleCssUrl = "http://127.0.0.1:2992/js/style.css";
     var bundleJs;
     var bundleCss;
+
     if (WEBPACK_TEST_BUNDLE) {
       bundleJs = renderJs ? WEBPACK_TEST_BUNDLE : null;
-      bundleCss = "http://127.0.0.1:2992/js/style.css";
-    } else if (WEBPACK_HOT || WEBPACK_DEV) {
-      bundleJs = renderJs ? "http://127.0.0.1:2992/js/bundle.js" : null;
-      // TODO(ALEX): What's hot vs. dev difference?
-      bundleCss = "http://127.0.0.1:2992/js/style.css";
+      bundleCss = devBundleCssUrl;
+    } else if (WEBPACK_HOT) {
+      // In hot mode, there is no CSS file because styles are inlined in a <style> tag
+      bundleJs = renderJs ? devBundleJsUrl : null;
+    } else if (WEBPACK_DEV) {
+      bundleJs = renderJs ? devBundleJsUrl : null;
+      bundleCss = devBundleCssUrl;
     } else {
       // First file is JS path.
       var stats = require("../dist/server/stats.json");
