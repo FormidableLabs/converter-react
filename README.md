@@ -103,6 +103,9 @@ URLS to test things out:
   server-side. Note that while some links may work (e.g. clicking on a note
   title in list), many things do not since there are absolutely no JS libraries.
   This is intended to just be a small demo of SEO / "crawlable" content.
+  This mode is incompatible with the React hot loader mode because in hot mode
+  JS is used to load CSS. If you want to run a development server while using
+  `nojs`, use `npm run dev`.
 
 ### Bootstrapped Data
 
