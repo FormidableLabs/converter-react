@@ -18,10 +18,6 @@ const rootEl = document.querySelector(".js-content");
 // entire app will share. (So the client app _has_ an effective singleton).
 let store = createStore();
 
-// Render helpers -- may defer based on client-side actions.
-let deferRender = false;
-const render = () => { React.render(<Page flux={flux} />, rootEl); };
-
 // Try server bootstrap _first_ because doesn't need a fetch.
 const serverBootstrapEl = document.querySelector(".js-bootstrap");
 let serverBootstrap;
