@@ -90,24 +90,26 @@ app.indexRoute = function (root) {
     var renderJs = RENDER_JS && mode !== "nojs";
     var renderSs = RENDER_SS && mode !== "noss";
 
-    // JS bundle rendering.
+    // JS/CSS bundle rendering.
+    var devBundleJsUrl = "http://127.0.0.1:2992/js/bundle.js";
+    var devBundleCssUrl = "http://127.0.0.1:2992/js/style.css";
     var bundleJs;
     var bundleCss;
-    if (renderJs) {
-      if (WEBPACK_TEST_BUNDLE) {
-        bundleJs = WEBPACK_TEST_BUNDLE;
-        bundleCss = "http://127.0.0.1:2992/js/style.css";
-      } else if (WEBPACK_HOT) {
-        bundleJs = "http://127.0.0.1:2992/js/bundle.js";
-      } else if (WEBPACK_DEV) {
-        bundleJs = "http://127.0.0.1:2992/js/bundle.js";
-        bundleCss = "http://127.0.0.1:2992/js/style.css";
-      } else {
-        // First file is JS path.
-        var stats = require("../dist/server/stats.json");
-        bundleJs = path.join("/js", stats.assetsByChunkName.main[0]);
-        bundleCss = path.join("/js", stats.assetsByChunkName.main[1]);
-      }
+
+    if (WEBPACK_TEST_BUNDLE) {
+      bundleJs = renderJs ? WEBPACK_TEST_BUNDLE : null;
+      bundleCss = devBundleCssUrl;
+    } else if (WEBPACK_HOT) {
+      // In hot mode, there is no CSS file because styles are inlined in a <style> tag
+      bundleJs = renderJs ? devBundleJsUrl : null;
+    } else if (WEBPACK_DEV) {
+      bundleJs = renderJs ? devBundleJsUrl : null;
+      bundleCss = devBundleCssUrl;
+    } else {
+      // First file is JS path.
+      var stats = require("../dist/server/stats.json");
+      bundleJs = path.join("/js", stats.assetsByChunkName.main[0]);
+      bundleCss = path.join("/js", stats.assetsByChunkName.main[1]);
     }
 
     // Server-rendered client component.
