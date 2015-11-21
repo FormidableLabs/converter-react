@@ -64,7 +64,7 @@ module.exports.flux = {
       if (req.query.__mode === "noss") { return next(); }
 
       // Check query string.
-      var queryBootstrap =  parseBootstrap(url.parse(req.url).search);
+      var queryBootstrap = parseBootstrap(url.parse(req.url).search);
       if (!queryBootstrap) { return next(); }
       var types = queryBootstrap.types;
       var value = queryBootstrap.value;
