@@ -17,29 +17,14 @@
  * - `actions`: Use flux instances to invoke/listen to actions and get data.
  *
  */
+var url = require("url");
+
 var React = require("react");
 var Provider = require("react-redux").Provider;
 
 var createStore = require("../client/store/create-store");
 var fetchConversions = require("../client/utils/api").fetchConversions;
-
-// Return query bootstrap information or `null`.
-var _getQueryBootstrap = function (req) {
-  // Check query string.
-  var bootstrap = req.query.__bootstrap;
-  if (!bootstrap) { return null; }
-
-  // Check have all parts.
-  var parts = bootstrap.split(":");
-  var types = parts[0];
-  var value = parts[1];
-  if (!types) { return null; }
-
-  return {
-    types: types,
-    value: value
-  };
-};
+var parseBootstrap = require("../client/utils/query").parseBootstrap;
 
 module.exports.flux = {
   /**
@@ -79,7 +64,7 @@ module.exports.flux = {
       if (req.query.__mode === "noss") { return next(); }
 
       // Check query string.
-      var queryBootstrap = _getQueryBootstrap(req);
+      var queryBootstrap =  parseBootstrap(url.parse(req.url).search);
       if (!queryBootstrap) { return next(); }
       var types = queryBootstrap.types;
       var value = queryBootstrap.value;
@@ -87,6 +72,14 @@ module.exports.flux = {
       // Fetch from localhost.
       fetchConversions(types, value)
         .then(function (conversions) {
+
+          console.log("TODO HERE", JSON.stringify({
+            types: types,
+            value: value,
+            conversions: conversions
+          }, null, 2));
+
+
 
           // Bootstrap, snapshot data to res.locals and flush for next request.
           var store = createStore({
@@ -102,9 +95,10 @@ module.exports.flux = {
           // with a simple callback of `function (flux)` that the upstream
           // component can use however it wants / ignore.
           res.locals.bootstrapComponent =
-            React.renderToString(new Provider({ store: store }, function () {
-              return new Component();
-            }));
+            React.renderToString(React.createElement(
+              Provider, { store: createStore() }, function () {
+                return React.createElement(Component);
+              }));
 
           next();
         })
