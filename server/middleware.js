@@ -97,15 +97,14 @@ module.exports.flux = {
 
           // Stash bootstrap, and _fully-rendered-page_ with proper data.
           res.locals.bootstrapData = store.getState();
-          if (req.query.__mode !== "noss") {
-            // **Note**: Component rendering could be made much more generic
-            // with a simple callback of `function (flux)` that the upstream
-            // component can use however it wants / ignore.
-            res.locals.bootstrapComponent =
-              React.renderToString(new Provider({ store: store }, function () {
-                return new Component();
-              }));
-          }
+
+          // **Note**: Component rendering could be made much more generic
+          // with a simple callback of `function (flux)` that the upstream
+          // component can use however it wants / ignore.
+          res.locals.bootstrapComponent =
+            React.renderToString(new Provider({ store: store }, function () {
+              return new Component();
+            }));
 
           next();
         })
