@@ -33,12 +33,11 @@ if (serverBootstrapEl) {
 // Then try client bootstrap: Get types, value from URL, then _fetch_ data.
 if (!serverBootstrap) {
   const clientBootstrap = parseBootstrap(location.search);
-
   if (clientBootstrap) {
-    store.createStore(clientBootstrap);
+    store = createStore(clientBootstrap);
     store.dispatch(fetchConversions(
-      clientBootstrap.types,
-      clientBootstrap.value
+      clientBootstrap.conversions.types,
+      clientBootstrap.conversions.value
     ));
   }
 }

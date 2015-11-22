@@ -66,27 +66,16 @@ module.exports.flux = {
       // Check query string.
       var queryBootstrap = parseBootstrap(url.parse(req.url).search);
       if (!queryBootstrap) { return next(); }
-      var types = queryBootstrap.types;
-      var value = queryBootstrap.value;
+      var types = queryBootstrap.conversions.types;
+      var value = queryBootstrap.conversions.value;
 
       // Fetch from localhost.
       fetchConversions(types, value)
         .then(function (conversions) {
 
-          console.log("TODO HERE", JSON.stringify({
-            types: types,
-            value: value,
-            conversions: conversions
-          }, null, 2));
-
-
-
           // Bootstrap, snapshot data to res.locals and flush for next request.
-          var store = createStore({
-            conversions: conversions,
-            types: types,
-            value: value
-          });
+          queryBootstrap.conversions.conversions = conversions;
+          var store = createStore(queryBootstrap);
 
           // Stash bootstrap, and _fully-rendered-page_ with proper data.
           res.locals.bootstrapData = store.getState();
@@ -96,7 +85,7 @@ module.exports.flux = {
           // component can use however it wants / ignore.
           res.locals.bootstrapComponent =
             React.renderToString(React.createElement(
-              Provider, { store: createStore() }, function () {
+              Provider, { store: store }, function () {
                 return React.createElement(Component);
               }));
 
