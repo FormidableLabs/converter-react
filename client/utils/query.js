@@ -16,8 +16,11 @@ export default {
 
     const [types, value] = bootstrap[1].split(":");
     return {
-      types,
-      value: decodeURIComponent(value)
+      conversions: {
+        types,
+        value: decodeURIComponent(value),
+        conversions: []
+      }
     };
   }
 };

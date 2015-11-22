@@ -2,15 +2,15 @@
  * Convert output.
  */
 import React from "react";
+import { connect } from "react-redux";
 import OutputPanel from "./output-panel";
 import ErrorPanel from "./error-panel";
 
-export default class Output extends React.Component {
+class Output extends React.Component {
   render() {
-    const store = this.props.ConvertStore;
-    const content = store.conversionError ?
-      <ErrorPanel>{store.conversionError}</ErrorPanel> :
-      store.conversions.map((conv) =>
+    const content = this.props.conversionError ?
+      <ErrorPanel>{this.props.conversionError}</ErrorPanel> :
+      this.props.conversions.map((conv) =>
         <OutputPanel {...conv} key={conv.title} />
       );
 
@@ -23,5 +23,11 @@ export default class Output extends React.Component {
 }
 
 Output.propTypes = {
-  ConvertStore: React.PropTypes.object
+  conversionError: React.PropTypes.string,
+  conversions: React.PropTypes.array
 };
+
+export default connect((state) => ({
+  conversions: state.conversions.conversions,
+  conversionError: state.conversions.conversionError
+}))(Output);

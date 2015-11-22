@@ -67,6 +67,38 @@ describe("func/application", function () {
     it("should convert simple input 'hi there' to 'hiThere'");
   });
 
+  // **Bootstrap data**: These type of tests aren't strictly necessary, but
+  // _are_ a nice sanity check that you can truly run the application in pure
+  // JS mode.
+  describe("camel with bootstrapped data", function () {
+    it("should convert complex input w/ extra spaces + click", function (done) {
+      adapter.client
+        // **Note**: Add no server render flag.
+        .url(global.TEST_FUNC_BASE_URL + "?__bootstrap=camel:hello%20there")
+
+        // Check we start with the bootstrap.
+        .getValue(".e2e-input").then(function (text) {
+          expect(text).to.equal("hello there");
+        })
+        .getText(".e2e-output-panel .panel-body").then(function (text) {
+          expect(text).to.equal("helloThere");
+        })
+
+        // Type a complex string.
+        .setValue(".e2e-input", "  my   new-string_rocks")
+
+        // Select the "Convert" button and click it.
+        .click(".e2e-convert")
+
+        // Verify we created an output panel with proper camel casing.
+        .getText(".e2e-output-panel .panel-body").then(function (text) {
+          expect(text).to.equal("myNewStringRocks");
+        })
+
+        .finally(promiseDone(done));
+    });
+  });
+
   // **No Server Render**: These type of tests aren't strictly necessary, but
   // _are_ a nice sanity check that you can truly run the application in pure
   // JS mode.
@@ -97,6 +129,36 @@ describe("func/application", function () {
     });
   });
 
+  describe("camel without server-render (noss), with bootstrap", function () {
+    // The _same_ test, just without server bootstrap.
+    it("should convert complex input w/ extra spaces + click", function (done) {
+      adapter.client
+        // **Note**: Add no server render flag.
+        .url(global.TEST_FUNC_BASE_URL + "?__mode=noss&__bootstrap=camel:hello%20there")
+
+        // Check we start with the bootstrap.
+        .getValue(".e2e-input").then(function (text) {
+          expect(text).to.equal("hello there");
+        })
+        .getText(".e2e-output-panel .panel-body").then(function (text) {
+          expect(text).to.equal("helloThere");
+        })
+
+        // Type a complex string.
+        .setValue(".e2e-input", "  my   new-string_rocks")
+
+        // Select the "Convert" button and click it.
+        .click(".e2e-convert")
+
+        // Verify we created an output panel with proper camel casing.
+        .getText(".e2e-output-panel .panel-body").then(function (text) {
+          expect(text).to.equal("myNewStringRocks");
+        })
+
+        .finally(promiseDone(done));
+    });
+  });
+
   // **No JavaScript**: These type of tests are a bit special-cased, because
   // there is no functionality on the page. They instead check SEO compatibility
   // and other things for just a pure static view of the page.
@@ -110,6 +172,30 @@ describe("func/application", function () {
         // Check we start with empty text.
         .getValue(".e2e-input").then(function (text) {
           expect(text).to.equal("");
+        })
+
+        // Validate button text.
+        .getText(".e2e-convert").then(function (text) {
+          expect(text).to.equal("Convert");
+        })
+
+        .finally(promiseDone(done));
+    });
+  });
+
+  describe("camel without JavaScript (nojs), with bootstrap", function () {
+    // A _different_ test because
+    it("should have expected HTML server-rendered elements", function (done) {
+      adapter.client
+        // **Note**: Add no JavaScript flag.
+        .url(global.TEST_FUNC_BASE_URL + "?__mode=nojs&__bootstrap=camel:hello%20there")
+
+        // Check we start with the bootstrap.
+        .getValue(".e2e-input").then(function (text) {
+          expect(text).to.equal("hello there");
+        })
+        .getText(".e2e-output-panel .panel-body").then(function (text) {
+          expect(text).to.equal("helloThere");
         })
 
         // Validate button text.

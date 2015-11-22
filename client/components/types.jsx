@@ -2,17 +2,19 @@
  * Conversion types.
  */
 import React from "react";
+import { connect } from "react-redux";
 import DropdownButton from "react-bootstrap/lib/DropdownButton";
 import MenuItem from "react-bootstrap/lib/MenuItem";
+import { setConversionTypes } from "../actions/";
 
 import Title from "./types-title";
 import types from "../utils/types";
 
 const noop = () => {};
 
-export default class Types extends React.Component {
+class Types extends React.Component {
   setTypes(conversionTypes) {
-    this.props.ConvertActions.setConversionTypes(conversionTypes);
+    this.props.dispatch(setConversionTypes(conversionTypes));
   }
 
   render() {
@@ -30,7 +32,7 @@ export default class Types extends React.Component {
         // See: https://github.com/react-bootstrap/react-bootstrap/pull/195
         onSelect={noop}
         pullRight
-        title=<Title title={types.getTitle(this.props.ConvertStore.types)} />
+        title=<Title title={types.getTitle(this.props.types)} />
         >
         {items}
         <MenuItem divider />
@@ -44,6 +46,11 @@ export default class Types extends React.Component {
 }
 
 Types.propTypes = {
-  ConvertActions: React.PropTypes.object,
-  ConvertStore: React.PropTypes.object
+  dispatch: React.PropTypes.func,
+  types: React.PropTypes.string
 };
+
+export default connect((state) => ({
+  types: state.conversions.types,
+  value: state.conversions.value
+}))(Types);

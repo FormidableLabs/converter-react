@@ -53,8 +53,9 @@ app.get("/api/dash", function (req, res) {
 // ----------------------------------------------------------------------------
 // Client-side imports
 var React = require("react");
-var Page = React.createFactory(require("../client/components/page"));
-var Flux = require("../client/flux");
+var Provider = require("react-redux").Provider;
+var Page = require("../client/containers/page");
+var createStore = require("../client/store/create-store");
 
 // Server-side React
 var Index = React.createFactory(require("../templates/index"));
@@ -75,7 +76,7 @@ app.indexRoute = function (root) {
   // var fluxMiddleware = mid.flux.fetch(Page);   // Fetch manually
   // var fluxMiddleware = mid.flux.actions(Page); // Instance actions.
   //
-  var fluxMiddleware = mid.flux.actions(Page); // Instance actions.
+  var fluxMiddleware = mid.flux.fetch(Page); // Fetch manually.
 
   app.use(root, [fluxMiddleware], function (req, res) {
     /*eslint max-statements:[2,25]*/
@@ -115,7 +116,9 @@ app.indexRoute = function (root) {
     var content;
     if (renderSs) {
       content = res.locals.bootstrapComponent ||
-        React.renderToString(new Page({ flux: new Flux() }));
+        React.renderToString(React.createElement(Provider, { store: createStore() }, function () {
+          return React.createElement(Page);
+        }));
     }
 
     // Response.
@@ -135,9 +138,9 @@ app.indexRoute = function (root) {
 
 // Start helper.
 app.start = function (port, callback) {
-  var noop = function () {};
-  clientApi.setBase(HOST, PORT);
-  app.listen(port || PORT, callback || noop);
+  port = port || PORT;
+  clientApi.setBase(HOST, port);
+  app.listen(port, callback || function () {});
 };
 
 // Actually start server if script.

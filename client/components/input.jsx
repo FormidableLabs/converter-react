@@ -2,17 +2,19 @@
  * Convert input.
  */
 import React from "react";
+import { connect } from "react-redux";
 import Input from "react-bootstrap/lib/Input";
+import { setConversionValue, fetchConversions } from "../actions/";
 
-export default class UserInput extends React.Component {
+class UserInput extends React.Component {
   onChange(ev) {
-    this.props.ConvertActions.setConversionValue(ev.target.value);
+    this.props.dispatch(setConversionValue(ev.target.value));
   }
 
   onKeyDown(ev) {
     if (ev.which === 13 /* Enter key */) {
-      const store = this.props.ConvertStore;
-      this.props.ConvertActions.fetchConversions(store.types, store.value);
+      const store = this.props;
+      store.dispatch(fetchConversions(store.types, store.value));
     }
   }
 
@@ -24,13 +26,18 @@ export default class UserInput extends React.Component {
         onKeyDown={this.onKeyDown.bind(this)}
         placeholder="Text to convert..."
         type="text"
-        value={this.props.ConvertStore.value}
+        value={this.props.value}
       />
     );
   }
 }
 
 UserInput.propTypes = {
-  ConvertActions: React.PropTypes.object,
-  ConvertStore: React.PropTypes.object
+  dispatch: React.PropTypes.func,
+  value: React.PropTypes.string
 };
+
+export default connect((state) => ({
+  types: state.conversions.types,
+  value: state.conversions.value
+}))(UserInput);
