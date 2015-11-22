@@ -18,9 +18,19 @@ const rootEl = document.querySelector(".js-content");
 // entire app will share. (So the client app _has_ an effective singleton).
 let store = createStore();
 
+// Render helpers -- may defer based on client-side actions.
+let deferRender = false;
+const render = () => {
+  React.render(
+    <Provider store={store}>
+      {() => <Page />}
+    </Provider>, rootEl
+  );
+};
+
 // Try server bootstrap _first_ because doesn't need a fetch.
-const serverBootstrapEl = document.querySelector(".js-bootstrap");
 let serverBootstrap;
+const serverBootstrapEl = document.querySelector(".js-bootstrap");
 if (serverBootstrapEl) {
   try {
     serverBootstrap = JSON.parse(serverBootstrapEl.innerHTML);
@@ -34,17 +44,20 @@ if (serverBootstrapEl) {
 if (!serverBootstrap) {
   const clientBootstrap = parseBootstrap(location.search);
   if (clientBootstrap) {
+    // Defer render and do it after conversions are fetched.
+    deferRender = true;
+
     store = createStore(clientBootstrap);
-    store.dispatch(fetchConversions(
-      clientBootstrap.conversions.types,
-      clientBootstrap.conversions.value
-    ));
+    store
+      .dispatch(fetchConversions(
+        clientBootstrap.conversions.types,
+        clientBootstrap.conversions.value
+      ))
+      .then(render);
   }
 }
 
-// Note: Change suffix to `.js` if not using actual JSX.
-React.render(
-  <Provider store={store}>
-    {() => <Page />}
-  </Provider>, rootEl
-);
+// Render if not deferred.
+if (!deferRender) {
+  render();
+}

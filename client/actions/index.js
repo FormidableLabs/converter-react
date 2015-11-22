@@ -26,7 +26,8 @@ export const conversionError = (err) => {
 export const fetchConversions = (types, value) => {
   return (dispatch) => {
     dispatch(() => ({type: FETCH_CONVERSIONS}));
-    fetchConversionsApi(types, value)
+
+    return fetchConversionsApi(types, value)
       .then((datas) => {
         dispatch(updateConversions(datas));
       })
