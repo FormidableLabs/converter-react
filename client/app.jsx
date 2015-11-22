@@ -35,7 +35,7 @@ if (!serverBootstrap) {
   const clientBootstrap = parseBootstrap(location.search);
 
   if (clientBootstrap) {
-    store.createStore(clientBootstrap);
+    store = createStore(clientBootstrap);
     store.dispatch(fetchConversions(
       clientBootstrap.types,
       clientBootstrap.value
