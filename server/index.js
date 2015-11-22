@@ -138,9 +138,9 @@ app.indexRoute = function (root) {
 
 // Start helper.
 app.start = function (port, callback) {
-  var noop = function () {};
-  clientApi.setBase(HOST, PORT);
-  app.listen(port || PORT, callback || noop);
+  port = port || PORT;
+  clientApi.setBase(HOST, port);
+  app.listen(port, callback || function () {});
 };
 
 // Actually start server if script.
