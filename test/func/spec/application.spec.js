@@ -76,9 +76,12 @@ describe("func/application", function () {
         // **Note**: Add no server render flag.
         .url(global.TEST_FUNC_BASE_URL + "?__bootstrap=camel:hello%20there")
 
-        // Check we start with empty text.
+        // Check we start with the bootstrap.
         .getValue(".e2e-input").then(function (text) {
           expect(text).to.equal("hello there");
+        })
+        .getText(".e2e-output-panel .panel-body").then(function (text) {
+          expect(text).to.equal("helloThere");
         })
 
         // Type a complex string.
@@ -133,9 +136,12 @@ describe("func/application", function () {
         // **Note**: Add no server render flag.
         .url(global.TEST_FUNC_BASE_URL + "?__mode=noss&__bootstrap=camel:hello%20there")
 
-        // Check we start with empty text.
+        // Check we start with the bootstrap.
         .getValue(".e2e-input").then(function (text) {
           expect(text).to.equal("hello there");
+        })
+        .getText(".e2e-output-panel .panel-body").then(function (text) {
+          expect(text).to.equal("helloThere");
         })
 
         // Type a complex string.
@@ -184,9 +190,12 @@ describe("func/application", function () {
         // **Note**: Add no JavaScript flag.
         .url(global.TEST_FUNC_BASE_URL + "?__mode=nojs&__bootstrap=camel:hello%20there")
 
-        // Check we start with empty text.
+        // Check we start with the bootstrap.
         .getValue(".e2e-input").then(function (text) {
           expect(text).to.equal("hello there");
+        })
+        .getText(".e2e-output-panel .panel-body").then(function (text) {
+          expect(text).to.equal("helloThere");
         })
 
         // Validate button text.

@@ -8,8 +8,8 @@
  * Various strategies to server-side bootstrap the data and a fully rendered
  * page into the application. If successful, adds two `res.locals` values:
  *
- * - `bootstrapData`: Data bootstrap for the app.
- * - `bootstrapComponent`: Rendered component for app.
+ * - `bootstrapData`: Data bootstrap for the app. (String)
+ * - `bootstrapComponent`: Rendered component for app. (Component)
  *
  * Strategies so far:
  *
@@ -77,8 +77,8 @@ module.exports.flux = {
           queryBootstrap.conversions.conversions = conversions;
           var store = createStore(queryBootstrap);
 
-          // Stash bootstrap, and _fully-rendered-page_ with proper data.
-          res.locals.bootstrapData = store.getState();
+          // Stash bootstrap, and _fully-rendered-page_ with proper data string.
+          res.locals.bootstrapData = JSON.stringify(store.getState());
 
           // **Note**: Component rendering could be made much more generic
           // with a simple callback of `function (flux)` that the upstream
