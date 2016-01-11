@@ -1,12 +1,12 @@
 /**
  * Client tests
  */
-import React from "react/addons";
+import React from "react";
+import TestUtils from 'react-addons-test-utils';
 import Title from "client/components/types-title";
 
 // Use `TestUtils` to inject into DOM, simulate events, etc.
 // See: https://facebook.github.io/react/docs/test-utils.html
-const TestUtils = React.addons.TestUtils;
 
 describe("components/types-title", function () {
 
