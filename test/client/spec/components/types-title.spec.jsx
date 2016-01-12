@@ -2,15 +2,17 @@
  * Client tests
  */
 import React from "react";
-import TestUtils from 'react-addons-test-utils';
+import ReactDOM from "react-dom";
+import TestUtils from "react-addons-test-utils";
 import Title from "client/components/types-title";
 
 // Use `TestUtils` to inject into DOM, simulate events, etc.
 // See: https://facebook.github.io/react/docs/test-utils.html
+const expectedNum = 3;
 
-describe("components/types-title", function () {
+describe("components/types-title", () => {
 
-  it("sets a title with deep render", function () {
+  it("sets a title with deep render", () => {
     // This is a "deep" render that renders children + all into an actual
     // browser DOM node.
     //
@@ -23,12 +25,12 @@ describe("components/types-title", function () {
     //        Real tests should use specific selectors.
     const renderedComponents = TestUtils
       .scryRenderedDOMComponentsWithTag(rendered, "span");
-    const node = React.findDOMNode(renderedComponents[2]);
+    const node = ReactDOM.findDOMNode(renderedComponents[2]);
 
     expect(node).to.have.property("innerHTML", "Deep Title");
   });
 
-  it("sets a title with shallow render", function () {
+  it("sets a title with shallow render", () => {
     // This is a "shallow" render that renders only the current component
     // without using the actual DOM.
     //
@@ -42,7 +44,7 @@ describe("components/types-title", function () {
     // HACKY: The second child is known to be the title node.
     //        Real tests should use specific selectors / identifiers.
     expect(output.props.children)
-      .to.have.length(3).and
+      .to.have.length(expectedNum).and
       .to.have.deep.property("[1].props.children", "Shallow Title");
   });
 });

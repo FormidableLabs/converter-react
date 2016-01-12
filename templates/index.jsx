@@ -26,11 +26,13 @@ export default class Index extends React.Component {
           <meta name="apple-mobile-web-app-capable" content="yes" />
 
           {/* Polyfills before CSS */}
-          <meta name="ie-shiv-polyfill" dangerouslySetInnerHTML={{__html:
+          <meta
+            name="ie-shiv-polyfill"
+            dangerouslySetInnerHTML={{__html:
             strip(`<!--[if lt IE 9]>
               <script src="${CLOUDFLARE}/html5shiv/3.7.2/html5shiv-printshiv.js"></script>
-            <![endif]-->`)
-          }} />
+            <![endif]-->`)}}
+          />
 
           <link rel="stylesheet" href={this.props.bundles.css} />
 
@@ -38,7 +40,8 @@ export default class Index extends React.Component {
         </head>
         <body>
           <div className="js-content"
-               dangerouslySetInnerHTML={{__html: this.props.content}}/>
+            dangerouslySetInnerHTML={{__html: this.props.content}}
+          />
 
           {/* Polyfills before JS */}
           <span dangerouslySetInnerHTML={{__html:
@@ -47,12 +50,14 @@ export default class Index extends React.Component {
               <script src="${CLOUDFLARE}/es5-shim/4.1.1/es5-shim.min.js"></script>
               <script src="${CLOUDFLARE}/es5-shim/4.1.1/es5-sham.min.js"></script>
             <![endif]-->`)
-          }} />
+          }}
+          />
 
           {/* Application JS */}
           {(this.props.render.js && this.props.bootstrap) ?
             <script className="js-bootstrap" type="application/json"
-                    dangerouslySetInnerHTML={{__html: this.props.bootstrap}}/> : ""}
+              dangerouslySetInnerHTML={{__html: this.props.bootstrap}}
+            /> : ""}
           {this.props.render.js ? <script src={this.props.bundles.js} /> : ""}
         </body>
       </html>

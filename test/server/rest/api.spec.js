@@ -4,6 +4,7 @@
 // See: http://visionmedia.github.io/superagent/
 // See: https://github.com/visionmedia/supertest
 var request = require("supertest");
+var httpOk = 200;
 
 describe("rest/api", function () {
 
@@ -14,7 +15,7 @@ describe("rest/api", function () {
       request(global.TEST_REST_BASE_URL)
         .get("api/camel")
         .expect("content-type", /json/)
-        .expect(200)
+        .expect(httpOk)
         .expect({ from: "", to: "" })
         .end(done);
     });
@@ -27,7 +28,7 @@ describe("rest/api", function () {
           if (err) { return done(err); }
 
           expect(res.headers["content-type"]).to.match(/json/);
-          expect(res.status).to.equal(200);
+          expect(res.status).to.equal(httpOk);
           expect(res.body).to.deep.equal({ to: "", from: "" });
 
           done();

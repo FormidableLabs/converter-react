@@ -5,6 +5,8 @@ environment:
     # https://github.com/FormidableLabs/converter-react/issues/34
     ROWDY_SETTINGS: "local.firefox"
   matrix:
+    - nodejs_version: 0.12
+    - nodejs_version: 4.stable
     - nodejs_version: 5.4
 
 # Get the latest stable version of Node 5.STABLE.latest

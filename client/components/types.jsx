@@ -19,8 +19,11 @@ class Types extends React.Component {
 
   render() {
     const items = Object.keys(types.TYPES).map((type) => (
-      <MenuItem key={type} className={`e2e-convert-type-${type}`}
-                onClick={this.setTypes.bind(this, type)}>
+      <MenuItem
+        key={type}
+        className={`e2e-convert-type-${type}`}
+        onClick={this.setTypes.bind(this, type)}
+      >
         {types.getTitle(type)}
       </MenuItem>
     ));
@@ -33,11 +36,13 @@ class Types extends React.Component {
         onSelect={noop}
         pullRight
         title=<Title title={types.getTitle(this.props.types)} />
-        >
+      >
         {items}
         <MenuItem divider />
-        <MenuItem className="e2e-convert-type-all"
-                  onClick={this.setTypes.bind(this, types.ALL)}>
+        <MenuItem
+          className="e2e-convert-type-all"
+          onClick={this.setTypes.bind(this, types.ALL)}
+        >
           <strong>{types.ALL_DESC}</strong>
         </MenuItem>
       </DropdownButton>

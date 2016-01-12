@@ -4,8 +4,9 @@
  * Express web server.
  */
 // Globals
+var standardPort = 3000;
 var HOST = process.env.HOST || "127.0.0.1";
-var PORT = process.env.PORT || 3000;
+var PORT = process.env.PORT || standardPort;
 var RENDER_JS = true;
 var RENDER_SS = true;
 

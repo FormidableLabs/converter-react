@@ -11,6 +11,7 @@
  */
 var adapter = global.adapter;
 var promiseDone = require("../util/promise-done");
+var expectNumber = 3;
 
 describe("func/application", function () {
   // --------------------------------------------------------------------------
@@ -251,7 +252,7 @@ describe("func/application", function () {
           // any order. So, we either have to sort on the array, or check that
           // the array contains values in any position.
           expect(texts)
-            .to.have.length(3).and
+            .to.have.length(expectNumber).and
             .to.contain("allTheThings!").and
             .to.contain("all-the-things!").and
             .to.contain("all_the_things!");
