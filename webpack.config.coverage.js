@@ -13,8 +13,8 @@ module.exports = _.merge({}, testCfg, {
       {
         test: /client\/.*\.jsx?$/,
         exclude: /(test|node_modules)\//,
-        loader: "isparta?{ babel: { stage: 2 } }"
-      }
-    ]
-  }
+        loader: "isparta?{babel}"
+      },
+    ],
+  },
 });

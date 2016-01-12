@@ -6,13 +6,15 @@ import { connect } from "react-redux";
 import Input from "react-bootstrap/lib/Input";
 import { setConversionValue, fetchConversions } from "../actions/";
 
+const magicNum = 13;
+
 class UserInput extends React.Component {
   onChange(ev) {
     this.props.dispatch(setConversionValue(ev.target.value));
   }
 
   onKeyDown(ev) {
-    if (ev.which === 13 /* Enter key */) {
+    if (ev.which === magicNum /* Enter key */) {
       const store = this.props;
       store.dispatch(fetchConversions(store.types, store.value));
     }

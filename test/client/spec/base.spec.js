@@ -9,13 +9,13 @@
  * new sandboxes where the default sandbox doesn't work.
  */
 /*globals window:false*/
-beforeEach(function () {
+beforeEach(() => {
   window.sandbox = window.sinon.sandbox.create({
     useFakeTimers: true,
     useFakeServer: true
   });
 });
 
-afterEach(function () {
+afterEach(() => {
   window.sandbox.restore();
 });

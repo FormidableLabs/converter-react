@@ -3,6 +3,7 @@
  */
 /*globals document:false, location:false */
 import React from "react";
+import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 
 import createStore from "./store/create-store";
@@ -21,7 +22,7 @@ let store = createStore();
 // Render helpers -- may defer based on client-side actions.
 let deferRender = false;
 const render = () => {
-  React.render(
+  ReactDOM.render(
     <Provider store={store}>
       {() => <Page />}
     </Provider>, rootEl

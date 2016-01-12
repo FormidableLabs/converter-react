@@ -11,7 +11,7 @@ export default class ErrorPanel extends React.Component {
         bsStyle="danger"
         className="output-panel"
         header=<h3>Conversion Error</h3>
-        >
+      >
         <code>{this.props.children}</code>
       </Panel>
     );

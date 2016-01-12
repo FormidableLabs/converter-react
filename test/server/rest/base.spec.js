@@ -13,7 +13,8 @@ process.env.NODE_ENV = process.env.NODE_ENV || "test-rest-spec";
 
 var sinon = require("sinon");
 var app = require("../../../server");
-var PORT = process.env.TEST_REST_PORT || 3020;
+var testPort = 3020;
+var PORT = process.env.TEST_REST_PORT || testPort;
 var server;
 
 before(function (done) {

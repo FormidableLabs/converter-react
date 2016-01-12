@@ -4,15 +4,17 @@
 import Promise from "bluebird";
 import "isomorphic-fetch";
 
-const api = {
-  BASE_URL: "",
+const badRequest = 400;
+const BASE_URL = "http://";
+const COLON_URL = ":";
 
+const api = {
   // Statefully set the base port and host (for server-side).
   setBase: (host, port) => {
     if (host) {
-      api.BASE_URL = "http://" + host;
+      api.BASE_URL = BASE_URL + host;
       if (port) {
-        api.BASE_URL = api.BASE_URL + ":" + port;
+        api.BASE_URL = api.BASE_URL + COLON_URL + port;
       }
     }
   },
@@ -22,7 +24,7 @@ const api = {
     Promise.all(types.split(",").map((type) =>
       fetch(`${api.BASE_URL}/api/${type}?from=${encodeURIComponent(value)}`)
         .then((res) => {
-          if (res.status >= 400) {
+          if (res.status >= badRequest) {
             throw new Error("Bad server response");
           }
           return res.json();
