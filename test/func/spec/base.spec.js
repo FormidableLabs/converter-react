@@ -76,7 +76,7 @@ before(function (done) {
   var WebpackDevServer = require("webpack-dev-server");
 
   // Get config and inject bundle path into application server.
-  var webpackCfg = require("../../../webpack.config.dev");
+  var webpackCfg = require("builder-react-app/config/webpack/webpack.config.dev");
   var out = webpackCfg.output;
 
   // Hard-code the test bundle to our emphemeral webpack-dev-server.

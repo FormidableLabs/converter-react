@@ -24,6 +24,8 @@ window.mocha.setup({
   bail: false
 });
 
+console.log(require.resolve("client/components/types-title"));
+
 // --------------------------------------------------------------------------
 // Bootstrap
 // --------------------------------------------------------------------------
