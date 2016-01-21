@@ -8,9 +8,9 @@ import Title from "client/components/types-title";
 // See: https://facebook.github.io/react/docs/test-utils.html
 const TestUtils = React.addons.TestUtils;
 
-describe("components/types-title", function () {
+describe("components/types-title", () => {
 
-  it("sets a title with deep render", function () {
+  it("sets a title with deep render", () => {
     // This is a "deep" render that renders children + all into an actual
     // browser DOM node.
     //
@@ -28,7 +28,7 @@ describe("components/types-title", function () {
     expect(node).to.have.property("innerHTML", "Deep Title");
   });
 
-  it("sets a title with shallow render", function () {
+  it("sets a title with shallow render", () => {
     // This is a "shallow" render that renders only the current component
     // without using the actual DOM.
     //

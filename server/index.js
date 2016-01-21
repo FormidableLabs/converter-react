@@ -107,6 +107,7 @@ app.indexRoute = function (root) {
       bundleCss = devBundleCssUrl;
     } else {
       // First file is JS path.
+      /* eslint-disable global-require */
       var stats = require("../dist/server/stats.json");
       bundleJs = path.join("/js", stats.assetsByChunkName.main[0]);
       bundleCss = path.join("/js", stats.assetsByChunkName.main[1]);

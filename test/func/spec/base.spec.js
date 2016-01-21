@@ -72,6 +72,7 @@ before(function (done) {
   var WDS_PORT = process.env.TEST_FUNC_WDS_PORT || 3031;
   var WDS_HOST = "127.0.0.1";
 
+  /* eslint-disable global-require */
   var webpack = require("webpack");
   var WebpackDevServer = require("webpack-dev-server");
 

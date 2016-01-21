@@ -24,15 +24,13 @@ window.mocha.setup({
   bail: false
 });
 
-console.log(require.resolve("client/components/types-title"));
-
 // --------------------------------------------------------------------------
 // Bootstrap
 // --------------------------------------------------------------------------
 // Use webpack to include all app code _except_ the entry point so we can get
 // code coverage in the bundle, whether tested or not.
 const appReq = require.context("client", true, /\.jsx?$/);
-appReq.keys().filter(function (key) {
+appReq.keys().filter((key) => {
   return key !== "./app.jsx";
 }).map(appReq);
 

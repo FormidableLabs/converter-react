@@ -10,9 +10,9 @@ const api = {
   // Statefully set the base port and host (for server-side).
   setBase: (host, port) => {
     if (host) {
-      api.BASE_URL = "http://" + host;
+      api.BASE_URL = `http://${host}`;
       if (port) {
-        api.BASE_URL = api.BASE_URL + ":" + port;
+        api.BASE_URL = `${api.BASE_URL}:${port}`;
       }
     }
   },
