@@ -38,7 +38,7 @@ To test out how optimized the build is, here are some useful curl commands:
 
 ```sh
 # Run production build
-$ npm run build
+$ builder run build
 
 # Minified size
 $ wc -c dist/js/*.js
@@ -59,25 +59,25 @@ Install, setup.
 
 ```sh
 $ npm install           # Install dependencies
-$ npm run install-dev   # Install dev. environment (selenium, etc.).
+$ builder run install-dev   # Install dev. environment (selenium, etc.).
 ```
 
 Run the watchers, dev and source maps servers for the real production build:
 
 ```sh
-$ npm run prod
+$ builder run prod
 ```
 
 Run the watchers and the Webpack dev server:
 
 ```sh
-$ npm run dev
+$ builder run dev
 ```
 
 Run the watchers and the Webpack dev server w/ React hot loader:
 
 ```sh
-$ npm run hot
+$ builder run hot
 ```
 
 Ports various servers run on:
@@ -105,7 +105,7 @@ URLS to test things out:
   This is intended to just be a small demo of SEO / "crawlable" content.
   This mode is incompatible with the React hot loader mode because in hot mode
   JS is used to load CSS. If you want to run a development server while using
-  `nojs`, use `npm run dev`.
+  `nojs`, use `builder run dev`.
 
 ### Bootstrapped Data
 
@@ -128,7 +128,7 @@ Install, setup.
 
 ```sh
 $ npm install --production
-$ npm run build
+$ builder run build
 ```
 
 Run the server.

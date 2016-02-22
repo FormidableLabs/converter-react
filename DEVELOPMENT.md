@@ -8,9 +8,9 @@ All development tasks consist of watching the demo bundle and the test bundle.
 Run the application with watched rebuilds:
 
 ```sh
-$ npm run dev       # dev test/app server (OR)
-$ npm run hot       # hot reload test/app server (OR)
-$ npm run prod      # run the "REAL THING" with watchers
+$ builder run dev       # dev test/app server (OR)
+$ builder run hot       # hot reload test/app server (OR)
+$ builder run prod      # run the "REAL THING" with watchers
 ```
 
 From there you can see:
@@ -26,20 +26,20 @@ From there you can see:
 During development, you are expected to be running either:
 
 ```sh
-$ npm run dev
+$ builder run dev
 ```
 
 to build the lib and test files. With these running, you can run the faster
 
 ```sh
-$ npm run check-dev
+$ builder run check-dev
 ```
 
 Command. It is comprised of:
 
 ```sh
-$ npm run lint
-$ npm run test-dev
+$ builder run lint
+$ builder run test-dev
 ```
 
 Note that the tests here are not instrumented for code coverage and are thus
@@ -51,19 +51,19 @@ CI doesn't have source / test file watchers, so has to _build_ the test files
 via the commands:
 
 ```sh
-$ npm run check     # PhantomJS only
-$ npm run check-cov # (OR) PhantomJS w/ coverage
-$ npm run check-ci  # (OR) PhantomJS,Firefox + coverage - available on Travis.
+$ builder run check     # PhantomJS only
+$ builder run check-cov # (OR) PhantomJS w/ coverage
+$ builder run check-ci  # (OR) PhantomJS,Firefox + coverage - available on Travis.
 ```
 
 Which is currently comprised of:
 
 ```sh
-$ npm run lint      # AND ...
+$ builder run lint      # AND ...
 
-$ npm run test      # PhantomJS only
-$ npm run test-cov  # (OR) PhantomJS w/ coverage
-$ npm run test-ci   # (OR) PhantomJS,Firefox + coverage
+$ builder run test      # PhantomJS only
+$ builder run test-cov  # (OR) PhantomJS w/ coverage
+$ builder run test-ci   # (OR) PhantomJS,Firefox + coverage
 ```
 
 Note that `(test|check)-(cov|ci)` run code coverage and thus the
@@ -73,7 +73,7 @@ test code may be harder to debug because it is instrumented.
 
 The client tests rely on webpack dev server to create and serve the bundle
 of the app/test code at: http://127.0.0.1:3001/assets/main.js which is done
-with the task `npm run server-test` (part of `npm dev`).
+with the task `builder run server-test` (part of `npm dev`).
 
 #### Code Coverage
 
@@ -104,7 +104,7 @@ Server-side (aka "backend") tests have two real flavors -- *unit* and *REST*
 tests. To run all the server-side tests, try:
 
 ```sh
-$ npm run test-server
+$ builder run test-server
 ```
 
 #### Server-side Unit Tests
@@ -120,7 +120,7 @@ Pure JavaScript tests that import the server code and test it in isolation.
 Run the tests with:
 
 ```sh
-$ npm run test-server-unit
+$ builder run test-server-unit
 ```
 
 #### Server-side REST Tests
@@ -145,7 +145,7 @@ Programming notes:
 Run the tests with:
 
 ```sh
-$ npm run test-server-rest
+$ builder run test-server-rest
 ```
 
 ### Frontend Tests
@@ -170,9 +170,9 @@ Programming notes:
 Build, then run the tests from the command line with:
 
 ```sh
-$ npm run test-client
-$ npm run test-client-cov   # With coverage
-$ npm run test-client-dev   # (Faster) Use existing `npm run dev` watchers.
+$ builder run test-client
+$ builder run test-client-cov   # With coverage
+$ builder run test-client-dev   # (Faster) Use existing `builder run dev` watchers.
 ```
 
 ### Functional Tests
@@ -198,9 +198,9 @@ Programming notes:
 Run the tests with:
 
 ```sh
-$ npm run test-func
-$ npm run test-func-cov   # With coverage
-$ npm run test-func-dev   # (Faster) Use existing `npm run dev` watchers.
+$ builder run test-func
+$ builder run test-func-cov   # With coverage
+$ builder run test-func-dev   # (Faster) Use existing `builder run dev` watchers.
 ```
 
 You can override settings and browser selections from the environment per
@@ -209,11 +209,11 @@ the [rowdy](https://github.com/FormidableLabs/rowdy) documentation. E.g.,
 ```sh
 # Client and server logging.
 $ ROWDY_OPTIONS='{ "client":{ "logger":true }, "server":{ "logger":true } }' \
-  npm run test-func
+  builder run test-func
 
 # Switch to Chrome
 $ ROWDY_SETTINGS="local.chrome" \
-  npm run test-func
+  builder run test-func
 ```
 
 ## Releases

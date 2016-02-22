@@ -18,7 +18,7 @@ before_install:
 
 before_script:
   # Install dev. stuff (e.g., selenium drivers).
-  - npm run install-dev
+  - builder run install-dev
 
 env:
   # NOTE: **Cannot** have a space after `:` character in JSON string or else
@@ -30,7 +30,7 @@ env:
 
 script:
   # Run all base checks (with FF browser for functional tests).
-  - npm run check-ci
+  - builder run check-ci
 
   # Manually send coverage reports to coveralls.
   # - Aggregate client results
@@ -41,4 +41,4 @@ script:
   # Prune deps to just production and ensure we can still build
   - npm prune --production
   - npm install --production
-  - npm run build
+  - builder run build
