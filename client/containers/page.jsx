@@ -3,6 +3,8 @@
  */
 import React from "react";
 import Jumbotron from "react-bootstrap/lib/Jumbotron";
+import Form from "react-bootstrap/lib/Form";
+import FormGroup from "react-bootstrap/lib/FormGroup";
 
 import Convert from "../components/convert";
 import Input from "../components/input";
@@ -21,11 +23,13 @@ class Page extends React.Component {
           <h1>The Converter!</h1>
           <p>Camel, snake and dasherize to awesomeness!</p>
         </Jumbotron>
-        <div className="input-group">
-          <Convert />
-          <Input />
-          <Types />
-        </div>
+        <Form inline>
+          <FormGroup>
+            <Convert />
+            <Input />
+            <Types />
+          </FormGroup>
+        </Form>
         <Output />
       </div>
     );

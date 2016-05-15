@@ -3,7 +3,7 @@
  */
 import React from "react";
 import { connect } from "react-redux";
-import Input from "react-bootstrap/lib/Input";
+import FormControl from "react-bootstrap/lib/FormControl";
 import { setConversionValue, fetchConversions } from "../actions/";
 
 class UserInput extends React.Component {
@@ -20,7 +20,7 @@ class UserInput extends React.Component {
 
   render() {
     return (
-      <Input
+      <FormControl
         className="form-control e2e-input"
         onChange={this.onChange.bind(this)}
         onKeyDown={this.onKeyDown.bind(this)}

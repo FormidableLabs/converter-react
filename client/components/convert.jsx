@@ -14,11 +14,9 @@ class Convert extends React.Component {
 
   render() {
     return (
-      <span className="input-group-btn">
         <Button className="e2e-convert" onClick={this.onClick.bind(this)}>
           Convert
         </Button>
-      </span>
     );
   }
 }
