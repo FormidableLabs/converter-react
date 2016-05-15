@@ -26,14 +26,13 @@ export default class Index extends React.Component {
           <meta name="apple-mobile-web-app-capable" content="yes" />
 
           {/* Polyfills before CSS */}
-          <meta name="ie-shiv-polyfill" dangerouslySetInnerHTML={{__html:
+          <span dangerouslySetInnerHTML={{__html:
             strip(`<!--[if lt IE 9]>
               <script src="${CLOUDFLARE}/html5shiv/3.7.2/html5shiv-printshiv.js"></script>
             <![endif]-->`)
           }} />
 
           <link rel="stylesheet" href={this.props.bundles.css} />
-
           <title>Converter</title>
         </head>
         <body>

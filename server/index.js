@@ -53,6 +53,7 @@ app.get("/api/dash", function (req, res) {
 // ----------------------------------------------------------------------------
 // Client-side imports
 var React = require("react");
+var ReactDOM = require("react-dom/server");
 var Provider = require("react-redux").Provider;
 var Page = require("../client/containers/page");
 var createStore = require("../client/store/create-store");
@@ -62,7 +63,7 @@ var Index = React.createFactory(require("../templates/index"));
 // Have to manually hack in the doctype because not contained with single
 // element for full page.
 var renderIndex = function (component) {
-  return "<!DOCTYPE html>" + React.renderToStaticMarkup(component);
+  return "<!DOCTYPE html>" + ReactDOM.renderToStaticMarkup(component);
 };
 
 app.indexRoute = function (root) {
@@ -116,7 +117,7 @@ app.indexRoute = function (root) {
     var content;
     if (renderSs) {
       content = res.locals.bootstrapComponent ||
-        React.renderToString(React.createElement(Provider, { store: createStore() }, function () {
+        ReactDOM.renderToString(React.createElement(Provider, { store: createStore() }, function () {
           return React.createElement(Page);
         }));
     }
