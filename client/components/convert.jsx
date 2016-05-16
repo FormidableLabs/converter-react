@@ -14,9 +14,9 @@ class Convert extends React.Component {
 
   render() {
     return (
-        <Button className="e2e-convert" onClick={this.onClick.bind(this)}>
-          Convert
-        </Button>
+      <Button className="e2e-convert" onClick={this.onClick.bind(this)}>
+        Convert
+      </Button>
     );
   }
 }

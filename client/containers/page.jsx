@@ -30,7 +30,7 @@ class Page extends React.Component {
               <InputGroup.Button>
                 <Convert />
               </InputGroup.Button>
-              <Input />
+                <Input />
               <InputGroup.Button>
                 <Types />
               </InputGroup.Button>
