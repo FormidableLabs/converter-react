@@ -26,11 +26,10 @@ class Types extends React.Component {
 
     return (
       <DropdownButton
-        className="input-group-btn e2e-convert-label"
+        className="bg-nested-dropdown"
         // BUG: Dropdowns don't close by default. Here's a patch.
         // See: https://github.com/react-bootstrap/react-bootstrap/pull/195
         onSelect={noop}
-        pullRight
         title={types.getTitle(this.props.types)}
       >
         {items}
