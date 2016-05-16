@@ -117,9 +117,10 @@ app.indexRoute = function (root) {
     var content;
     if (renderSs) {
       content = res.locals.bootstrapComponent ||
-        ReactDOM.renderToString(React.createElement(Provider, { store: createStore() }, function () {
-          return React.createElement(Page);
-        }));
+        ReactDOM.renderToString(React.createElement(
+          Provider, { store: createStore() }, function () {
+            return React.createElement(Page);
+          }));
     }
 
     // Response.
