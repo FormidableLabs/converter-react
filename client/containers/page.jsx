@@ -10,6 +10,7 @@ import Convert from "../components/convert";
 import Input from "../components/input";
 import Types from "../components/types";
 import Output from "../components/output";
+import InputGroup from "react-bootstrap/lib/InputGroup";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/css/bootstrap-theme.css";
@@ -23,11 +24,17 @@ class Page extends React.Component {
           <h1>The Converter!</h1>
           <p>Camel, snake and dasherize to awesomeness!</p>
         </Jumbotron>
-        <Form inline>
+        <Form>
           <FormGroup>
-            <Convert />
-            <Input />
-            <Types />
+            <InputGroup>
+              <InputGroup.Button>
+                <Convert />
+              </InputGroup.Button>
+              <Input />
+              <InputGroup.Button>
+                <Types />
+              </InputGroup.Button>
+            </InputGroup>
           </FormGroup>
         </Form>
         <Output />
