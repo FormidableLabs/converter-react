@@ -20,6 +20,7 @@
 var url = require("url");
 
 var React = require("react");
+var ReactDOM = require("react-dom/server");
 var Provider = require("react-redux").Provider;
 
 var createStore = require("../client/store/create-store");
@@ -84,7 +85,7 @@ module.exports.flux = {
           // with a simple callback of `function (flux)` that the upstream
           // component can use however it wants / ignore.
           res.locals.bootstrapComponent =
-            React.renderToString(React.createElement(
+            ReactDOM.renderToString(React.createElement(
               Provider, { store: store }, function () {
                 return React.createElement(Component);
               }));

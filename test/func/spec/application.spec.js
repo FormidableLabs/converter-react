@@ -228,22 +228,18 @@ describe("func/application", function () {
       adapter.client
         .url(global.TEST_FUNC_BASE_URL)
 
+        // Type a complex string.
+        .setValue(".e2e-input", " all_the things!")
+
         // Click the conversion types dropdown.
         //
         // **Note**: Firefox requires `.e2e-convert-label button` instead of
         // `.e2e-convert-label` alone which works on Chrome.
-        .click(".e2e-convert-label button")
+        .click(".e2e-convert-label")
 
         // Click the "all the things" option.
         .click(".e2e-convert-type-all")
 
-        // Type a complex string.
-        .setValue(".e2e-input", " all_the things!")
-
-        // Hit "enter key" to invoke a conversion on active element (the input).
-        // See available keys at:
-        // https://github.com/webdriverio/webdriverio/blob/master/lib/utils/unicodeChars.js
-        .keys("Enter")
 
         // Verify we created an output panel with proper camel casing.
         .getText(".e2e-output-panel .panel-body").then(function (texts) {
@@ -256,6 +252,7 @@ describe("func/application", function () {
             .to.contain("all-the-things!").and
             .to.contain("all_the_things!");
         })
+        .pause(999999999)
 
         .finally(promiseDone(done));
     });

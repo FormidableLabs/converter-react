@@ -20,7 +20,7 @@ class Types extends React.Component {
 
   render() {
     const items = Object.keys(types.TYPES).map((type) => (
-      <MenuItem eventKey={type} className={`e2e-convert-type-${type}`}
+      <MenuItem key={type} className={`e2e-convert-type-${type}`}
                 onClick={this.setTypes.bind(this, type)}>
         {types.getTitle(type)}
       </MenuItem>
@@ -28,7 +28,7 @@ class Types extends React.Component {
 
     return (
       <DropdownButton
-        className="bg-nested-dropdown"
+        className="e2e-convert-label"
         // BUG: Dropdowns don't close by default. Here's a patch.
         // See: https://github.com/react-bootstrap/react-bootstrap/pull/195
         onSelect={noop}
