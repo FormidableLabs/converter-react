@@ -126,6 +126,7 @@
     "mocha": "^2.2.5",
     "nodemon": "^1.4.0",
     "phantomjs": "^1.9.18",
+    "react-addons-test-utils": "^15.0.2",
     "react-hot-loader": "^1.2.8",
     "recluster": "^0.4.0",
     "rowdy": "^0.3.2",
