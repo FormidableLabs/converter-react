@@ -131,7 +131,7 @@
     "recluster": "^0.4.0",
     "rowdy": "^0.3.2",
     "saucelabs": "^0.1.1",
-    "selenium-standalone": "^4.5.3",
+    "selenium-standalone": "^5.1.0",
     "sinon": "^1.16.1",
     "sinon-chai": "^2.8.0",
     "supertest": "^1.0.1",
