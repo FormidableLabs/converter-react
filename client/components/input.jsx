@@ -13,6 +13,7 @@ class UserInput extends React.Component {
 
   onKeyDown(ev) {
     if (ev.which === 13 /* Enter key */) {
+      ev.preventDefault();
       const store = this.props;
       store.dispatch(fetchConversions(store.types, store.value));
     }

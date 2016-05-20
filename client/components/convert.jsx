@@ -7,7 +7,8 @@ import Button from "react-bootstrap/lib/Button";
 import { fetchConversions } from "../actions/";
 
 class Convert extends React.Component {
-  onClick() {
+  onClick(e) {
+    e.preventDefault();
     const store = this.props;
     store.dispatch(fetchConversions(store.types, store.value));
   }
