@@ -228,9 +228,6 @@ describe("func/application", function () {
       adapter.client
         .url(global.TEST_FUNC_BASE_URL)
 
-        // Type a complex string.
-        .setValue(".e2e-input", " all_the things!")
-
         // Click the conversion types dropdown.
         //
         // **Note**: Firefox requires `.e2e-convert-label button` instead of
@@ -238,8 +235,12 @@ describe("func/application", function () {
         .click(".e2e-convert-label")
 
         // Click the "all the things" option.
-        .click(".e2e-convert-type-all")
+        .click(".e2e-convert-type-all a")
 
+        // Type a complex string.
+        .setValue(".e2e-input", " all_the things!")
+
+        .keys("Enter")
 
         // Verify we created an output panel with proper camel casing.
         .getText(".e2e-output-panel .panel-body").then(function (texts) {
@@ -252,7 +253,6 @@ describe("func/application", function () {
             .to.contain("all-the-things!").and
             .to.contain("all_the_things!");
         })
-        .pause(999999999)
 
         .finally(promiseDone(done));
     });
