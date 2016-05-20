@@ -240,6 +240,9 @@ describe("func/application", function () {
         // Type a complex string.
         .setValue(".e2e-input", " all_the things!")
 
+        // Hit "enter key" to invoke a conversion on active element (the input).
+        // See available keys at:
+        // https://github.com/webdriverio/webdriverio/blob/master/lib/utils/unicodeChars.js
         .keys("Enter")
 
         // Verify we created an output panel with proper camel casing.

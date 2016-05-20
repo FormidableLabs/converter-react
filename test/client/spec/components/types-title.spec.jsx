@@ -6,7 +6,7 @@ import Title from "client/components/types-title";
 
 // Use `ReactTestUtils` to inject into DOM, simulate events, etc.
 // See: https://facebook.github.io/react/docs/test-utils.html
-var ReactTestUtils = require('react-addons-test-utils');
+const ReactTestUtils = require("react-addons-test-utils");
 
 describe("components/types-title", function () {
 
