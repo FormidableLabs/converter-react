@@ -1,12 +1,12 @@
 /**
  * Client tests
  */
-import React from "react/addons";
+import React from "react";
 import Title from "client/components/types-title";
 
-// Use `TestUtils` to inject into DOM, simulate events, etc.
+// Use `ReactTestUtils` to inject into DOM, simulate events, etc.
 // See: https://facebook.github.io/react/docs/test-utils.html
-const TestUtils = React.addons.TestUtils;
+const ReactTestUtils = require("react-addons-test-utils");
 
 describe("components/types-title", function () {
 
@@ -15,17 +15,16 @@ describe("components/types-title", function () {
     // browser DOM node.
     //
     // https://facebook.github.io/react/docs/test-utils.html#renderintodocument
-    const rendered = TestUtils.renderIntoDocument(<Title title="Deep Title" />);
+    const rendered = ReactTestUtils.renderIntoDocument(<Title title="Deep Title" />);
 
     // This is a real DOM node to assert on.
     //
     // HACKY: The outer `span` is first, then three children.
     //        Real tests should use specific selectors.
-    const renderedComponents = TestUtils
+    const renderedComponents = ReactTestUtils
       .scryRenderedDOMComponentsWithTag(rendered, "span");
-    const node = React.findDOMNode(renderedComponents[2]);
 
-    expect(node).to.have.property("innerHTML", "Deep Title");
+    expect(renderedComponents[2]).to.have.property("innerHTML", "Deep Title");
   });
 
   it("sets a title with shallow render", function () {
@@ -33,7 +32,7 @@ describe("components/types-title", function () {
     // without using the actual DOM.
     //
     // https://facebook.github.io/react/docs/test-utils.html#shallow-rendering
-    const renderer = TestUtils.createRenderer();
+    const renderer = ReactTestUtils.createRenderer();
     renderer.render(<Title title="Shallow Title" />);
     const output = renderer.getRenderOutput();
 

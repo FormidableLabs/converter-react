@@ -232,10 +232,10 @@ describe("func/application", function () {
         //
         // **Note**: Firefox requires `.e2e-convert-label button` instead of
         // `.e2e-convert-label` alone which works on Chrome.
-        .click(".e2e-convert-label button")
+        .click(".e2e-convert-label")
 
         // Click the "all the things" option.
-        .click(".e2e-convert-type-all")
+        .click(".e2e-convert-type-all a")
 
         // Type a complex string.
         .setValue(".e2e-input", " all_the things!")
