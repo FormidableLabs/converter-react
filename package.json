@@ -41,9 +41,9 @@
     "server-wds-test": "webpack-dev-server --port 3001 --config webpack.config.test.js --colors",
     "sources": "http-server -p 3001 .",
     "watch": "webpack --watch --colors",
-    "prod": "concurrent -kr 'npm run watch' 'npm run server' 'npm run sources'",
-    "dev": "concurrent -kr 'npm run server-wds-test' 'npm run server-wds-dev' 'npm run server-dev'",
-    "hot": "concurrent -kr 'npm run server-wds-test' 'npm run server-wds-hot' 'npm run server-hot'",
+    "prod": "builder concurrent watch server sources",
+    "dev": "builder concurrent server-wds-test server-wds-dev server-dev",
+    "hot": "builder concurrent server-wds-test server-wds-hot server-hot",
     "build": "webpack",
     "install-dev": "selenium-standalone install",
     "postinstall": "node heroku/scripts/not-heroku.js || (node heroku/scripts/install.js && npm run build)"
@@ -97,8 +97,8 @@
   },
   "devDependencies": {
     "babel-eslint": "^4.0.10",
+    "builder": "^3.1.0",
     "chai": "^3.2.0",
-    "concurrently": "^0.1.1",
     "coveralls": "^2.11.4",
     "eslint": "^1.2.1",
     "eslint-config-defaults": "^4.2.0",
